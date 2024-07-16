@@ -9,6 +9,7 @@ class UCameraComponent;
 class USkeletalMesh;
 class UMaterialInstanceDynamic;
 class USkeletalMeshComponent;
+class UCActionComponent;
 
 UCLASS()
 class POTPOLIO_API ACPlayer : public ACharacter
@@ -32,6 +33,10 @@ private:
 	void OnRun();
 	void OnWalk();
 
+	void OnSword();
+	void OnAR();
+	void OnPistol();
+
 
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -54,5 +59,8 @@ private:
 	UMaterialInstanceDynamic* JacketMat;
 
 	TArray<UMaterialInstanceDynamic*> Materials;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Component")
+	UCActionComponent* ActionComp;
 
 };

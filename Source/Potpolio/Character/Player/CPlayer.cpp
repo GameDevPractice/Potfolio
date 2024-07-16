@@ -7,6 +7,7 @@
 #include "Materials/MaterialInstanceConstant.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Component/CActionComponent.h"
 
 
 
@@ -120,6 +121,9 @@ void ACPlayer::OnConstruction(const FTransform& Transform)
 	{
 		GetMesh()->SetMaterial(i, Materials[i]);
 	}
+
+	//ActionComponet
+	CHelpers::CreateActorComponent(this,&ActionComp,TEXT("ActionComp"));
 	
 }
 
@@ -133,9 +137,13 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("MoveRight", this, &ACPlayer::OnMoveRight);
 	PlayerInputComponent->BindAxis("LookUp", this, &ACPlayer::OnLockUp);
 	PlayerInputComponent->BindAxis("LookHorizone", this, &ACPlayer::OnLockRight);
+	
 
 	PlayerInputComponent->BindAction("Run",EInputEvent::IE_Pressed,this,&ACPlayer::OnRun);
 	PlayerInputComponent->BindAction("Run",EInputEvent::IE_Released,this,&ACPlayer::OnWalk);
+	PlayerInputComponent->BindAction("Sword", EInputEvent::IE_Pressed,this, &ACPlayer::OnSword);
+	PlayerInputComponent->BindAction("AR", EInputEvent::IE_Pressed,this, &ACPlayer::OnAR);
+	PlayerInputComponent->BindAction("Pistol", EInputEvent::IE_Pressed,this, &ACPlayer::OnPistol);
 
 }
 
@@ -174,4 +182,17 @@ void ACPlayer::OnRun()
 void ACPlayer::OnWalk()
 {
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
+}
+
+void ACPlayer::OnSword()
+{
+	ActionComp->SetUnarmedMode();
+}
+
+void ACPlayer::OnAR()
+{
+}
+
+void ACPlayer::OnPistol()
+{
 }

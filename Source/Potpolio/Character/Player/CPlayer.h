@@ -8,6 +8,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class USkeletalMesh;
 class UMaterialInstanceDynamic;
+class USkeletalMeshComponent;
 
 UCLASS()
 class POTPOLIO_API ACPlayer : public ACharacter
@@ -38,6 +39,11 @@ private:
 private:
 	USpringArmComponent* SpringArmComp;
 	UCameraComponent* CameraComp;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Katana")
+	USkeletalMesh* Katana;
+
+	USkeletalMeshComponent* KatanaComponet;
 
 	UMaterialInstanceDynamic* HandsKatanaMat;
 	UMaterialInstanceDynamic* CostumeMat;

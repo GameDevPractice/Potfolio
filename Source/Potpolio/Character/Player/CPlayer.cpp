@@ -1,11 +1,12 @@
 #include "CPlayer.h"
+#include "Global.h"
 #include "Engine/SkeletalMesh.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Materials/MaterialInstanceConstant.h"
 #include "Materials/MaterialInstanceDynamic.h"
-#include "Global.h"
+#include "Components/SkeletalMeshComponent.h"
 
 
 
@@ -20,6 +21,10 @@ ACPlayer::ACPlayer()
 		MeshComp = MeshAsset.Object;
 		GetMesh()->SetSkeletalMesh(MeshComp);
 	}
+
+	//Katana
+	CHelpers::GetAsset(&Katana,"/Game/Player/Katana/SK_Katana");
+	CHelpers::CreateSceneComponent(this, &KatanaComponet, TEXT("Katana"), GetMesh());
 
 	//CameraComponent, SpringArmComponent Upload in memory 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
@@ -47,6 +52,11 @@ ACPlayer::ACPlayer()
 void ACPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//Attach Katana
+	KatanaComponet->SetSkeletalMesh(Katana);
+	KatanaComponet->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("KatanaSoket"));
+	
 }
 
 //Construction

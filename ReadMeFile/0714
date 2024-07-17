@@ -1,3 +1,7 @@
 ### 한 것
 ## Montage Component 추가
-->
+-> 플레이어, 적 공통 애니메이션 적용
+->후에 더 추가할 예정
+## State Component 추가
+-> 플레이어, 적에게 적용 될 상태 Component
+->후에 더 추가할 예정

@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Component/CStateComponent.h"
 #include "CPlayer.generated.h"
 
 class USpringArmComponent;
@@ -10,6 +11,8 @@ class USkeletalMesh;
 class UMaterialInstanceDynamic;
 class USkeletalMeshComponent;
 class UCActionComponent;
+class UCMontageComponent;
+class UCStateComponent;
 
 UCLASS()
 class POTPOLIO_API ACPlayer : public ACharacter
@@ -37,9 +40,21 @@ private:
 	void OnAR();
 	void OnPistol();
 
+	void OnJump();
+	void Begin_Jump();
+	void Begin_Parkour();
+
+public:
+	void End_Jump();
+	void End_Parkour();
+
 
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+protected:
+	UFUNCTION()
+		void OnStateTypeChanged(EStateType PreType, EStateType NewType);
 
 private:
 	USpringArmComponent* SpringArmComp;
@@ -63,4 +78,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
 	UCActionComponent* ActionComp;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Component")
+	UCMontageComponent* MontageComp;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Component")
+	UCStateComponent* StateComp;
 };

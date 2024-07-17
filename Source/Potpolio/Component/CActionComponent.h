@@ -23,7 +23,7 @@ protected:
 
 public:
 	//현재 상태가 무엇인지 확인하는 함수들
-	FORCEINLINE bool ISUnarmedMode() { return (Type == EActionType::UnArmed); }
+	FORCEINLINE bool IsUnarmedMode() { return (Type == EActionType::UnArmed); }
 	FORCEINLINE bool IsSwordMode() { return (Type == EActionType::Sword); }
 	FORCEINLINE bool IsARMode() { return (Type == EActionType::AR); }
 	FORCEINLINE bool IsPistolMode() { return (Type == EActionType::Pistol); }

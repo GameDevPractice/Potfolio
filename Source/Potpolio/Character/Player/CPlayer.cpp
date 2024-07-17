@@ -8,6 +8,8 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Component/CActionComponent.h"
+#include "Component/CMontageComponent.h"
+
 
 
 
@@ -21,6 +23,16 @@ ACPlayer::ACPlayer()
 	{
 		MeshComp = MeshAsset.Object;
 		GetMesh()->SetSkeletalMesh(MeshComp);
+	}
+
+	//Component
+	{
+		//ActionComponet
+		CHelpers::CreateActorComponent(this, &ActionComp, TEXT("ActionComp"));
+		//MontageComponet
+		CHelpers::CreateActorComponent(this, &MontageComp, TEXT("MontageComp"));
+		//StateComponent
+		CHelpers::CreateActorComponent(this, &StateComp, TEXT("StateComp"));
 	}
 
 	//Katana
@@ -57,6 +69,9 @@ void ACPlayer::BeginPlay()
 	//Attach Katana
 	KatanaComponet->SetSkeletalMesh(Katana);
 	KatanaComponet->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("KatanaSoket"));
+
+	//Bind Func
+	StateComp->OnStateTypeChanged.AddDynamic(this,&ACPlayer::OnStateTypeChanged);
 	
 }
 
@@ -122,8 +137,7 @@ void ACPlayer::OnConstruction(const FTransform& Transform)
 		GetMesh()->SetMaterial(i, Materials[i]);
 	}
 
-	//ActionComponet
-	CHelpers::CreateActorComponent(this,&ActionComp,TEXT("ActionComp"));
+	
 	
 }
 
@@ -144,8 +158,11 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Sword", EInputEvent::IE_Pressed,this, &ACPlayer::OnSword);
 	PlayerInputComponent->BindAction("AR", EInputEvent::IE_Pressed,this, &ACPlayer::OnAR);
 	PlayerInputComponent->BindAction("Pistol", EInputEvent::IE_Pressed,this, &ACPlayer::OnPistol);
+	PlayerInputComponent->BindAction("Jump", EInputEvent::IE_Pressed,this, &ACPlayer::OnJump);
 
 }
+
+
 
 
 void ACPlayer::OnMoveForward(float Axis)
@@ -186,7 +203,7 @@ void ACPlayer::OnWalk()
 
 void ACPlayer::OnSword()
 {
-	ActionComp->SetUnarmedMode();
+	CheckFalse(ActionComp->IsUnarmedMode());
 }
 
 void ACPlayer::OnAR()
@@ -195,4 +212,57 @@ void ACPlayer::OnAR()
 
 void ACPlayer::OnPistol()
 {
+}
+
+void ACPlayer::OnJump()
+{
+	StateComp->SetJumpMode();
+}
+
+
+void ACPlayer::Begin_Jump()
+{
+	MontageComp->PlayJump();
+}
+
+void ACPlayer::Begin_Parkour()
+{
+}
+
+void ACPlayer::End_Jump()
+{
+	StateComp->SetIdleMode();
+}
+
+void ACPlayer::End_Parkour()
+{
+}
+
+
+//Change State
+void ACPlayer::OnStateTypeChanged(EStateType PreType, EStateType NewType)
+{
+	switch (NewType)
+	{
+	case EStateType::Jump:
+	{
+		Begin_Jump();
+		break;
+	}
+	case EStateType::Parkour:
+	{
+		Begin_Parkour();
+		break;
+	}
+	case EStateType::Hitted:
+	{
+		break;
+	}
+	case EStateType::Dead:
+	{
+		break;
+	}
+	default:
+		break;
+	}
 }

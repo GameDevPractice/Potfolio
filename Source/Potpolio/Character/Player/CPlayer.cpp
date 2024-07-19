@@ -9,6 +9,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Component/CActionComponent.h"
 #include "Component/CMontageComponent.h"
+#include "Component/CAttributeComponent.h"
+#include "Action/CActionData.h"
 
 
 
@@ -33,11 +35,13 @@ ACPlayer::ACPlayer()
 		CHelpers::CreateActorComponent(this, &MontageComp, TEXT("MontageComp"));
 		//StateComponent
 		CHelpers::CreateActorComponent(this, &StateComp, TEXT("StateComp"));
+		//AttributeComponet
+		CHelpers::CreateActorComponent(this, &AttributeComp, TEXT("Attribute"));
 	}
 
 	//Katana
-	CHelpers::GetAsset(&Katana,"/Game/Player/Katana/SK_Katana");
-	CHelpers::CreateSceneComponent(this, &KatanaComponet, TEXT("Katana"), GetMesh());
+	//CHelpers::GetAsset(&Katana,"/Game/Player/Katana/SK_Katana");
+	//CHelpers::CreateSceneComponent(this, &KatanaComponet, TEXT("Katana"), GetMesh());
 
 	//CameraComponent, SpringArmComponent Upload in memory 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
@@ -59,7 +63,7 @@ ACPlayer::ACPlayer()
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0, 720, 0);
 
-	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
+	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetWalkpeed();
 }
 
 void ACPlayer::BeginPlay()
@@ -67,8 +71,8 @@ void ACPlayer::BeginPlay()
 	Super::BeginPlay();
 
 	//Attach Katana
-	KatanaComponet->SetSkeletalMesh(Katana);
-	KatanaComponet->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("KatanaSoket"));
+	//KatanaComponet->SetSkeletalMesh(Katana);
+	//KatanaComponet->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("KatanaSoket"));
 
 	//Bind Func
 	StateComp->OnStateTypeChanged.AddDynamic(this,&ACPlayer::OnStateTypeChanged);
@@ -156,7 +160,6 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Run",EInputEvent::IE_Pressed,this,&ACPlayer::OnRun);
 	PlayerInputComponent->BindAction("Run",EInputEvent::IE_Released,this,&ACPlayer::OnWalk);
 	PlayerInputComponent->BindAction("Sword", EInputEvent::IE_Pressed,this, &ACPlayer::OnSword);
-	PlayerInputComponent->BindAction("AR", EInputEvent::IE_Pressed,this, &ACPlayer::OnAR);
 	PlayerInputComponent->BindAction("Pistol", EInputEvent::IE_Pressed,this, &ACPlayer::OnPistol);
 	PlayerInputComponent->BindAction("Jump", EInputEvent::IE_Pressed,this, &ACPlayer::OnJump);
 
@@ -193,12 +196,12 @@ void ACPlayer::OnLockRight(float Axix)
 //Player Speed Setting
 void ACPlayer::OnRun()
 {
-	GetCharacterMovement()->MaxWalkSpeed = 600.0f;
+	GetCharacterMovement()->MaxWalkSpeed =AttributeComp->GetSprintpeed();
 }
 
 void ACPlayer::OnWalk()
 {
-	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
+	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetWalkpeed();
 }
 
 void ACPlayer::OnSword()
@@ -206,9 +209,6 @@ void ACPlayer::OnSword()
 	CheckFalse(ActionComp->IsUnarmedMode());
 }
 
-void ACPlayer::OnAR()
-{
-}
 
 void ACPlayer::OnPistol()
 {

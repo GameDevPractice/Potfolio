@@ -13,6 +13,7 @@ class USkeletalMeshComponent;
 class UCActionComponent;
 class UCMontageComponent;
 class UCStateComponent;
+class UCAttributeComponent;
 
 UCLASS()
 class POTPOLIO_API ACPlayer : public ACharacter
@@ -83,4 +84,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
 	UCStateComponent* StateComp;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Component")
+		UCAttributeComponent* AttributeComp;
 };

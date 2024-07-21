@@ -7,7 +7,7 @@
 UENUM(BlueprintType)
 enum class EActionType : uint8
 {
-	UnArmed, Sword, Pistol, Max
+	UnArmed, Sword, Pistol,Max
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FActionTypeChanged, EActionType, InPrevType, EActionType, InNewType);
@@ -32,6 +32,7 @@ public:
 public:
 	UFUNCTION(BlueprintPure)
 		FORCEINLINE UCActionData* GetCurrentActionData() { return DataAssets[(int32)Type]; }
+		FORCEINLINE bool IsCanUnArm() { return CanUnArm; }
 
 public:
 	//상태 변경하는 함수 (외부)
@@ -53,6 +54,6 @@ private:
 
 private:
 	EActionType Type;
-
+	bool CanUnArm;
 		
 };

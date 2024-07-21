@@ -6,6 +6,7 @@
 
 UCActionComponent::UCActionComponent()
 {
+	CanUnArm = false;
 }
 
 
@@ -30,13 +31,8 @@ void UCActionComponent::BeginPlay()
 
 void UCActionComponent::SetUnarmedMode()
 {
-	if (DataAssets[(int32)Type] && DataAssets[(int32)Type]->GetEquipment())
-	{
-		DataAssets[(int32)Type]->GetEquipment()->UnEquip();
-	}
-
 	DataAssets[(int32)EActionType::UnArmed]->GetEquipment()->Equip();
-
+	CanUnArm = false;
 	ChangeMode(EActionType::UnArmed);
 }
 
@@ -55,22 +51,18 @@ void UCActionComponent::SetMode(EActionType InNextType)
 {
 	if (Type == InNextType)
 	{
-		ChangeMode(EActionType::UnArmed);
-		return;
-	}
-	ChangeMode(InNextType);
-}
-
-void UCActionComponent::ChangeMode(EActionType InNextType)
-{
-	if (Type == InNextType)
-	{
-		SetUnarmedMode();
+		CanUnArm = true;
+		if (DataAssets[(int32)Type] && DataAssets[(int32)Type]->GetEquipment())
+		{
+			DataAssets[(int32)Type]->GetEquipment()->UnEquip();
+		}
+		//SetUnarmedMode();
 		return;
 	}
 
 	else if (IsUnarmedMode() == false)
 	{
+		CanUnArm = false;
 		if (DataAssets[(int32)Type] && DataAssets[(int32)Type]->GetEquipment())
 		{
 			DataAssets[(int32)Type]->GetEquipment()->UnEquip();
@@ -79,6 +71,19 @@ void UCActionComponent::ChangeMode(EActionType InNextType)
 	if (DataAssets[(int32)InNextType] && DataAssets[(int32)InNextType]->GetEquipment())
 	{
 		DataAssets[(int32)InNextType]->GetEquipment()->Equip();
+		ChangeMode(InNextType);
+	}
+}
+
+void UCActionComponent::ChangeMode(EActionType InNextType)
+{
+	
+	EActionType Prev = Type;
+	Type = InNextType;
+
+	if (OnActionTypeChanged.IsBound())
+	{
+		OnActionTypeChanged.Broadcast(Prev, InNextType);
 	}
 
 }

@@ -212,10 +212,13 @@ void ACPlayer::OnSword()
 
 void ACPlayer::OnPistol()
 {
+	CheckFalse(StateComp->IsIdleMode());
+	ActionComp->SetPistolMode();
 }
 
 void ACPlayer::OnJump()
 {
+	CheckFalse(StateComp->IsIdleMode());
 	StateComp->SetJumpMode();
 }
 

@@ -7,6 +7,8 @@
 
 class UCStateComponent;
 class UCAttributeComponent;
+class UCActionComponent;
+class UCActionComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE (FEquipmentDelegate);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE (FUnequipmentDelegate);
@@ -22,8 +24,10 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+
 public:
 	void SetData(const FEquipData& InData);
+	void SetUnData(const FUnEquipData& InData);
 	
 
 public:
@@ -36,6 +40,10 @@ public:
 	void End_Equip();
 	UFUNCTION(BlueprintNativeEvent)
 	void UnEquip();
+	UFUNCTION(BlueprintNativeEvent)
+	void Begin_UnEquip();
+	UFUNCTION(BlueprintNativeEvent)
+	void End_UnEquip();
 
 public:
 	//Delegate Equip, UnEquip
@@ -53,6 +61,11 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly)
 		UCAttributeComponent* AttributeComp;
+
+	UPROPERTY(BlueprintReadOnly)
+		UCActionComponent* ActionComp;
+
 private:
 	FEquipData Data;
+	FUnEquipData UnData;
 };

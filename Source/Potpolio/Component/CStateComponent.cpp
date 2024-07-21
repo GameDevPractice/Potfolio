@@ -26,6 +26,11 @@ void UCStateComponent::SetEquipMode()
 	ChangeMode(EStateType::Equip);
 }
 
+void UCStateComponent::SetUnEquipMode()
+{
+	ChangeMode(EStateType::UnEquip);
+}
+
 void UCStateComponent::SetActionMode()
 {
 	ChangeMode(EStateType::Action);

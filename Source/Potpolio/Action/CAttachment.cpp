@@ -14,6 +14,7 @@ void ACAttachment::BeginPlay()
 	
 }
 
+//블루 프린트에서 사용, 에디터에서
 void ACAttachment::ActorAttachTo(FName InSocketName)
 {
 	AttachToComponent

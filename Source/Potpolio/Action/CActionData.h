@@ -9,6 +9,7 @@ class UParticleSystem;
 class ACharacter;
 class ACEquipment;
 class ACAttachment;
+class ACDoAction;
 
 //장착에 관한 데이터들
 USTRUCT(BlueprintType)
@@ -27,22 +28,28 @@ public:
 		FName StartSection;
 };
 
+USTRUCT(BlueprintType)
+struct FUnEquipData : public FEquipData
+{
+	GENERATED_BODY()
+};
+
 //행동에 관한 데이터들
-//USTRUCT(BlueprintType)
-//struct FDoActionData : public FEquipData
-//{
-//	GENERATED_BODY()
-//
-//public:
-//	UPROPERTY(EditDefaultsOnly)
-//	float Power;
-//
-//	UPROPERTY(EditDefaultsOnly)
-//	UParticleSystem* Particle;
-//
-//	UPROPERTY(EditDefaultsOnly)
-//	FTransform EffectTransforms;
-//};
+USTRUCT(BlueprintType)
+struct FDoActionData : public FEquipData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditDefaultsOnly)
+	float Power;
+
+	UPROPERTY(EditDefaultsOnly)
+	UParticleSystem* Particle;
+
+	UPROPERTY(EditDefaultsOnly)
+	FTransform EffectTransforms;
+};
 
 UCLASS()
 class POTPOLIO_API UCActionData : public UDataAsset
@@ -56,15 +63,27 @@ public:
 	FORCEINLINE ACEquipment* GetEquipment() { return Equipment; }
 
 public:
+	//Equipment Data
 	UPROPERTY(EditDefaultsOnly, Category = "Equipment")
 		TSubclassOf<ACEquipment> EquipmentClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Equipment")
 		FEquipData EquipData;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Equipment")
+	UPROPERTY(EditDefaultsOnly, Category = "UnEquipment")
+		FUnEquipData UnEquipData;
+
+	//Attachment Data
+	UPROPERTY(EditDefaultsOnly, Category = "Attachment")
 		TSubclassOf<ACAttachment> AttachmentClass;
+
+	//DoAction Data
+	UPROPERTY(EditDefaultsOnly, Category = "DoAction")
+		TSubclassOf<ACDoAction> DoActionClass;
+	UPROPERTY(EditDefaultsOnly, Category = "DoAction")
+		FDoActionData DoActionData;
 private:
 	ACEquipment* Equipment;
 	ACAttachment* Attachment;
+	ACDoAction* DoAction;
 };

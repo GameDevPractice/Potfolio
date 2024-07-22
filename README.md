@@ -2,4 +2,4 @@
 
 ## 목차
  # 일지 
-1week
+1주차 : https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/1Week.md

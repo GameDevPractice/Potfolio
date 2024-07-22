@@ -15,6 +15,8 @@ DataAsset에는 장착할 무기, 장착, 해제 시 재생되는 Montage, 공�
 ![Data Asset](Image/DataAsset.png)
 
 만든 DataaAsset은 플레이어에 적용해야 한다
+
+
 ![Action Comp Data Asset](Image/ActionComp_DataAsset.png)
 
 
@@ -26,11 +28,19 @@ DataAsset에는 장착할 무기, 장착, 해제 시 재생되는 Montage, 공�
 이를 사용하기 위해 Delegate를 사용하였다.
 
 #C++
+
+
 ![Anim Instatnce Native Begin Play](Image/AnimInstatnce_NativeBeginPlay.png)
 ![Anim Instatnce On Action Type](Image/AnimInstatnce_OnActionType.png)
+
+
 #ABP_Player
+
+
 ![A B P Player](Image/ABPPlayer.png)
 ![A B P Player Action Pose](Image/ABPPlayer_ActionPose.png)
+
+
 슬롯을 Upper, FullBody로 나뉘어 상반신만 사용할 몽타주, 전신을 사용할 몽타주를 분리하였다
 
 포즈 추가 예정

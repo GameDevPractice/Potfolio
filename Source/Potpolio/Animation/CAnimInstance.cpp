@@ -23,8 +23,6 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	Player = Cast<ACharacter>(TryGetPawnOwner());
 	CheckNull(Player);
 
-	
-
 //Save Speed
 	Speed = Player->GetVelocity().Size2D();
 

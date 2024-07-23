@@ -81,7 +81,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "DoAction")
 		TSubclassOf<ACDoAction> DoActionClass;
 	UPROPERTY(EditDefaultsOnly, Category = "DoAction")
-		FDoActionData DoActionData;
+		TArray<FDoActionData> DoActionData;
 private:
 	ACEquipment* Equipment;
 	ACAttachment* Attachment;

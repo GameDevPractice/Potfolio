@@ -17,10 +17,16 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	void DoAction();
-	void SetActionData(FDoActionData InData);
+	virtual void DoAction() {};
+	virtual void SubDoAction() {};
+	virtual void Begin_DoAction() {};
+	virtual void End_DoAction() {};
 
-private:
-	FDoActionData Data;
+public:
+	void SetActionData(const TArray<FDoActionData>& InData);
+
+protected:
+	TArray<FDoActionData> Data;
+	ACharacter* OwnerCharacter;
 
 };

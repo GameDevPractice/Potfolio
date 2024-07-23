@@ -61,11 +61,6 @@ private:
 	USpringArmComponent* SpringArmComp;
 	UCameraComponent* CameraComp;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Katana")
-	USkeletalMesh* Katana;
-
-	USkeletalMeshComponent* KatanaComponet;
-
 	UMaterialInstanceDynamic* HandsKatanaMat;
 	UMaterialInstanceDynamic* CostumeMat;
 	UMaterialInstanceDynamic* HeadMat;

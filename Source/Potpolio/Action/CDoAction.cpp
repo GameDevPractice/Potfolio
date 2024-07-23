@@ -9,18 +9,13 @@ ACDoAction::ACDoAction()
 
 void ACDoAction::BeginPlay()
 {
+	OwnerCharacter = Cast<ACharacter>(GetOwner());
+	CheckNull(OwnerCharacter);
 	Super::BeginPlay();
 	
 }
 
-void ACDoAction::DoAction()
-{
-	ACharacter* OwnerCharacter = Cast<ACharacter>(GetOwner());
-	CheckNull(OwnerCharacter);
-	OwnerCharacter->PlayAnimMontage(Data.AnimMontage,Data.PlayRate,Data.StartSection);
-}
-
-void ACDoAction::SetActionData(FDoActionData InData)
+void ACDoAction::SetActionData(const TArray<FDoActionData>& InData)
 {
 	Data = InData;
 }

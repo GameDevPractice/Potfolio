@@ -39,17 +39,13 @@ ACPlayer::ACPlayer()
 		CHelpers::CreateActorComponent(this, &AttributeComp, TEXT("Attribute"));
 	}
 
-	//Katana
-	//CHelpers::GetAsset(&Katana,"/Game/Player/Katana/SK_Katana");
-	//CHelpers::CreateSceneComponent(this, &KatanaComponet, TEXT("Katana"), GetMesh());
-
 	//CameraComponent, SpringArmComponent Upload in memory 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 
 	//SpringArmComp Setting
 	SpringArmComp->SetupAttachment(GetMesh());
-	SpringArmComp->SetRelativeRotation(FRotator(0, +90, 0));
+	SpringArmComp->SetRelativeRotation(FRotator(0, 90, 0));
 	SpringArmComp->SetRelativeLocation(FVector(0, 0, 140));
 	SpringArmComp->TargetArmLength = 200.0f;
 	SpringArmComp->bUsePawnControlRotation = true;
@@ -69,10 +65,6 @@ ACPlayer::ACPlayer()
 void ACPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//Attach Katana
-	//KatanaComponet->SetSkeletalMesh(Katana);
-	//KatanaComponet->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("KatanaSoket"));
 
 	//Bind Func
 	StateComp->OnStateTypeChanged.AddDynamic(this,&ACPlayer::OnStateTypeChanged);

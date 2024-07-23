@@ -2,6 +2,4 @@
 
 ## 목차
  # 일지 
-  0713 https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/0713
-
-  0714 https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/0714
+1주차 : https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/1Week.md

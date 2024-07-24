@@ -4,7 +4,11 @@
 #include "GameFramework/Actor.h"
 #include "Cbullet.generated.h"
 
+
 class UStaticMeshComponent;
+class UProjectileMovementComponent;
+class UMaterialInstanceConstant;
+
 
 UCLASS()
 class POTPOLIO_API ACbullet : public AActor
@@ -15,9 +19,16 @@ public:
 	ACbullet();
 
 protected:
-	virtual void BeginPlay() override;
+	 void BeginPlay() override;
 
-	UPROPERTY(VisibleDefaultsOnly, Category = "Bullet")
-		UStaticMeshComponent* Bullet;
 
+private:
+	UPROPERTY(VisibleDefaultsOnly)
+		UStaticMeshComponent* MeshComp;
+
+	UPROPERTY(VisibleDefaultsOnly)
+		UMaterialInstanceConstant* Material;;
+
+	UPROPERTY(VisibleDefaultsOnly)
+		UProjectileMovementComponent* ProjectileComp;
 };

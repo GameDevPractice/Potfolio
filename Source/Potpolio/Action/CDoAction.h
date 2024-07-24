@@ -5,6 +5,8 @@
 #include "CActionData.h"
 #include "CDoAction.generated.h"
 
+class UCStateComponent;
+ 
 UCLASS()
 class POTPOLIO_API ACDoAction : public AActor
 {
@@ -28,5 +30,6 @@ public:
 protected:
 	TArray<FDoActionData> Data;
 	ACharacter* OwnerCharacter;
+	UCStateComponent* StateComp;
 
 };

@@ -20,7 +20,6 @@ protected:
 public:
 	virtual void DoAction() override;
 	virtual void SubDoAction() override;
-	virtual void Begin_DoAction() override;
 	virtual void End_DoAction() override;
 	
 

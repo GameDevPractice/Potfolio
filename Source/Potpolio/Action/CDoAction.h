@@ -6,6 +6,9 @@
 #include "CDoAction.generated.h"
 
 class UCStateComponent;
+class UCActionComponent;
+class UCActionData;
+
  
 UCLASS()
 class POTPOLIO_API ACDoAction : public AActor
@@ -20,9 +23,11 @@ protected:
 
 public:
 	virtual void DoAction() {};
-	virtual void SubDoAction() {};
+	virtual void SubDoAction(bool InbAiming) {};
 	virtual void Begin_DoAction() {};
 	virtual void End_DoAction() {};
+
+	FORCEINLINE bool GetbAiming() {  return bAiming; }
 
 public:
 	void SetActionData(const TArray<FDoActionData>& InData);
@@ -31,5 +36,7 @@ protected:
 	TArray<FDoActionData> Data;
 	ACharacter* OwnerCharacter;
 	UCStateComponent* StateComp;
+	UCActionComponent* ActionComp;
+	bool bAiming;
 
 };

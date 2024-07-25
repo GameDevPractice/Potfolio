@@ -1,10 +1,12 @@
 #include "CAttachment.h"
 #include "Global.h"
 #include "GameFramework/Character.h"
+#include "Components/SkeletalMeshComponent.h"
 
 ACAttachment::ACAttachment()
 {
 	CHelpers::CreateSceneComponent(this, &RootComp, "RootComp");
+	CHelpers::CreateSceneComponent(this, &Mesh, "MeshComp", RootComp);
 }
 
 void ACAttachment::BeginPlay()

@@ -3,6 +3,7 @@
 #include "GameFramework/Character.h"
 #include "Action/CActionData.h"
 #include "Action/CEquipment.h"
+#include "Action/CDoAction.h"
 
 UCActionComponent::UCActionComponent()
 {
@@ -27,6 +28,32 @@ void UCActionComponent::BeginPlay()
 
 	}
 	
+}
+
+void UCActionComponent::DoAction()
+{
+	CheckTrue(IsUnarmedMode());
+
+	if (DataAssets[(int32)Type] && DataAssets[(int32)Type]->GetDoAction())
+	{
+		ACDoAction* DoAction = DataAssets[(int32)Type]->GetDoAction();
+		DoAction->DoAction();
+	}
+}
+
+void UCActionComponent::DoSubAction(bool InbAiming)
+{
+	CheckFalse(IsPistolMode());
+
+	if (DataAssets[(int32)Type] && DataAssets[(int32)Type]->GetDoAction())
+	{
+		ACDoAction* DoAction = DataAssets[(int32)Type]->GetDoAction();
+		DoAction->SubDoAction(InbAiming);
+		if (ONAimChanged.IsBound())
+		{
+			ONAimChanged.Broadcast(InbAiming);
+		}
+	}
 }
 
 void UCActionComponent::SetUnarmedMode()

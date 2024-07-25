@@ -5,6 +5,7 @@
 #include "CAttachment.generated.h"
 
 class ACharacter;
+class USkeletalMeshComponent;
 
 UCLASS()
 class POTPOLIO_API ACAttachment : public AActor
@@ -16,6 +17,10 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+public:
+	UFUNCTION(BlueprintCallable)
+	 FORCEINLINE USkeletalMeshComponent* GetMesh() { return Mesh; }
 
 public:
 	UFUNCTION(BlueprintImplementableEvent)
@@ -30,7 +35,10 @@ protected:
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
-		USceneComponent* RootComp;
+	USceneComponent* RootComp;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Mesh")
+	USkeletalMeshComponent* Mesh;
 
 protected:
 	UPROPERTY(BlueprintReadOnly)

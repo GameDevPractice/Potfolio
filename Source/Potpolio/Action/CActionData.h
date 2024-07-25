@@ -10,6 +10,7 @@ class ACharacter;
 class ACEquipment;
 class ACAttachment;
 class ACDoAction;
+class ACbullet;
 
 //장착에 관한 데이터들
 USTRUCT(BlueprintType)
@@ -42,13 +43,17 @@ struct FDoActionData : public FEquipData
 
 public:
 	UPROPERTY(EditDefaultsOnly)
-	float Power;
+	float Power = 1.f;
 
 	UPROPERTY(EditDefaultsOnly)
 	UParticleSystem* Particle;
 
 	UPROPERTY(EditDefaultsOnly)
 	FTransform EffectTransforms;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<ACbullet> Bullet;
+
 };
 
 UCLASS()
@@ -61,6 +66,8 @@ public:
 
 public:
 	FORCEINLINE ACEquipment* GetEquipment() { return Equipment; }
+	FORCEINLINE ACAttachment* GetAttachment() { return Attachment; }
+	FORCEINLINE ACDoAction* GetDoAction() { return DoAction; }
 
 public:
 	//Equipment Data

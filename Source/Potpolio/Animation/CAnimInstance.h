@@ -7,6 +7,7 @@
 
 class ACharacter;
 class UCActionComponent;
+class ACDoAction;
 
 UCLASS()
 class POTPOLIO_API UCAnimInstance : public UAnimInstance
@@ -21,6 +22,9 @@ private:
 	UFUNCTION()
 		void OnActionTypeChanged(EActionType InPrevType, EActionType InNewType);
 
+	UFUNCTION()
+	void ONAimChanged(bool InbAim);
+
 protected:
 	ACharacter* Player;
 
@@ -30,7 +34,10 @@ protected:
 	bool bFalling;
 	UPROPERTY(BlueprintReadOnly, Category = "Blend")
 	float Jump;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Blend")
+	bool bAiming;
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "ActionType")
 		EActionType ActionType;
+
 };

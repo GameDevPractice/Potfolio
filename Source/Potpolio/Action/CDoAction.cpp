@@ -2,10 +2,12 @@
 #include "Global.h"
 #include "Gameframework/Character.h"
 #include "Component/CStateComponent.h"
+#include "Component/CActionComponent.h"
+
 
 ACDoAction::ACDoAction()
 {
-
+	bAiming = false;
 }
 
 void ACDoAction::BeginPlay()
@@ -15,6 +17,9 @@ void ACDoAction::BeginPlay()
 	
 	StateComp = CHelpers::GetComponent<UCStateComponent>(OwnerCharacter);
 	CheckNull(StateComp);
+
+	ActionComp = CHelpers::GetComponent<UCActionComponent>(OwnerCharacter);
+	CheckNull(ActionComp);
 
 	Super::BeginPlay();
 	

@@ -4,10 +4,9 @@
 #include "GameFramework/Actor.h"
 #include "Cbullet.generated.h"
 
-
-class UStaticMeshComponent;
 class UProjectileMovementComponent;
-class UMaterialInstanceConstant;
+class UParticleSystemComponent;
+class USphereComponent;
 
 
 UCLASS()
@@ -24,10 +23,10 @@ protected:
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
-		UStaticMeshComponent* MeshComp;
+		USphereComponent* SphereComp;
 
-	UPROPERTY(VisibleDefaultsOnly)
-		UMaterialInstanceConstant* Material;;
+	UPROPERTY(EditDefaultsOnly)
+	UParticleSystemComponent* ParticleComp;
 
 	UPROPERTY(VisibleDefaultsOnly)
 		UProjectileMovementComponent* ProjectileComp;

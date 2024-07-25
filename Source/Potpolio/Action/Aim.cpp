@@ -18,14 +18,10 @@ void UAim::BeginPlay(ACharacter* InCharacter)
 
 void UAim::OnAim()
 {
-	SpringArmComp->TargetArmLength = 100.f;
-	SpringArmComp->SocketOffset = FVector(0, 30, 10);
-	SpringArmComp->bEnableCameraLag = false;
+
 }
 
 void UAim::OffAim()
 {
-	SpringArmComp->TargetArmLength = 200.0f;
-	SpringArmComp->SocketOffset = FVector::ZeroVector;
-	SpringArmComp->bEnableCameraLag = false;
+	
 }

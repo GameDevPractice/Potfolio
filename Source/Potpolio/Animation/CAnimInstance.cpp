@@ -2,6 +2,8 @@
 #include "Global.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
+#include "Component/CActionComponent.h"
+
 
 void UCAnimInstance::NativeBeginPlay()
 {
@@ -14,6 +16,8 @@ void UCAnimInstance::NativeBeginPlay()
 	CheckNull(ActionComp);
 
 	ActionComp->OnActionTypeChanged.AddDynamic(this, &UCAnimInstance::OnActionTypeChanged);
+	ActionComp->ONAimChanged.AddDynamic(this, &UCAnimInstance::ONAimChanged);
+
 }
 
 void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
@@ -23,22 +27,17 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	Player = Cast<ACharacter>(TryGetPawnOwner());
 	CheckNull(Player);
 
-//Save Speed
 	Speed = Player->GetVelocity().Size2D();
 
-	Jump = Player->GetVelocity().Z;
 
-	if (Jump <= 0)
-	{
-		bFalling = false;
-	}
-	else
-	{
-		bFalling = true;
-	}
 }
 
 void UCAnimInstance::OnActionTypeChanged(EActionType InPrevType, EActionType InNewType)
 {
 	ActionType = InNewType;
+}
+
+void UCAnimInstance::ONAimChanged(bool InbAim)
+{
+	bAiming = InbAim;
 }

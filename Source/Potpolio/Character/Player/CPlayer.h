@@ -38,8 +38,10 @@ private:
 	void OnWalk();
 
 	void OnSword();
-	void OnAR();
 	void OnPistol();
+	void OnPrimaryAct();
+	void OnSecondaryAct();
+	void OffSecondaryAct();
 
 	void OnJump();
 	void Begin_Jump();
@@ -57,6 +59,8 @@ protected:
 	UFUNCTION()
 		void OnStateTypeChanged(EStateType PreType, EStateType NewType);
 
+
+
 private:
 	USpringArmComponent* SpringArmComp;
 	UCameraComponent* CameraComp;
@@ -71,8 +75,9 @@ private:
 
 	TArray<UMaterialInstanceDynamic*> Materials;
 
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
-	UCActionComponent* ActionComp;
+		UCActionComponent* ActionComp;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
 	UCMontageComponent* MontageComp;

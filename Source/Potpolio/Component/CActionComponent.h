@@ -11,6 +11,7 @@ enum class EActionType : uint8
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FActionTypeChanged, EActionType, InPrevType, EActionType, InNewType);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAimChanged, bool, bAiming);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class POTPOLIO_API UCActionComponent : public UActorComponent
@@ -35,6 +36,10 @@ public:
 		FORCEINLINE bool IsCanUnArm() { return CanUnArm; }
 
 public:
+	void DoAction();
+	void DoSubAction(bool InbAiming);
+
+public:
 	//상태 변경하는 함수 (외부)
 	void SetUnarmedMode();
 	void SetSwordMode();
@@ -47,6 +52,9 @@ private:
 public:
 	UPROPERTY(BlueprintAssignable)
 		FActionTypeChanged OnActionTypeChanged;
+
+	UPROPERTY(BlueprintAssignable)
+		FAimChanged ONAimChanged;
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "DataAsset")

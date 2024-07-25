@@ -5,6 +5,9 @@
 #include "CDoAction_Pistol.generated.h"
 
 class UAim;
+class ACbullet;
+class UCActionData;
+class ACAttachment;
 
 UCLASS()
 class POTPOLIO_API ACDoAction_Pistol : public ACDoAction
@@ -19,10 +22,15 @@ protected:
 
 public:
 	virtual void DoAction() override;
-	virtual void SubDoAction() override;
-	virtual void End_DoAction() override;
+	virtual void SubDoAction(bool InbAiming) override;
 	
 
 private:
 	UAim* Aim;
+	TSubclassOf<ACbullet> BulletClass;
+	ACbullet* Bullet;
+
+	UCActionData* ActionData;
+	ACAttachment* Attachment;
+
 };

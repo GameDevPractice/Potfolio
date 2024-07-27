@@ -22,10 +22,12 @@
 ## CBullet
 ### CBullet.h
 ![C Bullet](Image/CBullet.h)
+
 총알을 StaticMesh로 표현을 하지 않고 Particle로 표현 하였다  
 
 ### CBullet.CPP
 ![C Bullet](Image/CBullet.CPP)  
+
 Bullet에 관한 정보를 입력 하였다
 
 ### 추가, 수정 예정
@@ -39,36 +41,45 @@ Bullet의 충돌체 Delegate 바인드 예정
 
 #### Pistol 장착 후
 ![Player Pistol](Image/Player_Pistol.png)  
+
 특정 행동 후 손에 Pistol 장착
 
 #### 조준 모션
 ![Player Pre Aim](Image/Player_PreAim.png)  
+
 조준 시 포즈 변경
 
 #### Pistol 발사 시
 ![Player Pistol Action](Image/Player_PistolAction.png)
+
 Pistol 장착 후 공격 시 Bullet, Particle 스폰 확인
 
 ## ABP_Player_
 ![S M Pistol](Image/SM_Pistol.png)  
+
 조준 모션이 따로 없어 UnArmed 모션에 블렌딩을 하여 사용
 
 ![A B P Player Bool](Image/ABPPlayer_Bool.png)  
+
 DoAction_Pistol을 이용해 받은 bool 변수를 통해 포즈 변경
 
 ## Player.Cpp
 ![Player Cpp Sub Action](Image/Player_CppSubAction.png)  
+
 누를 시 SpringArm과 Camera Comp 위치 이동
 ActionComp의 SubAction 함수를 사용해 AnimIstance로 전달
 
 ## ActionComp-DoSubAction
 ![Action Comp Do Sub Action](Image/ActionComp_DoSubAction.png)  
+
 Delegate를 이용하여 bAimng의 값을 AnimInstance에 전달한다
 
 
 ## AnimInstance.CPP
 ![Anim Instatnce Action Comp Bine](Image/AnimInstatnce_ActionCompBine.png)  
+
 ActionComp의 Delegate에 Bind 한다
 
 ![Action Comp Binding](Image/ActionComp_Binding.png)  
+
 Bind된 함수

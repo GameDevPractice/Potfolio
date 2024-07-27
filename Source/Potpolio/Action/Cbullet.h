@@ -25,7 +25,7 @@ private:
 	UPROPERTY(VisibleDefaultsOnly)
 		USphereComponent* SphereComp;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleDefaultsOnly)
 	UParticleSystemComponent* ParticleComp;
 
 	UPROPERTY(VisibleDefaultsOnly)

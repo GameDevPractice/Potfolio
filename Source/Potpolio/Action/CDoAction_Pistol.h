@@ -4,7 +4,6 @@
 #include "Action/CDoAction.h"
 #include "CDoAction_Pistol.generated.h"
 
-class UAim;
 class ACbullet;
 class UCActionData;
 class ACAttachment;
@@ -26,10 +25,8 @@ public:
 	
 
 private:
-	UAim* Aim;
-	TSubclassOf<ACbullet> BulletClass;
-	ACbullet* Bullet;
 
+	ACbullet* Bullet;
 	UCActionData* ActionData;
 	ACAttachment* Attachment;
 

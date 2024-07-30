@@ -17,6 +17,7 @@ void UCAnimInstance::NativeBeginPlay()
 
 	ActionComp->OnActionTypeChanged.AddDynamic(this, &UCAnimInstance::OnActionTypeChanged);
 	ActionComp->ONAimChanged.AddDynamic(this, &UCAnimInstance::ONAimChanged);
+	Rotator = FRotator::ZeroRotator;
 
 }
 
@@ -32,10 +33,9 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	AController* PC = Player->GetController();
 	CheckNull(PC);
 
-	Rotator = PC->GetControlRotation();
-	CLog::Print(Rotator);
+	Rotator.Yaw = -1 * PC->GetControlRotation().Pitch;
 
-
+	CLog::Print(Rotator.Yaw, 1);
 }
 
 void UCAnimInstance::OnActionTypeChanged(EActionType InPrevType, EActionType InNewType)

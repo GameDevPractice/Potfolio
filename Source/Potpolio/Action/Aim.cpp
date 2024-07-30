@@ -30,6 +30,7 @@ void UAim::SetVisiblity(bool IsVisiblity)
 
 void UAim::OnAim()
 {
+	CheckNull(CrossHair);
 	CheckTrue(bZoom);
 
 	bZoom = true;
@@ -38,7 +39,7 @@ void UAim::OnAim()
 	CrossHair->SetVisibility(ESlateVisibility::Visible);
 
 	//Camera zoom out
-	SpringArmComp->TargetArmLength = 100.f;
+	SpringArmComp->TargetArmLength = 50.f;
 	SpringArmComp->SocketOffset = FVector(0, 30, 10);
 	SpringArmComp->bEnableCameraLag = false;
 
@@ -49,6 +50,7 @@ void UAim::OnAim()
 
 void UAim::OffAim()
 {
+	CheckNull(CrossHair);
 	CheckFalse(bZoom);
 
 	bZoom = false;

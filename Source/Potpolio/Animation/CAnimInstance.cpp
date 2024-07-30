@@ -29,6 +29,12 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	Speed = Player->GetVelocity().Size2D();
 
+	AController* PC = Player->GetController();
+	CheckNull(PC);
+
+	Rotator = PC->GetControlRotation();
+	CLog::Print(Rotator);
+
 
 }
 

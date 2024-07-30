@@ -6,6 +6,7 @@
 
 class USpringArmComponent;
 class UCameraComponent;
+class UUserWidget;
 
 UCLASS()
 class POTPOLIO_API UAim : public UObject
@@ -17,7 +18,10 @@ public:
 
 public:
 	void BeginPlay(ACharacter* InCharacter);
+	void Tick(float DeltaTime);
+	void SetVisiblity(bool IsVisiblity);
 
+private:
 	void OnAim();
 	void OffAim();
 
@@ -25,5 +29,10 @@ private:
 	ACharacter* OwnerCharacter;
 	USpringArmComponent* SpringArmComp;
 	UCameraComponent* CameraComp;
+
+	TSubclassOf<UUserWidget> CrossHairclass;
+	UUserWidget* CrossHair;
 	
+
+	bool bZoom;
 };

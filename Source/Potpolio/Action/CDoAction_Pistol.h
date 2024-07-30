@@ -7,6 +7,7 @@
 class ACbullet;
 class UCActionData;
 class ACAttachment;
+class UAim;
 
 UCLASS()
 class POTPOLIO_API ACDoAction_Pistol : public ACDoAction
@@ -29,5 +30,7 @@ private:
 	ACbullet* Bullet;
 	UCActionData* ActionData;
 	ACAttachment* Attachment;
+
+	UAim* Aim;
 
 };

@@ -34,6 +34,9 @@ protected:
 	bool bFalling;
 	UPROPERTY(BlueprintReadOnly, Category = "Blend")
 	float Jump;
+	UPROPERTY(BlueprintReadOnly, Category = "Blend")
+	FRotator Rotator;
+
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Blend")
 	bool bAiming;
 

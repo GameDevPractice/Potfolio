@@ -222,17 +222,13 @@ void ACPlayer::OnSecondaryAct()
 {
 	ActionComp->DoSubAction(true);
 	CheckFalse(ActionComp->GetCurrentActionData()->GetDoAction()->GetbAiming());
-	SpringArmComp->TargetArmLength = 100.f;
-	SpringArmComp->SocketOffset = FVector(0, 30, 10);
-	SpringArmComp->bEnableCameraLag = false;
+
 }
 
 void ACPlayer::OffSecondaryAct()
 {
 	ActionComp->DoSubAction(false);
-	SpringArmComp->TargetArmLength = 200.0f;
-	SpringArmComp->SocketOffset = FVector::ZeroVector;
-	SpringArmComp->bEnableCameraLag = false;
+
 }
 
 void ACPlayer::OnJump()

@@ -23,6 +23,7 @@ void ACDoAction_Pistol::BeginPlay()
 void ACDoAction_Pistol::DoAction()
 {
 	CheckNull(Data[0].Bullet);
+	CheckFalse(bAiming);
 
 	FTransform Transform;
 	ActionData = ActionComp->GetCurrentActionData();

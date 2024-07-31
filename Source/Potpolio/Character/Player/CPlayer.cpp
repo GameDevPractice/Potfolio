@@ -155,6 +155,7 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Sword", EInputEvent::IE_Pressed,this, &ACPlayer::OnSword);
 	PlayerInputComponent->BindAction("Pistol", EInputEvent::IE_Pressed,this, &ACPlayer::OnPistol);
 	PlayerInputComponent->BindAction("Jump", EInputEvent::IE_Pressed,this, &ACPlayer::OnJump);
+	PlayerInputComponent->BindAction("Jump", EInputEvent::IE_Released,this, &ACharacter::StopJumping);
 	PlayerInputComponent->BindAction("PrimaryAct", EInputEvent::IE_Pressed,this, &ACPlayer::OnPrimaryAct);
 	PlayerInputComponent->BindAction("SecondaryAct", EInputEvent::IE_Pressed,this, &ACPlayer::OnSecondaryAct);
 	PlayerInputComponent->BindAction("SecondaryAct", EInputEvent::IE_Released,this, &ACPlayer::OffSecondaryAct);
@@ -234,7 +235,7 @@ void ACPlayer::OffSecondaryAct()
 void ACPlayer::OnJump()
 {
 	CheckFalse(StateComp->IsIdleMode());
-	StateComp->SetJumpMode();
+	Jump();
 }
 
 
@@ -262,11 +263,6 @@ void ACPlayer::OnStateTypeChanged(EStateType PreType, EStateType NewType)
 {
 	switch (NewType)
 	{
-	case EStateType::Jump:
-	{
-		Begin_Jump();
-		break;
-	}
 	case EStateType::Parkour:
 	{
 		Begin_Parkour();

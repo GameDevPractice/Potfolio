@@ -3,6 +3,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
 #include "Component/CActionComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 void UCAnimInstance::NativeBeginPlay()
@@ -28,14 +29,20 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	Player = Cast<ACharacter>(TryGetPawnOwner());
 	CheckNull(Player);
 
+	bFalling = Player->GetCharacterMovement()->IsFalling();
+
 	Speed = Player->GetVelocity().Size2D();
 
 	AController* PC = Player->GetController();
 	CheckNull(PC);
 
-	Rotator.Yaw = -1 * PC->GetControlRotation().Pitch;
+	float rotation = PC->GetControlRotation().Pitch;
 
+	Rotator.Yaw = -1 * PC->GetControlRotation().Pitch;
 	CLog::Print(Rotator.Yaw, 1);
+	
+
+	
 }
 
 void UCAnimInstance::OnActionTypeChanged(EActionType InPrevType, EActionType InNewType)

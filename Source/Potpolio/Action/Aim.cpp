@@ -50,11 +50,11 @@ void UAim::OnAim()
 
 void UAim::OffAim()
 {
-	CheckNull(CrossHair);
 	CheckFalse(bZoom);
 
 	bZoom = false;
 
+	CheckNull(CrossHair);
 	//hide Widget
 	CrossHair->SetVisibility(ESlateVisibility::Hidden);
 

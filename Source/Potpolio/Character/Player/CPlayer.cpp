@@ -194,6 +194,7 @@ void ACPlayer::OnLockRight(float Axix)
 void ACPlayer::OnRun()
 {
 	GetCharacterMovement()->MaxWalkSpeed =AttributeComp->GetSprintpeed();
+	ActionComp->DoSubAction(false);
 }
 
 void ACPlayer::OnWalk()
@@ -222,8 +223,6 @@ void ACPlayer::OnPrimaryAct()
 void ACPlayer::OnSecondaryAct()
 {
 	ActionComp->DoSubAction(true);
-	CheckFalse(ActionComp->GetCurrentActionData()->GetDoAction()->GetbAiming());
-
 }
 
 void ACPlayer::OffSecondaryAct()
@@ -235,6 +234,7 @@ void ACPlayer::OffSecondaryAct()
 void ACPlayer::OnJump()
 {
 	CheckFalse(StateComp->IsIdleMode());
+	ActionComp->DoSubAction(false);
 	Jump();
 }
 

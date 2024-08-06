@@ -3,6 +3,7 @@
 #include "Gameframework/Character.h"
 #include "Component/CStateComponent.h"
 #include "Component/CActionComponent.h"
+#include "GameFramework/PlayerController.h"
 
 
 ACDoAction::ACDoAction()
@@ -21,6 +22,8 @@ void ACDoAction::BeginPlay()
 	ActionComp = CHelpers::GetComponent<UCActionComponent>(OwnerCharacter);
 	CheckNull(ActionComp);
 
+	PC = OwnerCharacter->GetController<APlayerController>();
+	 
 	Super::BeginPlay();
 	
 }

@@ -6,6 +6,8 @@
 
 class ACharacter;
 class USkeletalMeshComponent;
+class UParticleSystem;
+class USoundBase;
 
 UCLASS()
 class POTPOLIO_API ACAttachment : public AActor
@@ -21,6 +23,9 @@ protected:
 public:
 	UFUNCTION(BlueprintCallable)
 	 FORCEINLINE USkeletalMeshComponent* GetMesh() { return Mesh; }
+
+	 FORCEINLINE UParticleSystem* GetParticle() { return ParticleComp; }
+	 FORCEINLINE USoundBase* GetSound() { return Sound; }
 
 public:
 	UFUNCTION(BlueprintImplementableEvent)
@@ -39,6 +44,12 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Mesh")
 	USkeletalMeshComponent* Mesh;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Particle")
+	UParticleSystem* ParticleComp;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Sound")
+		USoundBase* Sound;
 
 protected:
 	UPROPERTY(BlueprintReadOnly)

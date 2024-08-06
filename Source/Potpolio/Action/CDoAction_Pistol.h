@@ -24,6 +24,9 @@ public:
 	virtual void DoAction() override;
 	virtual void SubDoAction(bool InbAiming) override;
 	
+private:
+	UFUNCTION()
+	void OnBulletBeginOverlap(FHitResult InHitResult);
 
 private:
 

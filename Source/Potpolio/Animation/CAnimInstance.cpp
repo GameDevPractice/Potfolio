@@ -39,9 +39,6 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	float rotation = PC->GetControlRotation().Pitch;
 
 	Rotator.Yaw = -1 * PC->GetControlRotation().Pitch;
-	CLog::Print(Rotator.Yaw, 1);
-	
-
 	
 }
 

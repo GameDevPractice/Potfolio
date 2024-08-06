@@ -5,9 +5,12 @@
 #include "CActionData.h"
 #include "CDoAction.generated.h"
 
+
+
 class UCStateComponent;
 class UCActionComponent;
 class UCActionData;
+class APlayerController;
 
  
 UCLASS()
@@ -37,6 +40,7 @@ protected:
 	ACharacter* OwnerCharacter;
 	UCStateComponent* StateComp;
 	UCActionComponent* ActionComp;
+	APlayerController* PC;
 	bool bAiming;
 
 };

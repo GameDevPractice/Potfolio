@@ -6,8 +6,9 @@
 
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
-class USphereComponent;
+class UCapsuleComponent;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBulletBeginOverlap, FHitResult, InHitResult);
 
 UCLASS()
 class POTPOLIO_API ACbullet : public AActor
@@ -20,10 +21,17 @@ public:
 protected:
 	 void BeginPlay() override;
 
+private:
+	UFUNCTION()
+	void OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+public:
+	UPROPERTY(BlueprintAssignable)
+	FBulletBeginOverlap OnBulletBeginOverlap;
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
-		USphereComponent* SphereComp;
+		UCapsuleComponent* CapsuleComp;
 
 	UPROPERTY(VisibleDefaultsOnly)
 	UParticleSystemComponent* ParticleComp;

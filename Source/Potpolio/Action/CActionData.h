@@ -11,7 +11,7 @@ class ACEquipment;
 class ACAttachment;
 class ACDoAction;
 class ACbullet;
-class UCameraShake;
+class UMatineeCameraShake;
 
 //장착에 관한 데이터들
 USTRUCT(BlueprintType)
@@ -56,7 +56,7 @@ public:
 	TSubclassOf<ACbullet> Bullet;
 
 	UPROPERTY(EditDefaultsOnly)
-		TSubclassOf<UCameraShake> CameraShake;
+	TSubclassOf<UMatineeCameraShake> CameraShake;
 
 };
 

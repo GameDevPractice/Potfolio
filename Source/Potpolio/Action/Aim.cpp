@@ -1,15 +1,13 @@
 #include "Aim.h"
 #include "Global.h"
-#include "Blueprint/UserWidget.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "CHUD.h"
 
 UAim::UAim()
 {
-	CHelpers::GetClass<UUserWidget>(&CrossHairclass, "/Game/UI/WB_CrossHead");
-	CrossHair = CreateWidget(GetWorld(), CrossHairclass);
 	bZoom = false;
 }
 
@@ -18,8 +16,10 @@ void UAim::BeginPlay(ACharacter* InCharacter)
 	OwnerCharacter = InCharacter;
 	SpringArmComp = CHelpers::GetComponent<USpringArmComponent>(OwnerCharacter);
 	CameraComp = CHelpers::GetComponent<UCameraComponent>(OwnerCharacter);
-	CrossHair->AddToViewport();
-	CrossHair->SetVisibility(ESlateVisibility::Hidden);
+
+	APlayerController* PC = OwnerCharacter->GetController<APlayerController>();
+	
+	HUD = PC->GetHUD<ACHUD>();
 }
 
 
@@ -30,13 +30,11 @@ void UAim::SetVisiblity(bool IsVisiblity)
 
 void UAim::OnAim()
 {
-	CheckNull(CrossHair);
 	CheckTrue(bZoom);
 
 	bZoom = true;
 
-	//Show Widget
-	CrossHair->SetVisibility(ESlateVisibility::Visible);
+	HUD->VisibleAim();
 
 	//Camera zoom out
 	SpringArmComp->TargetArmLength = 50.f;
@@ -54,9 +52,7 @@ void UAim::OffAim()
 
 	bZoom = false;
 
-	CheckNull(CrossHair);
-	//hide Widget
-	CrossHair->SetVisibility(ESlateVisibility::Hidden);
+	HUD->InVisibleAim();
 
 	//Camera zoom out
 	SpringArmComp->TargetArmLength = 200.0f;

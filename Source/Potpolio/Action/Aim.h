@@ -6,7 +6,7 @@
 
 class USpringArmComponent;
 class UCameraComponent;
-class UUserWidget;
+class ACHUD;
 
 UCLASS()
 class POTPOLIO_API UAim : public UObject
@@ -30,9 +30,6 @@ private:
 	USpringArmComponent* SpringArmComp;
 	UCameraComponent* CameraComp;
 
-	TSubclassOf<UUserWidget> CrossHairclass;
-	UUserWidget* CrossHair;
-	
-
+	ACHUD* HUD;
 	bool bZoom;
 };

@@ -1,4 +1,6 @@
 #include "PotpolioGameModeBase.h"
+#include "Global.h"
+#include "CHUD.h"
 
 
 
@@ -9,4 +11,5 @@ APotpolioGameModeBase::APotpolioGameModeBase()
 	{
 		DefaultPawnClass = PlayerAsset.Class;
 	}
+	CHelpers::GetClass<AHUD>(&HUDClass, "Blueprint'/Game/UI/BP_CHUD.BP_CHUD_C'");
 }

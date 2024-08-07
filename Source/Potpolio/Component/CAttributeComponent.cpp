@@ -22,13 +22,13 @@ void UCAttributeComponent::BeginPlay()
 void UCAttributeComponent::OnIncreseHealth(float InHeal)
 {
 	CurrentHealth += InHeal;
-	FMath::Clamp(CurrentHealth, 0.0f, MaxHealth);
+	//FMath::Clamp(CurrentHealth, 0.0f, MaxHealth);
 }
 
 void UCAttributeComponent::OnDecreseHealth(float InDeal)
 {
 	CurrentHealth -= InDeal;
-	FMath::Clamp(CurrentHealth, 0.0f, MaxHealth);
+	//FMath::Clamp(CurrentHealth, 0.0f, MaxHealth);
 }
 
 void UCAttributeComponent::SetMove()

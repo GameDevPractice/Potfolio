@@ -29,11 +29,17 @@ private:
 	void OnBulletBeginOverlap(FHitResult InHitResult);
 
 private:
+	void DecreaseBullet();
+
+private:
 
 	ACbullet* Bullet;
 	UCActionData* ActionData;
 	ACAttachment* Attachment;
 
 	UAim* Aim;
+
+	int32 MaxBulletCount;
+	int32 CurrentBulletCount;
 
 };

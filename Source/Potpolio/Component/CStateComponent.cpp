@@ -46,6 +46,11 @@ void UCStateComponent::SetDeadMode()
 	ChangeMode(EStateType::Dead);
 }
 
+void UCStateComponent::SetReloadMode()
+{
+	ChangeMode(EStateType::Reload);
+}
+
 void UCStateComponent::ChangeMode(EStateType InNewType)
 {
 	

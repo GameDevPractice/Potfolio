@@ -154,6 +154,7 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Run",EInputEvent::IE_Released,this,&ACPlayer::OnWalk);
 	PlayerInputComponent->BindAction("Sword", EInputEvent::IE_Pressed,this, &ACPlayer::OnSword);
 	PlayerInputComponent->BindAction("Pistol", EInputEvent::IE_Pressed,this, &ACPlayer::OnPistol);
+	PlayerInputComponent->BindAction("Reload", EInputEvent::IE_Pressed,this, &ACPlayer::OnReload);
 	PlayerInputComponent->BindAction("Jump", EInputEvent::IE_Pressed,this, &ACPlayer::OnJump);
 	PlayerInputComponent->BindAction("Jump", EInputEvent::IE_Released,this, &ACharacter::StopJumping);
 	PlayerInputComponent->BindAction("PrimaryAct", EInputEvent::IE_Pressed,this, &ACPlayer::OnPrimaryAct);
@@ -238,15 +239,19 @@ void ACPlayer::OnJump()
 	Jump();
 }
 
-
-void ACPlayer::Begin_Jump()
+void ACPlayer::OnReload()
 {
-	MontageComp->PlayJump();
+	CheckFalse(StateComp->IsIdleMode());
+	CheckFalse(ActionComp->IsPistolMode());
+	StateComp->SetReloadMode();
 }
 
-void ACPlayer::Begin_Parkour()
+void ACPlayer::Begin_Reload()
 {
+	MontageComp->PlayReload();
 }
+
+
 
 void ACPlayer::End_Jump()
 {
@@ -257,15 +262,20 @@ void ACPlayer::End_Parkour()
 {
 }
 
+void ACPlayer::End_Reload()
+{
+	StateComp->SetIdleMode();
+}
+
 
 //Change State
 void ACPlayer::OnStateTypeChanged(EStateType PreType, EStateType NewType)
 {
 	switch (NewType)
 	{
-	case EStateType::Parkour:
+	case EStateType::Reload:
 	{
-		Begin_Parkour();
+		Begin_Reload();
 		break;
 	}
 	case EStateType::Hitted:

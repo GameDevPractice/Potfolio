@@ -12,6 +12,7 @@ class UCActionComponent;
 class UCActionData;
 class APlayerController;
 
+
  
 UCLASS()
 class POTPOLIO_API ACDoAction : public AActor
@@ -40,6 +41,7 @@ protected:
 	ACharacter* OwnerCharacter;
 	UCStateComponent* StateComp;
 	UCActionComponent* ActionComp;
+
 	APlayerController* PC;
 	bool bAiming;
 

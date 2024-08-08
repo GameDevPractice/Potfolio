@@ -8,6 +8,7 @@ class ACbullet;
 class UCActionData;
 class ACAttachment;
 class UAim;
+class UCMontageComponent;
 
 UCLASS()
 class POTPOLIO_API ACDoAction_Pistol : public ACDoAction
@@ -23,23 +24,29 @@ protected:
 public:
 	virtual void DoAction() override;
 	virtual void SubDoAction(bool InbAiming) override;
+
+public:
+	UFUNCTION(BlueprintPure)
+	FORCEINLINE int32 GetCurrentBulletCount() { return CurrentBulletCount; }
+	UFUNCTION(BlueprintPure)
+	FORCEINLINE int32 GetMaxBulletCount() { return MaxBulletCount; }
 	
 private:
 	UFUNCTION()
 	void OnBulletBeginOverlap(FHitResult InHitResult);
 
-private:
-	void DecreaseBullet();
+public:
+	void OnReload();
+
 
 private:
 
 	ACbullet* Bullet;
+	UCMontageComponent* MontageComp;
+	UAim* Aim;
 	UCActionData* ActionData;
 	ACAttachment* Attachment;
-
-	UAim* Aim;
-
-	int32 MaxBulletCount;
 	int32 CurrentBulletCount;
+	int32 MaxBulletCount;
 
 };

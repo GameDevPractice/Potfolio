@@ -1,10 +1,15 @@
 #include "CHUD.h"
 #include "Global.h"
 #include "Engine/Canvas.h"
+#include "Blueprint/UserWidget.h"
+#include "UI/CBulletCountWidget.h"
 
 ACHUD::ACHUD()
 {
 	CHelpers::GetAsset(&CrossHairTexture,"/Game/UI/Img/T_Crosshair");
+	CHelpers::GetClass(&BulletWidget, "/Game/UI/WB_BulletCount");
+
+
 	bVisibleAim = false;
 }
 
@@ -12,10 +17,18 @@ void ACHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
+
+
+	BulletCountWidget = Cast<UCBulletCountWidget>(CreateWidget(GetWorld(), BulletWidget));
+	CheckNull(BulletCountWidget);
+
+	BulletCountWidget->AddToViewport();
+	BulletCountWidget->SetVisibility(ESlateVisibility::Visible);
 }
 
 void ACHUD::DrawHUD()
 {
+	
 	CheckFalse(bVisibleAim);
 	FVector2D Center(Canvas->ClipX * .5f, Canvas->ClipY * .5f);
 	FVector2D ImageSize(CrossHairTexture->GetSizeX() * 0.5f, CrossHairTexture->GetSizeY() * 0.5f);

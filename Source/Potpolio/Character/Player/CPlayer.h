@@ -44,12 +44,14 @@ private:
 	void OffSecondaryAct();
 
 	void OnJump();
-	void Begin_Jump();
-	void Begin_Parkour();
+
+	void OnReload();
+	void Begin_Reload();
 
 public:
 	void End_Jump();
 	void End_Parkour();
+	void End_Reload();
 
 
 
@@ -75,8 +77,8 @@ private:
 
 	TArray<UMaterialInstanceDynamic*> Materials;
 
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Component")
+protected:
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
 		UCActionComponent* ActionComp;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Component")

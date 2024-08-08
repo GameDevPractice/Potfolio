@@ -38,7 +38,6 @@ void ACbullet::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 	{
 		OnBulletBeginOverlap.Broadcast(SweepResult);
 	}
-	CLog::Print("BeginOverlap");
 	Destroy();
 }
 

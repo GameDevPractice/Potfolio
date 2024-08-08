@@ -5,6 +5,9 @@
 #include "CHUD.generated.h"
 
 
+class UUserWidget;
+class UCBulletCountWidget;
+
 UCLASS()
 class POTPOLIO_API ACHUD : public AHUD
 {
@@ -23,11 +26,15 @@ public:
 	void VisibleAim();
 	void InVisibleAim();
 
-private:
-	UPROPERTY(EditDefaultsOnly)
-		UTexture2D* CrossHairTexture;
 
 private:
+	UPROPERTY(EditDefaultsOnly)
+	UTexture2D* CrossHairTexture;
+
+	TSubclassOf<UUserWidget> BulletWidget;
+	UCBulletCountWidget* BulletCountWidget;
+	 
+	
 	bool bVisibleAim;
 	
 };

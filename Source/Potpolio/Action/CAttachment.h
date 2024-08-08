@@ -26,7 +26,6 @@ public:
 
 	 FORCEINLINE UParticleSystem* GetParticle() { return ParticleComp; }
 	 FORCEINLINE USoundBase* GetSound() { return Sound; }
-	 FORCEINLINE int32 GetMaxBullet() { return MaxBullet; }
 
 public:
 	UFUNCTION(BlueprintImplementableEvent)
@@ -52,10 +51,10 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Sound")
 		USoundBase* Sound;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Bullet")
-		int32 MaxBullet;
 protected:
 	UPROPERTY(BlueprintReadOnly)
 		ACharacter* OwnerCharacter;
+
+
 
 };

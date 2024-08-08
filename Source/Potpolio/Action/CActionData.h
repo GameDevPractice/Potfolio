@@ -58,6 +58,9 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UMatineeCameraShake> CameraShake;
 
+	UPROPERTY(EditDefaultsOnly)
+	int32 MaxBullet;
+
 };
 
 UCLASS()
@@ -71,6 +74,7 @@ public:
 public:
 	FORCEINLINE ACEquipment* GetEquipment() { return Equipment; }
 	FORCEINLINE ACAttachment* GetAttachment() { return Attachment; }
+	UFUNCTION(BlueprintPure)
 	FORCEINLINE ACDoAction* GetDoAction() { return DoAction; }
 
 public:

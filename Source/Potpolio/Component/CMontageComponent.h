@@ -40,7 +40,7 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	void PlayJump();
+	void PlayReload();
 	void PlayHitted();
 	void PlayDead();
 

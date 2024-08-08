@@ -37,9 +37,9 @@ void UCMontageComponent::BeginPlay()
 
 }
 
-void UCMontageComponent::PlayJump()
+void UCMontageComponent::PlayReload()
 {
-	PlayAnimMontage(EStateType::Jump);
+	PlayAnimMontage(EStateType::Reload);
 }
 
 void UCMontageComponent::PlayHitted()

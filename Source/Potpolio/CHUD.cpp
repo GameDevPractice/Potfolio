@@ -23,13 +23,16 @@ void ACHUD::BeginPlay()
 	CheckNull(BulletCountWidget);
 
 	BulletCountWidget->AddToViewport();
-	BulletCountWidget->SetVisibility(ESlateVisibility::Visible);
+	
 }
 
 void ACHUD::DrawHUD()
 {
-	
+	BulletCountWidget->SetVisibility(ESlateVisibility::Hidden);
+
 	CheckFalse(bVisibleAim);
+	BulletCountWidget->SetVisibility(ESlateVisibility::Visible);
+
 	FVector2D Center(Canvas->ClipX * .5f, Canvas->ClipY * .5f);
 	FVector2D ImageSize(CrossHairTexture->GetSizeX() * 0.5f, CrossHairTexture->GetSizeY() * 0.5f);
 

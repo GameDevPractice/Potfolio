@@ -188,6 +188,10 @@ void ACPlayer::OnLockUp(float Axix)
 void ACPlayer::OnLockRight(float Axix)
 {
 	AddControllerYawInput(Axix);
+	FRotator Rotation;
+	Rotation.Pitch = Rotation.Roll = 0.0f;
+	Rotation.Yaw = GetControlRotation().Yaw;
+	SetActorRotation(Rotation);
 }
 
 

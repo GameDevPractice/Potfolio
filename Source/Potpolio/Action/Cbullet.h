@@ -7,6 +7,7 @@
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
 class UCapsuleComponent;
+class UMaterialInstanceConstant;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBulletBeginOverlap, FHitResult, InHitResult);
 
@@ -38,4 +39,8 @@ private:
 
 	UPROPERTY(VisibleDefaultsOnly)
 		UProjectileMovementComponent* ProjectileComp;
+
+protected:
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Decal")
+		UMaterialInstanceConstant* Decal;
 };

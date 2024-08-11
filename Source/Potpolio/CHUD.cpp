@@ -17,8 +17,6 @@ void ACHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-
-
 	BulletCountWidget = Cast<UCBulletCountWidget>(CreateWidget(GetWorld(), BulletWidget));
 	CheckNull(BulletCountWidget);
 
@@ -34,7 +32,7 @@ void ACHUD::DrawHUD()
 	BulletCountWidget->SetVisibility(ESlateVisibility::Visible);
 
 	FVector2D Center(Canvas->ClipX * .5f, Canvas->ClipY * .5f);
-	FVector2D ImageSize(CrossHairTexture->GetSizeX() * 0.5f, CrossHairTexture->GetSizeY() * 0.5f);
+	FVector2D ImageSize(CrossHairTexture->GetSizeX() * 1.f, CrossHairTexture->GetSizeY() * 0.5f);
 
 	Center -= ImageSize;
 	FCanvasTileItem Item(Center, CrossHairTexture->Resource, FLinearColor::White);

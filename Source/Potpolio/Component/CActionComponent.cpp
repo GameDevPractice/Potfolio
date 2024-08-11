@@ -83,20 +83,16 @@ void UCActionComponent::SetMode(EActionType InNextType)
 		{
 			DataAssets[(int32)Type]->GetEquipment()->UnEquip();
 		}
-		//SetUnarmedMode();
 		return;
 	}
-
-	else if (IsUnarmedMode() == false)
+	else
 	{
 		CanUnArm = false;
-		if (DataAssets[(int32)Type] && DataAssets[(int32)Type]->GetEquipment())
-		{
-			DataAssets[(int32)Type]->GetEquipment()->UnEquip();
-		}
 	}
+
 	if (DataAssets[(int32)InNextType] && DataAssets[(int32)InNextType]->GetEquipment())
 	{
+		
 		DataAssets[(int32)InNextType]->GetEquipment()->Equip();
 		ChangeMode(InNextType);
 	}

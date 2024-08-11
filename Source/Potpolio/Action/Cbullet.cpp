@@ -1,6 +1,8 @@
 #include "Cbullet.h"
 #include "Global.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/DecalComponent.h"
+#include "Materials/MaterialInstanceConstant.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
@@ -9,6 +11,7 @@ ACbullet::ACbullet()
 {
 	CHelpers::CreateSceneComponent(this, &ParticleComp,"ParticleComp");
 	CHelpers::CreateSceneComponent(this, &CapsuleComp, "CapsuleComp", ParticleComp);
+	CHelpers::GetAsset(&Decal, "/Game/Materials/MI_Decal");
 
 	CHelpers::CreateActorComponent(this, &ProjectileComp, "ProjectileComp");
 
@@ -21,6 +24,8 @@ ACbullet::ACbullet()
 	CapsuleComp->SetRelativeScale3D(FVector(1.f, 1.f, 0.6425f));
 	CapsuleComp->SetCapsuleRadius(2.f);
 	CapsuleComp->SetCapsuleHalfHeight(22.f);
+
+	CapsuleComp->SetCollisionProfileName("Projectile");
 }
 
 

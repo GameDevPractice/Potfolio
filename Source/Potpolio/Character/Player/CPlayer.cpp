@@ -57,7 +57,7 @@ ACPlayer::ACPlayer()
 
 	//Player Setting
 	bUseControllerRotationYaw = false;
-	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->bOrientRotationToMovement = true;;
 	GetCharacterMovement()->RotationRate = FRotator(0, 720, 0);
 
 	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetWalkpeed();
@@ -188,10 +188,8 @@ void ACPlayer::OnLockUp(float Axix)
 void ACPlayer::OnLockRight(float Axix)
 {
 	AddControllerYawInput(Axix);
-	FRotator Rotation;
-	Rotation.Pitch = Rotation.Roll = 0.0f;
-	Rotation.Yaw = GetControlRotation().Yaw;
-	SetActorRotation(Rotation);
+
+	
 }
 
 
@@ -209,7 +207,8 @@ void ACPlayer::OnWalk()
 
 void ACPlayer::OnSword()
 {
-	CheckFalse(ActionComp->IsUnarmedMode());
+	CheckFalse(StateComp->IsIdleMode());
+	ActionComp->SetSwordMode();
 }
 
 

@@ -53,10 +53,11 @@ void ACDoAction_Pistol::DoAction()
 
 	FVector CamLoc;
 	FRotator CamRot;
+
 	OwnerCharacter->GetController()->GetPlayerViewPoint(CamLoc, CamRot);
 
-
-	Transform.SetLocation(MuzzleLocation);
+	FVector SpawnLocation = MuzzleLocation + CamRot.Vector() * ((MuzzleLocation - CamLoc) | CamRot.Vector());
+	Transform.SetLocation(SpawnLocation);
 	Transform.SetRotation(FQuat(CamRot));
 
 	Bullet = OwnerCharacter->GetWorld()->SpawnActorDeferred<ACbullet>(Data[0].Bullet, Transform, OwnerCharacter, OwnerCharacter, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
@@ -95,10 +96,11 @@ void ACDoAction_Pistol::SubDoAction(bool InbAiming)
 void ACDoAction_Pistol::OnBulletBeginOverlap(FHitResult InHitResult)
 {
 	FHitResult HitResult = InHitResult;
+	
 	if (Data[0].Particle)
 	{
 		FTransform EffectLocation = Data[0].EffectTransforms;
-		EffectLocation.AddToTranslation(HitResult.ImpactPoint);
+		EffectLocation.AddToTranslation(Bullet->GetActorLocation());
 		EffectLocation.SetRotation(FQuat(HitResult.ImpactNormal.Rotation()));
 
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),Data[0].Particle, EffectLocation);

@@ -37,7 +37,7 @@ void UAim::OnAim()
 	HUD->VisibleAim();
 
 	//Camera zoom out
-	SpringArmComp->TargetArmLength = 50.f;
+	SpringArmComp->TargetArmLength = 100.f;
 	SpringArmComp->SocketOffset = FVector(0, 30, 10);
 	SpringArmComp->bEnableCameraLag = false;
 

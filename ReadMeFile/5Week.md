@@ -6,7 +6,8 @@ DoAction_Pistol(DoAction 부분) 살짝 수정  (완)
 회전 부분을 Trace 사용하기
 }  
 무기 변경 수정 - 4주차때 완료인줄 알았으나 수정이 필요함(완)
-Katana_Equip,UnEquip 사운드 재생_
+Katana_Equip,UnEquip 사운드 재생(완)  
+pistol Reload, Aiming 사운드 재생 -> notify로 변경할것
 
 ## 목표 달성도
 ### 총알 발사 수정

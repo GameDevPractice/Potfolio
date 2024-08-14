@@ -7,15 +7,16 @@
 #include "Action/CActionData.h"
 #include "Action/CAttachment.h"
 #include "Action/CBullet.h"
-#include "Aim.h"
 #include "Camera/CameraShake.h"
+#include "Aim.h"
 
 
 
 ACDoAction_Pistol::ACDoAction_Pistol()
 {
 	Aim = CreateDefaultSubobject<UAim>("Aim");
-	
+	CHelpers::GetAsset(&ReloadSound, "/Game/Action/Sound/ReloadPistoll_Cue");
+	CHelpers::GetAsset(&AimSound, "/Game/Action/Sound/AimPistol_Cue");
 }
 
 void ACDoAction_Pistol::BeginPlay()
@@ -25,9 +26,10 @@ void ACDoAction_Pistol::BeginPlay()
 	
 	MontageComp = CHelpers::GetComponent<UCMontageComponent>(OwnerCharacter);
 
+	
+
 	MaxBulletCount = Data[0].MaxBullet;
 	CurrentBulletCount = MaxBulletCount;
-	CLog::Print(__FUNCTION__);
 	
 }
 
@@ -91,6 +93,7 @@ void ACDoAction_Pistol::SubDoAction(bool InbAiming)
 {
 	bAiming = InbAiming;
 	Aim->SetVisiblity(InbAiming);
+	UGameplayStatics::PlaySound2D(GetWorld(), AimSound);
 }
 
 void ACDoAction_Pistol::OnBulletBeginOverlap(FHitResult InHitResult)
@@ -113,6 +116,7 @@ void ACDoAction_Pistol::OnBulletBeginOverlap(FHitResult InHitResult)
 void ACDoAction_Pistol::OnReload()
 {
 	CurrentBulletCount = MaxBulletCount;
+	UGameplayStatics::PlaySound2D(GetWorld(),ReloadSound);
 }
 
 

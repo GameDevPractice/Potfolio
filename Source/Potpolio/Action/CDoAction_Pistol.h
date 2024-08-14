@@ -9,6 +9,7 @@ class UCActionData;
 class ACAttachment;
 class UAim;
 class UCMontageComponent;
+class USoundBase;
 
 UCLASS()
 class POTPOLIO_API ACDoAction_Pistol : public ACDoAction
@@ -48,5 +49,7 @@ private:
 	ACAttachment* Attachment;
 	int32 CurrentBulletCount;
 	int32 MaxBulletCount;
+	USoundBase* ReloadSound;
+	USoundBase* AimSound;
 
 };

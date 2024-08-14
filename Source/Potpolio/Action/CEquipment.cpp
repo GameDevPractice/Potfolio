@@ -85,8 +85,4 @@ void ACEquipment::End_UnEquip_Implementation()
 	{
 		OnUnequipmentDelegate.Broadcast();
 	}
-	if (ActionComp->IsCanUnArm())
-	{
-		ActionComp->SetUnarmedMode();
-	}
 }

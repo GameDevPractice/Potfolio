@@ -33,11 +33,15 @@ public:
 public:
 	UFUNCTION(BlueprintPure)
 		FORCEINLINE UCActionData* GetCurrentActionData() { return DataAssets[(int32)Type]; }
+		FORCEINLINE EActionType GetCurrentType() { return NextType; }
 		FORCEINLINE bool IsCanUnArm() { return CanUnArm; }
+		FORCEINLINE bool IsCanChange() { return CanChange; }
+
 
 public:
 	void DoAction();
 	void DoSubAction(bool InbAiming);
+	void ChangeEquip(EActionType InNextType);
 
 public:
 	//상태 변경하는 함수 (외부)
@@ -62,6 +66,9 @@ private:
 
 private:
 	EActionType Type;
+
+	EActionType NextType;
 	bool CanUnArm;
+	bool CanChange;
 		
 };

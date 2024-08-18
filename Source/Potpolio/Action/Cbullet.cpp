@@ -1,6 +1,6 @@
 #include "Cbullet.h"
 #include "Global.h"
-#include "Components/CapsuleComponent.h"
+#include "Components/SphereComponent.h"
 #include "Components/DecalComponent.h"
 #include "Materials/MaterialInstanceConstant.h"
 #include "Particles/ParticleSystemComponent.h"
@@ -9,8 +9,8 @@
 
 ACbullet::ACbullet()
 {
-	CHelpers::CreateSceneComponent(this, &ParticleComp,"ParticleComp");
-	CHelpers::CreateSceneComponent(this, &CapsuleComp, "CapsuleComp", ParticleComp);
+	CHelpers::CreateSceneComponent(this, &ParticleComp,"ParticleComp", SphereComp);
+	CHelpers::CreateSceneComponent(this, &SphereComp, "SphereComp");
 	CHelpers::GetAsset(&Decal, "/Game/Materials/MI_Decal");
 
 	CHelpers::CreateActorComponent(this, &ProjectileComp, "ProjectileComp");
@@ -20,12 +20,7 @@ ACbullet::ACbullet()
 	ProjectileComp->MaxSpeed = 8000.f;
 	ProjectileComp->ProjectileGravityScale = 0.0f;
 
-	CapsuleComp->SetRelativeRotation(FRotator(90.f, 0.f, 0.f));
-	CapsuleComp->SetRelativeScale3D(FVector(1.f, 1.f, 0.6425f));
-	CapsuleComp->SetCapsuleRadius(2.f);
-	CapsuleComp->SetCapsuleHalfHeight(22.f);
-
-	CapsuleComp->SetCollisionProfileName("Projectile");
+	SphereComp->SetCollisionProfileName("Projectile");
 }
 
 
@@ -33,7 +28,7 @@ ACbullet::ACbullet()
 void ACbullet::BeginPlay()
 {
 	Super::BeginPlay();
-	CapsuleComp->OnComponentBeginOverlap.AddDynamic(this, &ACbullet::OnComponentBeginOverlap);
+	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &ACbullet::OnComponentBeginOverlap);
 }
 
 void ACbullet::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

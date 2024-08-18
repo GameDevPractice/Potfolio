@@ -8,6 +8,7 @@ DoAction_Pistol(DoAction 부분) 살짝 수정  (완)
 무기 변경 수정 - 4주차때 완료인줄 알았으나 수정이 필요함(완)
 Katana_Equip,UnEquip 사운드 재생(완)  
 pistol Reload, Aiming 사운드 재생 -> notify로 변경할것
+적 애셋 구하기(완)
 
 ## 목표 달성도
 ### 총알 발사 수정
@@ -21,10 +22,10 @@ pistol Reload, Aiming 사운드 재생 -> notify로 변경할것
 총알이 Hit가 될 시 Decal을 스폰하게 하였다
 
 사격 전  
-![Swpawn Decal Before](Image/SwpawnDecal_Before.png)
+![Fire Before](Image/FireBefore.png)
 
 사격 후  
-![Swpawn Decal After](Image/SwpawnDecal_After.png)
+![Fire After](Image/FireAfter.png)
 
 
 ### 무기 변경
@@ -52,5 +53,8 @@ ActionComp_SetMode() -> Equipment_UnEquip() -> AnimMotifyState_UnEquip() -> Anim
 
 ### Play Sound
 노티파이 사용
+
+### Enemy
+
 
 

@@ -8,6 +8,7 @@
 #include "Action/CAttachment.h"
 #include "Action/CBullet.h"
 #include "Camera/CameraShake.h"
+#include "DrawDebugHelpers.h"
 #include "Aim.h"
 
 
@@ -46,6 +47,8 @@ void ACDoAction_Pistol::DoAction()
 	Attachment = ActionData->GetAttachment();
 	CheckNull(Attachment);
 
+	
+
 	//Spawn Bullet
 	FTransform Transform;
 	
@@ -56,16 +59,41 @@ void ACDoAction_Pistol::DoAction()
 	FVector CamLoc;
 	FRotator CamRot;
 
-	OwnerCharacter->GetController()->GetPlayerViewPoint(CamLoc, CamRot);
+	PC->GetPlayerViewPoint(CamLoc, CamRot);
 
-	FVector SpawnLocation = MuzzleLocation + CamRot.Vector() * ((MuzzleLocation - CamLoc) | CamRot.Vector());
-	Transform.SetLocation(SpawnLocation);
-	Transform.SetRotation(FQuat(CamRot));
+	//Traace
+	FCollisionObjectQueryParams QueryParams;
+	QueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	QueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	QueryParams.AddObjectTypesToQuery(ECC_Pawn);
 
-	Bullet = OwnerCharacter->GetWorld()->SpawnActorDeferred<ACbullet>(Data[0].Bullet, Transform, OwnerCharacter, OwnerCharacter, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+	FCollisionShape Shape;
+	Shape.SetSphere(20.f);
 
-	//Finish Spawn
-	Bullet->FinishSpawning(Transform);
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(OwnerCharacter);
+
+	FActorSpawnParameters SpawnParam;
+	SpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParam.Instigator = OwnerCharacter;
+
+	FHitResult TraceHit;
+	FVector TraceStart = CamLoc;
+	FVector TraceEnd = TraceStart + (CamRot.Vector() * 100000.f);
+
+	if (GetWorld()->SweepSingleByObjectType(TraceHit, TraceStart, TraceEnd,FQuat::Identity ,QueryParams, Shape,Params))
+	{
+		 TraceEnd = TraceHit.ImpactPoint;
+	}
+		 DrawDebugLine(GetWorld(),TraceStart,TraceEnd,FColor::Red,false,5.f);
+	
+
+	FRotator Rotation =  FRotationMatrix::MakeFromX( TraceEnd - MuzzleLocation).Rotator();
+	FTransform SpawnTransform(Rotation, MuzzleLocation);
+
+	
+
+	Bullet = GetWorld()->SpawnActor<ACbullet>(Data[0].Bullet, SpawnTransform, SpawnParam);
 	
 	//Bind BulletDelegate
 	Bullet->OnBulletBeginOverlap.AddDynamic(this, &ACDoAction_Pistol::OnBulletBeginOverlap);

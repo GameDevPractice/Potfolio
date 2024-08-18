@@ -6,7 +6,7 @@
 
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
-class UCapsuleComponent;
+class USphereComponent;
 class UMaterialInstanceConstant;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBulletBeginOverlap, FHitResult, InHitResult);
@@ -32,7 +32,7 @@ public:
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
-		UCapsuleComponent* CapsuleComp;
+		USphereComponent* SphereComp;
 
 	UPROPERTY(VisibleDefaultsOnly)
 	UParticleSystemComponent* ParticleComp;

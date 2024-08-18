@@ -42,10 +42,12 @@ void ACHUD::DrawHUD()
 
 void ACHUD::VisibleAim()
 {
+	if(!bVisibleAim)
 	bVisibleAim = true;
 }
 
 void ACHUD::InVisibleAim()
 {
+	if(bVisibleAim)
 	bVisibleAim = false;
 }

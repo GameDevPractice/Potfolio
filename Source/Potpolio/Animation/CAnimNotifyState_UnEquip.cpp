@@ -1,7 +1,7 @@
 #include "CAnimNotifyState_UnEquip.h"
 #include "Global.h"
 #include "Component/CActionComponent.h"
-#include "Action/CActionData.h"
+#include "Action/CAction.h"
 #include "Action/CEquipment.h"
 
 FString UCAnimNotifyState_UnEquip::GetNotifyName() const
@@ -17,7 +17,7 @@ void UCAnimNotifyState_UnEquip::NotifyBegin(USkeletalMeshComponent* MeshComp, UA
     UCActionComponent* ActionComp = CHelpers::GetComponent<UCActionComponent>(MeshComp->GetOwner());
     CheckNull(ActionComp);
 
-    UCActionData* ActionData = ActionComp->GetCurrentActionData();
+    UCAction* ActionData = ActionComp->GetCurrentAction();
     CheckNull(ActionData);
 
     ACEquipment* Equipment = ActionData->GetEquipment();
@@ -35,7 +35,7 @@ void UCAnimNotifyState_UnEquip::NotifyEnd(USkeletalMeshComponent* MeshComp, UAni
     UCActionComponent* ActionComp = CHelpers::GetComponent<UCActionComponent>(MeshComp->GetOwner());
     CheckNull(ActionComp);
 
-    UCActionData* ActionData = ActionComp->GetCurrentActionData();
+    UCAction* ActionData = ActionComp->GetCurrentAction();
     CheckNull(ActionData);
 
     ACEquipment* Equipment = ActionData->GetEquipment();

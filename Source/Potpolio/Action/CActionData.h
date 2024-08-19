@@ -12,6 +12,7 @@ class ACAttachment;
 class ACDoAction;
 class ACbullet;
 class UMatineeCameraShake;
+class UCAction;
 
 //장착에 관한 데이터들
 USTRUCT(BlueprintType)
@@ -69,13 +70,8 @@ class POTPOLIO_API UCActionData : public UDataAsset
 	GENERATED_BODY()
 
 public:
-	void BeginPlay(ACharacter* InOwnerCharacter);
+	void BeginPlay(ACharacter* InOwnerCharacter, UCAction** OutAction);
 
-public:
-	FORCEINLINE ACEquipment* GetEquipment() { return Equipment; }
-	FORCEINLINE ACAttachment* GetAttachment() { return Attachment; }
-	UFUNCTION(BlueprintPure)
-	FORCEINLINE ACDoAction* GetDoAction() { return DoAction; }
 
 public:
 	//Equipment Data
@@ -97,8 +93,5 @@ public:
 		TSubclassOf<ACDoAction> DoActionClass;
 	UPROPERTY(EditDefaultsOnly, Category = "DoAction")
 		TArray<FDoActionData> DoActionData;
-private:
-	ACEquipment* Equipment;
-	ACAttachment* Attachment;
-	ACDoAction* DoAction;
+
 };

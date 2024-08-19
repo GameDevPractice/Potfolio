@@ -4,10 +4,13 @@
 #include "CEquipment.h"
 #include "CAttachment.h"
 #include "CDoAction.h"
+#include "CAction.h"
 
-void UCActionData::BeginPlay(ACharacter* InOwnerCharacter)
+void UCActionData::BeginPlay(ACharacter* InOwnerCharacter, UCAction** OutAction)
 {
 	FTransform Transform;
+
+	ACAttachment* Attachment = nullptr;
 	
 	//Attachment Attach
 	if (AttachmentClass)
@@ -16,7 +19,7 @@ void UCActionData::BeginPlay(ACharacter* InOwnerCharacter)
 		Attachment->FinishSpawning(Transform);
 	}
 
-
+	ACEquipment* Equipment = nullptr;
 	//Equipment Attach
 	if (EquipmentClass)
 	{
@@ -31,6 +34,7 @@ void UCActionData::BeginPlay(ACharacter* InOwnerCharacter)
 		}
 	}
 
+	ACDoAction* DoAction = nullptr;
 	//DoAction
 	if (DoActionClass)
 	{
@@ -39,5 +43,11 @@ void UCActionData::BeginPlay(ACharacter* InOwnerCharacter)
 		DoAction->AttachToComponent(InOwnerCharacter->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), NAME_None);
 		DoAction->FinishSpawning(Transform);
 	}
+
+	*OutAction = NewObject<UCAction>();
+	(*OutAction)->Attachment = Attachment;
+	(*OutAction)->Equipment = Equipment;
+	(*OutAction)->DoAction = DoAction;
+
 }
 

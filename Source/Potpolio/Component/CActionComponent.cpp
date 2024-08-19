@@ -4,6 +4,7 @@
 #include "Action/CActionData.h"
 #include "Action/CEquipment.h"
 #include "Action/CDoAction.h"
+#include "Action/CAction.h"
 
 UCActionComponent::UCActionComponent()
 {
@@ -24,7 +25,7 @@ void UCActionComponent::BeginPlay()
 	{
 		if (DataAssets[i])
 		{
-			DataAssets[i]->BeginPlay(OwnerCharacter);
+			DataAssets[i]->BeginPlay(OwnerCharacter,&Datas[i]);
 		}
 
 	}
@@ -36,9 +37,9 @@ void UCActionComponent::DoAction()
 {
 	CheckTrue(IsUnarmedMode());
 
-	if (DataAssets[(int32)Type] && DataAssets[(int32)Type]->GetDoAction())
+	if (Datas[(int32)Type] && Datas[(int32)Type]->GetDoAction())
 	{
-		ACDoAction* DoAction = DataAssets[(int32)Type]->GetDoAction();
+		ACDoAction* DoAction = Datas[(int32)Type]->GetDoAction();
 		DoAction->DoAction();
 	}
 }
@@ -47,9 +48,9 @@ void UCActionComponent::DoSubAction(bool InbAiming)
 {
 	CheckFalse(IsPistolMode());
 
-	if (DataAssets[(int32)Type] && DataAssets[(int32)Type]->GetDoAction())
+	if (Datas[(int32)Type] && Datas[(int32)Type]->GetDoAction())
 	{
-		ACDoAction* DoAction = DataAssets[(int32)Type]->GetDoAction();
+		ACDoAction* DoAction = Datas[(int32)Type]->GetDoAction();
 		DoAction->SubDoAction(InbAiming);
 		if (ONAimChanged.IsBound())
 		{
@@ -94,9 +95,9 @@ void UCActionComponent::SetMode(EActionType InNextType)
 		CanUnArm = false;
 		CanChange = true;
 	}
-	if (DataAssets[(int32)Type] && DataAssets[(int32)Type]->GetEquipment())
+	if (Datas[(int32)Type] && Datas[(int32)Type]->GetEquipment())
 	{
-		DataAssets[(int32)Type]->GetEquipment()->UnEquip();
+		Datas[(int32)Type]->GetEquipment()->UnEquip();
 	}
 	NextType = InNextType;
 }
@@ -104,9 +105,9 @@ void UCActionComponent::SetMode(EActionType InNextType)
 void UCActionComponent::ChangeEquip(EActionType InNextType)
 {
 	CanChange = false;
-	if (DataAssets[(int32)InNextType] && DataAssets[(int32)InNextType]->GetEquipment())
+	if (Datas[(int32)InNextType] && Datas[(int32)InNextType]->GetEquipment())
 	{
-		DataAssets[(int32)InNextType]->GetEquipment()->Equip();
+		Datas[(int32)InNextType]->GetEquipment()->Equip();
 		ChangeMode(InNextType);
 	}
 }

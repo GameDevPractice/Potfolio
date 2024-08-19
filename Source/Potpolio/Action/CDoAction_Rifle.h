@@ -2,53 +2,52 @@
 
 #include "CoreMinimal.h"
 #include "Action/CDoAction.h"
-#include "CDoAction_Pistol.generated.h"
+#include "CDoAction_Rifle.generated.h"
 
 class ACbullet;
 class UCAction;
 class ACAttachment;
-class UAim;
 class UCMontageComponent;
 class USoundBase;
 
 UCLASS()
-class POTPOLIO_API ACDoAction_Pistol : public ACDoAction
+class POTPOLIO_API ACDoAction_Rifle : public ACDoAction
 {
 	GENERATED_BODY()
-
+	
 public:
-	ACDoAction_Pistol();
-
+	ACDoAction_Rifle();
 protected:
 	virtual void BeginPlay() override;
 
 public:
 	virtual void DoAction() override;
-	virtual void SubDoAction(bool InbAiming) override;
 
 public:
 	UFUNCTION(BlueprintPure)
-	FORCEINLINE int32 GetCurrentBulletCount() { return CurrentBulletCount; }
+		FORCEINLINE int32 GetCurrentBulletCount() { return CurrentBulletCount; }
 	UFUNCTION(BlueprintPure)
-	FORCEINLINE int32 GetMaxBulletCount() { return MaxBulletCount; }
-	
+		FORCEINLINE int32 GetMaxBulletCount() { return MaxBulletCount; }
+
 private:
 	UFUNCTION()
-	void OnBulletBeginOverlap(FHitResult InHitResult);
+		void OnBulletBeginOverlap(FHitResult InHitResult);
 
 public:
 	void OnReload();
+
+private:
+	void OnFire();
 
 
 private:
 	ACbullet* Bullet;
 	UCMontageComponent* MontageComp;
-	UAim* Aim;
 	UCAction* ActionData;
 	ACAttachment* Attachment;
 	int32 CurrentBulletCount;
 	int32 MaxBulletCount;
 	USoundBase* ReloadSound;
 	USoundBase* AimSound;
-
+	
 };

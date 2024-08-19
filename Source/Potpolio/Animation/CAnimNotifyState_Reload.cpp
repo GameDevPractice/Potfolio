@@ -1,7 +1,7 @@
 #include "Animation/CAnimNotifyState_Reload.h"
 #include "Global.h"
 #include "Component/CActionComponent.h"
-#include "Action/CActionData.h"
+#include "Action/CAction.h"
 #include "ACtion/CDoAction_Pistol.h"
 #include "Character/Player/CPlayer.h"
 
@@ -19,7 +19,7 @@ void UCAnimNotifyState_Reload::NotifyBegin(USkeletalMeshComponent* MeshComp, UAn
     UCActionComponent* ActionComp = CHelpers::GetComponent<UCActionComponent>(MeshComp->GetOwner());
     CheckNull(ActionComp);
 
-    UCActionData* ActionData = ActionComp->GetCurrentActionData();
+    UCAction* ActionData = ActionComp->GetCurrentAction();
     CheckNull(ActionData);
 
     ACDoAction_Pistol* DoAction = Cast<ACDoAction_Pistol>(ActionData->GetDoAction());

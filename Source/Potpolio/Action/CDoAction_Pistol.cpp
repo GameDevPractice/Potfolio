@@ -4,7 +4,7 @@
 #include "Component/CActionComponent.h"
 #include "Component/CMontageComponent.h"
 #include "Component/CStateComponent.h"
-#include "Action/CActionData.h"
+#include "Action/CAction.h"
 #include "Action/CAttachment.h"
 #include "Action/CBullet.h"
 #include "Camera/CameraShake.h"
@@ -42,7 +42,7 @@ void ACDoAction_Pistol::DoAction()
 	CurrentBulletCount--;
 
 	CheckNull(ActionComp);
-	ActionData = ActionComp->GetCurrentActionData();
+	ActionData = ActionComp->GetCurrentAction();
 	CheckNull(ActionData);
 	Attachment = ActionData->GetAttachment();
 	CheckNull(Attachment);

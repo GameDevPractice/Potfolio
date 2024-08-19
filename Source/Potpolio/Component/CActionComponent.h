@@ -4,10 +4,14 @@
 #include "Components/ActorComponent.h"
 #include "CActionComponent.generated.h"
 
+
+class UCActionData;
+class UCAction;
+
 UENUM(BlueprintType)
 enum class EActionType : uint8
 {
-	UnArmed, Sword, Pistol,Max
+	UnArmed, Sword, Pistol,Rifle,Max
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FActionTypeChanged, EActionType, InPrevType, EActionType, InNewType);
@@ -29,10 +33,12 @@ public:
 	FORCEINLINE bool IsUnarmedMode() { return (Type == EActionType::UnArmed); }
 	FORCEINLINE bool IsSwordMode() { return (Type == EActionType::Sword); }
 	FORCEINLINE bool IsPistolMode() { return (Type == EActionType::Pistol); }
+	FORCEINLINE bool IsRifleMode() { return (Type == EActionType::Rifle); }
 
 public:
 	UFUNCTION(BlueprintPure)
 		FORCEINLINE UCActionData* GetCurrentActionData() { return DataAssets[(int32)Type]; }
+		FORCEINLINE UCAction* GetCurrentAction() { return Datas[(int32)Type]; }
 		FORCEINLINE EActionType GetCurrentType() { return NextType; }
 		FORCEINLINE bool IsCanUnArm() { return CanUnArm; }
 		FORCEINLINE bool IsCanChange() { return CanChange; }
@@ -70,5 +76,8 @@ private:
 	EActionType NextType;
 	bool CanUnArm;
 	bool CanChange;
+
+	UPROPERTY()
+	UCAction* Datas[(int32)EActionType::Max];
 		
 };

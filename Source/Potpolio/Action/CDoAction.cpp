@@ -13,7 +13,6 @@ ACDoAction::ACDoAction()
 
 void ACDoAction::BeginPlay()
 {
-	Super::BeginPlay();
 	OwnerCharacter = Cast<ACharacter>(GetOwner());
 	CheckNull(OwnerCharacter);
 	
@@ -26,6 +25,7 @@ void ACDoAction::BeginPlay()
 
 	PC = OwnerCharacter->GetController<APlayerController>();
 	 
+	Super::BeginPlay();
 	
 }
 

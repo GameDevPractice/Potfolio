@@ -268,6 +268,29 @@ void ACPlayer::End_Reload()
 	StateComp->SetIdleMode();
 }
 
+float ACPlayer::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	DamageValue = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+	DamageInstigator = EventInstigator;
+
+	//ActionComp->Abort();
+	AttributeComp->OnDecreseHealth(Damage);
+
+	if (AttributeComp->GetCurrentHealth() <= 0)
+	{
+		StateComp->SetDeadMode();
+		return 0.0f;
+	}
+
+	StateComp->SetHittedMode();
+
+	return DamageValue;
+}
+
+void ACPlayer::Hitted()
+{
+	MontageComp->PlayHitted();
+}
 
 //Change State
 void ACPlayer::OnStateTypeChanged(EStateType PreType, EStateType NewType)
@@ -281,6 +304,7 @@ void ACPlayer::OnStateTypeChanged(EStateType PreType, EStateType NewType)
 	}
 	case EStateType::Hitted:
 	{
+		Hitted();
 		break;
 	}
 	case EStateType::Dead:

@@ -19,6 +19,7 @@ public:
 public:
 	FORCEINLINE ACEquipment* GetEquipment() { return Equipment; }
 	FORCEINLINE ACAttachment* GetAttachment() { return Attachment; }
+	UFUNCTION(BlueprintPure)
 	FORCEINLINE ACDoAction* GetDoAction() { return DoAction; }
 
 private:

@@ -38,6 +38,7 @@ public:
 public:
 	UFUNCTION(BlueprintPure)
 		FORCEINLINE UCActionData* GetCurrentActionData() { return DataAssets[(int32)Type]; }
+	UFUNCTION(BlueprintPure)
 		FORCEINLINE UCAction* GetCurrentAction() { return Datas[(int32)Type]; }
 		FORCEINLINE EActionType GetCurrentType() { return NextType; }
 		FORCEINLINE bool IsCanUnArm() { return CanUnArm; }

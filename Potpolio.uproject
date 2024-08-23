@@ -11,8 +11,15 @@
 			"AdditionalDependencies": [
 				"Engine",
 				"CoreUObject",
-				"UMG"
+				"UMG",
+				"AIModule"
 			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "Sketchfab",
+			"Enabled": false
 		}
 	]
 }

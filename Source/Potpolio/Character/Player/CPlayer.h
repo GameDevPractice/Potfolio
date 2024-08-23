@@ -59,8 +59,11 @@ public:
 
 protected:
 	UFUNCTION()
-		void OnStateTypeChanged(EStateType PreType, EStateType NewType);
+	void OnStateTypeChanged(EStateType PreType, EStateType NewType);
+	float TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
 
+private:
+	void Hitted();
 
 
 private:
@@ -89,4 +92,8 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
 		UCAttributeComponent* AttributeComp;
+
+private:
+	float DamageValue;
+	AController* DamageInstigator;
 };

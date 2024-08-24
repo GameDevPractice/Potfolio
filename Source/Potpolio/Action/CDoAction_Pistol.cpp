@@ -75,7 +75,7 @@ void ACDoAction_Pistol::DoAction()
 
 	FActorSpawnParameters SpawnParam;
 	SpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	SpawnParam.Instigator = OwnerCharacter;
+	SpawnParam.Instigator = OwnerCharacter->GetInstigator();
 
 	FHitResult TraceHit;
 	FVector TraceStart = CamLoc;
@@ -113,7 +113,6 @@ void ACDoAction_Pistol::DoAction()
 		CheckNull(MontageComp);
 		StateComp->SetReloadMode();
 		MontageComp->PlayReload();
-		CLog::Print(("Bullet Count : " + FString::FromInt(CurrentBulletCount)), -1, 1, FColor::Red);
 	}
 }
 

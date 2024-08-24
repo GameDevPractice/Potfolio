@@ -4,16 +4,55 @@
 #include "AIController.h"
 #include "CAIController.generated.h"
 
+class UAIPerceptionComponent;
+class UAISenseConfig_Sight;
+class ACEnemy_AI;
+class UCBehaviorComponent;
+
+
 UCLASS()
 class POTPOLIO_API ACAIController : public AAIController
 {
 	GENERATED_BODY()
+public:
+	ACAIController();
+protected:
+	virtual void OnPossess(APawn* InPawn) override;
+	virtual void OnUnPossess() override;
+	
+public:
+	virtual void Tick(float DeltaTime) override;
+
+private:
+	UFUNCTION()
+		void OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors);
+
+public:
+	float GetSightRadius();
+	FORCEINLINE float GetBehaviorRange() { return BehaviorRange; }
 
 protected:
-	virtual void BeginPlay() override;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = AI)
+	UAIPerceptionComponent* PerceptionComp;
 
-protected:
-	UPROPERTY(EditDefaultsOnly, Category = "AI")
-		UBehaviorTree* BehaviorTree;
+	UPROPERTY(VisibleDefaultsOnly)
+		UCBehaviorComponent* BehaviorComp;
+
+private:
+	UPROPERTY(EditAnywhere)
+		float BehaviorRange;
+
+	UPROPERTY(EditAnywhere)
+		bool bDrawRange;
+
+	UPROPERTY(EditDefaultsOnly)
+		int32 Segment;
+
+private:
+	ACEnemy_AI* OwnerEnemy;
+
+	UAISenseConfig_Sight* Sight;
+
+
 	
 };

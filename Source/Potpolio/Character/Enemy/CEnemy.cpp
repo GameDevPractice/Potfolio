@@ -61,14 +61,16 @@ float ACEnemy::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 
 void ACEnemy::Hitted()
 {
-	CLog::Print("Hitted");
 	MontageComp->PlayHitted();
 }
 
 void ACEnemy::Dead()
 {
-	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetAllBodiesSimulatePhysics(true);
 	GetMesh()->SetCollisionProfileName("Ragdoll");
+
+	FVector Impulse = GetActorForwardVector() * -20000.f;
+	GetMesh()->AddImpulse(Impulse);
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 

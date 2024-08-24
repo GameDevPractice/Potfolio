@@ -51,6 +51,8 @@ ACPlayer::ACPlayer()
 	SpringArmComp->TargetArmLength = 200.0f;
 	SpringArmComp->bUsePawnControlRotation = true;
 	SpringArmComp->bEnableCameraLag = true;
+	SpringArmComp->ProbeChannel= ECollisionChannel::ECC_Camera;
+
 
 	//CameraComp Setting
 	CameraComp->SetupAttachment(SpringArmComp);
@@ -161,6 +163,11 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("SecondaryAct", EInputEvent::IE_Pressed,this, &ACPlayer::OnSecondaryAct);
 	PlayerInputComponent->BindAction("SecondaryAct", EInputEvent::IE_Released,this, &ACPlayer::OffSecondaryAct);
 
+}
+
+FGenericTeamId ACPlayer::GetGenericTeamId() const
+{
+	return FGenericTeamId();
 }
 
 

@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Component/CStateComponent.h"
+#include "GenericTeamAgentInterface.h"
 #include "CPlayer.generated.h"
 
 class USpringArmComponent;
@@ -16,7 +17,7 @@ class UCStateComponent;
 class UCAttributeComponent;
 
 UCLASS()
-class POTPOLIO_API ACPlayer : public ACharacter
+class POTPOLIO_API ACPlayer : public ACharacter, public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -53,9 +54,8 @@ public:
 	void End_Parkour();
 	void End_Reload();
 
-
-
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual FGenericTeamId GetGenericTeamId() const override;
 
 protected:
 	UFUNCTION()
@@ -92,6 +92,10 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
 		UCAttributeComponent* AttributeComp;
+
+private:
+	UPROPERTY(EditDefaultsOnly, Category = "TeamID")
+		uint8 TeamID;
 
 private:
 	float DamageValue;

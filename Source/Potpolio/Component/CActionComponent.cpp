@@ -77,6 +77,11 @@ void UCActionComponent::SetPistolMode()
 	SetMode(EActionType::Pistol);
 }
 
+void UCActionComponent::SetRifleMode()
+{
+	SetMode(EActionType::Rifle);
+}
+
 void UCActionComponent::SetMode(EActionType InNextType)
 {
 	if (Type == EActionType::UnArmed)

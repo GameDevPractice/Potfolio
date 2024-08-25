@@ -9,26 +9,105 @@
 #include "Action/CBullet.h"
 #include "Camera/CameraShake.h"
 #include "DrawDebugHelpers.h"
+#include "AIController.h"
 
 ACDoAction_Rifle::ACDoAction_Rifle()
 {
-	
 }
 
 void ACDoAction_Rifle::BeginPlay()
 {
+	Super::BeginPlay();
+	MontageComp = CHelpers::GetComponent<UCMontageComponent>(OwnerCharacter);
+
+	MaxBulletCount = Data[0].MaxBullet;
+	CurrentBulletCount = MaxBulletCount;
 }
 
 void ACDoAction_Rifle::DoAction()
 {
+	OwnerCharacter->PlayAnimMontage(Data[0].AnimMontage, Data[0].PlayRate);
+	CheckNull(Data[0].Bullet);
 
+	CurrentBulletCount--;
+
+	CheckNull(ActionComp);
+
+	ActionData = ActionComp->GetCurrentAction();
+	CheckNull(ActionData);
+	Attachment = ActionData->GetAttachment();
+	CheckNull(Attachment);
+
+	//Spawn Bullet
+	FTransform Transform;
+
+	FVector MuzzleLocation = Attachment->GetMesh()->GetSocketLocation("MuzzleFlash");
+	FVector CamLoc;
+	FRotator CamRot;
+
+	AIC->GetPlayerViewPoint(CamLoc, CamRot);
+
+	FCollisionObjectQueryParams QueryParams;
+	QueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	QueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	QueryParams.AddObjectTypesToQuery(ECC_Pawn);
+
+	FCollisionShape Shape;
+	Shape.SetSphere(20.f);
+
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(OwnerCharacter);
+
+	FActorSpawnParameters SpawnParam;
+	SpawnParam.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	SpawnParam.Instigator = OwnerCharacter->GetInstigator();
+
+	FHitResult TraceHit;
+	FVector TraceStart = CamLoc;
+	FVector TraceEnd = TraceStart + (CamRot.Vector() * 100000.f);
+
+	FRotator Rotation = FRotationMatrix::MakeFromX(TraceEnd - MuzzleLocation).Rotator();
+	FTransform SpawnTransform(Rotation, MuzzleLocation);
+	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red,false,5.f);
+
+
+	Bullet = GetWorld()->SpawnActor<ACbullet>(Data[0].Bullet, SpawnTransform, SpawnParam);
+
+	//Bind BulletDelegate
+	Bullet->OnBulletBeginOverlap.AddDynamic(this, &ACDoAction_Rifle::OnBulletBeginOverlap);
+
+	USoundBase* RiflelSound = Attachment->GetSound();
+
+	UGameplayStatics::PlaySound2D(GetWorld(), RiflelSound);
+
+	if (CurrentBulletCount <= 0)
+	{
+		CheckNull(MontageComp);
+		StateComp->SetReloadMode();
+		MontageComp->PlayReload();
+	}
+	
 }
 
 void ACDoAction_Rifle::OnBulletBeginOverlap(FHitResult InHitResult)
 {
+	FHitResult HitResult = InHitResult;
+
+	if (Data[0].Particle)
+	{
+		FTransform EffectLocation = Data[0].EffectTransforms;
+		EffectLocation.AddToTranslation(Bullet->GetActorLocation());
+		EffectLocation.SetRotation(FQuat(HitResult.ImpactNormal.Rotation()));
+
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), Data[0].Particle, EffectLocation);
+	}
+
+	FDamageEvent DamageEvent;
+	HitResult.GetActor()->TakeDamage(Data[0].Power, DamageEvent, PC, this);
 }
 
 void ACDoAction_Rifle::OnReload()
 {
+	CurrentBulletCount = MaxBulletCount;
 }
 

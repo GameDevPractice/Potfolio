@@ -33,6 +33,7 @@ public:
 	FORCEINLINE bool IsUnarmedMode() { return (Type == EActionType::UnArmed); }
 	FORCEINLINE bool IsSwordMode() { return (Type == EActionType::Sword); }
 	FORCEINLINE bool IsPistolMode() { return (Type == EActionType::Pistol); }
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE bool IsRifleMode() { return (Type == EActionType::Rifle); }
 
 public:
@@ -55,6 +56,8 @@ public:
 	void SetUnarmedMode();
 	void SetSwordMode();
 	void SetPistolMode();
+	UFUNCTION(BlueprintCallable)
+	void SetRifleMode();
 
 private:
 	void SetMode(EActionType InNextType);

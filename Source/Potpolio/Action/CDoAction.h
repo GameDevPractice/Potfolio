@@ -11,6 +11,7 @@ class UCStateComponent;
 class UCActionComponent;
 class UCActionData;
 class APlayerController;
+class AAIController;
 
 
  
@@ -43,6 +44,7 @@ protected:
 	UCActionComponent* ActionComp;
 
 	APlayerController* PC;
+	AAIController* AIC;
 	bool bAiming;
 
 };

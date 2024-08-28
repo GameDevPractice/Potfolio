@@ -66,11 +66,8 @@ void ACEnemy::Hitted()
 
 void ACEnemy::Dead()
 {
-	GetMesh()->SetAllBodiesSimulatePhysics(true);
+	MontageComp->PlayDead();
 	GetMesh()->SetCollisionProfileName("Ragdoll");
-
-	FVector Impulse = GetActorForwardVector() * -20000.f;
-	GetMesh()->AddImpulse(Impulse);
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 

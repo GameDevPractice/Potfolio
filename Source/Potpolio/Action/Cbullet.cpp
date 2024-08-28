@@ -9,8 +9,8 @@
 
 ACbullet::ACbullet()
 {
-	CHelpers::CreateSceneComponent(this, &ParticleComp,"ParticleComp", SphereComp);
 	CHelpers::CreateSceneComponent(this, &SphereComp, "SphereComp");
+	CHelpers::CreateSceneComponent(this, &ParticleComp,"ParticleComp", SphereComp);
 	CHelpers::GetAsset(&Decal, "/Game/Materials/MI_Decal");
 
 	CHelpers::CreateActorComponent(this, &ProjectileComp, "ProjectileComp");

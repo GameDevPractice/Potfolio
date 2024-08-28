@@ -53,9 +53,7 @@ void ACDoAction_Pistol::DoAction()
 	FTransform Transform;
 	
 	FVector MuzzleLocation = Attachment->GetMesh()->GetSocketLocation("MuzzleFlash");
-	UParticleSystem* Particle = Attachment->GetParticle();
-	UGameplayStatics::SpawnEmitterAttached(Particle, Attachment->GetMesh(), "MuzzleFlash");
-
+	
 	FVector CamLoc;
 	FRotator CamRot;
 
@@ -91,12 +89,16 @@ void ACDoAction_Pistol::DoAction()
 	FRotator Rotation =  FRotationMatrix::MakeFromX( TraceEnd - MuzzleLocation).Rotator();
 	FTransform SpawnTransform(Rotation, MuzzleLocation);
 
-	
 
 	Bullet = GetWorld()->SpawnActor<ACbullet>(Data[0].Bullet, SpawnTransform, SpawnParam);
 	
+	CheckNull(Bullet);
 	//Bind BulletDelegate
 	Bullet->OnBulletBeginOverlap.AddDynamic(this, &ACDoAction_Pistol::OnBulletBeginOverlap);
+
+	//Swpan Particle
+	UParticleSystem* Particle = Attachment->GetParticle();
+	UGameplayStatics::SpawnEmitterAttached(Particle, Attachment->GetMesh(), "MuzzleFlash");
 
 	//Play Sound
 	USoundBase* PistolSound = Attachment->GetSound();

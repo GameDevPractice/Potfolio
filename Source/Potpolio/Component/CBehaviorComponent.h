@@ -10,7 +10,7 @@ class ACPlayer;
 UENUM(BlueprintType)
 enum class EBehaviorType : uint8
 {
-	Wait, Approch, Action, Patrol, Hitted, Escape
+	Wait, Approch, Action, Patrol, Hitted, Escape, Reload
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -41,6 +41,8 @@ public:
 		bool IsHittedMode();
 	UFUNCTION(BlueprintPure)
 		bool IsEscapeMode();
+	UFUNCTION(BlueprintPure)
+		bool ISReloadMode();
 
 public:
 	void SetWaitMode();
@@ -49,6 +51,7 @@ public:
 	void SetPatrolMode();
 	void SetHittedMode();
 	void SetEscapeMode();
+	void SetReloadMode();
 
 	ACPlayer* GetPlayerKey();
 	FVector GetLocationKey();

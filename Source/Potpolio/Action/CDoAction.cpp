@@ -4,7 +4,7 @@
 #include "Component/CStateComponent.h"
 #include "Component/CActionComponent.h"
 #include "GameFramework/PlayerController.h"
-#include "AIController.h"
+#include "AI/CAIController.h"
 
 
 ACDoAction::ACDoAction()
@@ -25,7 +25,7 @@ void ACDoAction::BeginPlay()
 
 
 	PC = OwnerCharacter->GetController<APlayerController>();
-	AIC = OwnerCharacter->GetController<AAIController>();
+	AIC = OwnerCharacter->GetController<ACAIController>();
 	 
 	Super::BeginPlay();
 	

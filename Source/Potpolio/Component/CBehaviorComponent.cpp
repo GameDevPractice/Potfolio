@@ -52,6 +52,11 @@ bool UCBehaviorComponent::IsEscapeMode()
 	return GetType() == EBehaviorType::Escape;
 }
 
+bool UCBehaviorComponent::ISReloadMode()
+{
+	return GetType() == EBehaviorType::Reload;;
+}
+
 void UCBehaviorComponent::SetWaitMode()
 {
 	ChangeType(EBehaviorType::Wait);
@@ -80,6 +85,11 @@ void UCBehaviorComponent::SetHittedMode()
 void UCBehaviorComponent::SetEscapeMode()
 {
 	ChangeType(EBehaviorType::Escape);
+}
+
+void UCBehaviorComponent::SetReloadMode()
+{
+	ChangeType(EBehaviorType::Reload);
 }
 
 ACPlayer* UCBehaviorComponent::GetPlayerKey()

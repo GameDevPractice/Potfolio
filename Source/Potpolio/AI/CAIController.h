@@ -30,6 +30,7 @@ private:
 public:
 	float GetSightRadius();
 	FORCEINLINE float GetBehaviorRange() { return BehaviorRange; }
+	UCBehaviorComponent* GetBehaviorComp() { return BehaviorComp; }
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = AI)

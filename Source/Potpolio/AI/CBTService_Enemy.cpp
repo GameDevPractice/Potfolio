@@ -3,6 +3,7 @@
 #include "AI/CAIController.h"
 #include "Component/CBehaviorComponent.h"
 #include "Component/CStateComponent.h"
+#include "Component/CPatrolComponent.h"
 #include "Character/Enemy/CEnemy_AI.h"
 #include "Character/Player/CPlayer.h"
 
@@ -22,6 +23,7 @@ void UCBTService_Enemy::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 	CheckNull(EnemyPawn);
 
 	UCStateComponent* StateComp = CHelpers::GetComponent<UCStateComponent>(EnemyPawn);
+	UCPatrolComponent* PatrolComp = CHelpers::GetComponent<UCPatrolComponent>(EnemyPawn);
 
 	//Hitted
 	if (StateComp->IsHittedMode())
@@ -36,6 +38,11 @@ void UCBTService_Enemy::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 	//Check Player
 	if (Player == nullptr)
 	{
+		if (PatrolComp->IsPathValid())
+		{
+			BehaviorComp->SetPatrolMode();
+			return;
+		}
 		BehaviorComp->SetWaitMode();
 		return;
 	}

@@ -12,6 +12,7 @@ class UCAttributeComponent;
 class USkeletalMesh;
 class AAIController;
 
+
 UCLASS()
 class POTPOLIO_API ACEnemy : public ACharacter
 {
@@ -45,6 +46,8 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
 		UCAttributeComponent* AttributeComp;
+
+
 
 private:
 	float DamageValue;

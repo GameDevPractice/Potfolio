@@ -27,6 +27,7 @@ ACEnemy::ACEnemy()
 	CHelpers::CreateActorComponent(this, &StateComp, TEXT("StateComp"));
 	//AttributeComponet
 	CHelpers::CreateActorComponent(this, &AttributeComp, TEXT("Attribute"));
+
 }
 
 void ACEnemy::BeginPlay()

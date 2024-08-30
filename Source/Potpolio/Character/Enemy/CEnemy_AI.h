@@ -5,6 +5,7 @@
 #include "CEnemy_AI.generated.h"
 
 class UBehaviorTree;
+class UCPatrolComponent;
 
 UCLASS()
 class POTPOLIO_API ACEnemy_AI : public ACEnemy
@@ -24,5 +25,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "AI")
 		uint8 TeamID;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Component")
+		UCPatrolComponent* PatrolComp;
 	
 };

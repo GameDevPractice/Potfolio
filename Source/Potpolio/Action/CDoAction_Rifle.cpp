@@ -79,7 +79,7 @@ void ACDoAction_Rifle::DoAction()
 
 	FRotator Rotation = FRotationMatrix::MakeFromX(TraceEnd - MuzzleLocation).Rotator();
 	FTransform SpawnTransform(Rotation, MuzzleLocation);
-	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red,false,5.f);
+	//DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Red,false,5.f);
 
 
 	Bullet = GetWorld()->SpawnActor<ACbullet>(Data[0].Bullet, SpawnTransform, SpawnParam);

@@ -1,4 +1,6 @@
 #include "CAttributeComponent.h"
+#include "Global.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 UCAttributeComponent::UCAttributeComponent()
 {
@@ -17,6 +19,14 @@ void UCAttributeComponent::BeginPlay()
 	Super::BeginPlay();
 
 	CurrentHealth = MaxHealth;
+}
+
+void UCAttributeComponent::SetWalkSpeed(ESpeedType InWalkSpeed)
+{
+	UCharacterMovementComponent* Movement = CHelpers::GetComponent<UCharacterMovementComponent>(GetOwner());
+	CheckNull(Movement);
+
+	Movement->MaxWalkSpeed = WalkSpeed[(int32)InWalkSpeed];
 }
 
 void UCAttributeComponent::OnIncreseHealth(float InHeal)

@@ -70,6 +70,7 @@ void ACEnemy::Dead()
 	MontageComp->PlayDead();
 	GetMesh()->SetCollisionProfileName("Ragdoll");
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	AIC->UnPossess();
 }
 
 void ACEnemy::OnStateTypeChanged(EStateType PreType, EStateType NewType)

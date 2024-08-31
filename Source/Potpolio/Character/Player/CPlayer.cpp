@@ -232,11 +232,13 @@ void ACPlayer::OnPrimaryAct()
 
 void ACPlayer::OnSecondaryAct()
 {
+	CheckFalse(ActionComp->GetCurrentType() == EActionType::UnArmed)
 	ActionComp->DoSubAction(true);
 }
 
 void ACPlayer::OffSecondaryAct()
 {
+	CheckFalse(ActionComp->GetCurrentType() == EActionType::UnArmed)
 	ActionComp->DoSubAction(false);
 
 }

@@ -32,6 +32,7 @@ public:
 	FORCEINLINE float GetWalkpeed() {return WalkSpeed[(int32)ESpeedType::Walk];}
 	FORCEINLINE float GetSprintpeed() {return WalkSpeed[(int32)ESpeedType::Sprint];}
 
+	void SetWalkSpeed(ESpeedType InWalkSpeed);
 
 public:
 	//Health Func

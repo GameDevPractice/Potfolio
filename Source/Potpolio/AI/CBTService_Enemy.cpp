@@ -38,6 +38,7 @@ void UCBTService_Enemy::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 	//Check Player
 	if (Player == nullptr)
 	{
+		AIC->ClearFocus(EAIFocusPriority::Gameplay);
 		if (PatrolComp->IsPathValid())
 		{
 			BehaviorComp->SetPatrolMode();
@@ -52,14 +53,15 @@ void UCBTService_Enemy::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 
 	if (Distance < AIC->GetBehaviorRange())
 	{
+		AIC->ClearFocus(EAIFocusPriority::Gameplay);
 		BehaviorComp->SetEscapeMode();
 		return;
 	}
 
 	if (Distance < AIC->GetSightRadius())
 	{
+		AIC->SetFocus(Player);
 		BehaviorComp->SetActionMode();
-		
 		return;
 	}
 

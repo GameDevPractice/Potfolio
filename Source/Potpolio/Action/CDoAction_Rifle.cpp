@@ -113,7 +113,6 @@ void ACDoAction_Rifle::OnBulletBeginOverlap(FHitResult InHitResult)
 
 void ACDoAction_Rifle::OnReload()
 {
-
 	CurrentBulletCount = MaxBulletCount;
 }
 

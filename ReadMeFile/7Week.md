@@ -17,6 +17,7 @@
 
 #### 2. Patrol 일땐 걷는 속도로 Escape일땐 달리기
 AttributeComp의 SpeedType을 받아 BehaviorTree를 통해 속도를 정한다
+![Task Speed](Image/Task_Speed.png)
 
 
 #### 3. 목표와는 다르게 적 재장전

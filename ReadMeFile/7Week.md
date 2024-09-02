@@ -7,16 +7,16 @@
 ### 달성도
 #### 1. AI 경로대로 이동 -> Component 이용
 
-순찰경로로 사용하기 위한 액터(PatrolActor)
+순찰경로로 사용하기 위한 액터(PatrolActor)   
 ![Patrol Path](Image/PatrolPath.png)  
 
-이를 이용해 PatrolComponent 추가  
-함수
-![Patrol Component Func](Image/PatrolComponent_Func.png)  
+이를 이용해 PatrolComponent 추가     
+함수   
+![Patrol Component Func](Image/PatrolComponent_Func.png)    
 경로를 따라 움직이는 함수, 순찰 지점을 업데이트를 하는 함수
 
 #### 2. Patrol 일땐 걷는 속도로 Escape일땐 달리기
-AttributeComp의 SpeedType을 받아 BehaviorTree를 통해 속도를 정한다
+AttributeComp의 SpeedType을 받아 BehaviorTree를 통해 속도를 정한다   
 ![Task Speed](Image/Task_Speed.png)
 
 

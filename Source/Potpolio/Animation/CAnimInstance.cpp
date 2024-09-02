@@ -40,6 +40,8 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	Rotator.Yaw = -1 * PC->GetControlRotation().Pitch;
 	
+	Direction = CalculateDirection(Player->GetVelocity(), Player->GetControlRotation());
+
 }
 
 void UCAnimInstance::OnActionTypeChanged(EActionType InPrevType, EActionType InNewType)

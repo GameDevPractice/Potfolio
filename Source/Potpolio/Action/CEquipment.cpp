@@ -1,6 +1,7 @@
 #include "CEquipment.h"
 #include "Global.h"
 #include "Gameframework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Component/CStateComponent.h"
 #include "Component/CAttributeComponent.h"
 #include "Component/CActionComponent.h"
@@ -44,6 +45,15 @@ void ACEquipment::Equip_Implementation()
 		Begin_Equip();
 		End_Equip();
 	}
+
+	if (Data.SetForward)
+	{
+		OwnerCharacter->GetCharacterMovement()->bOrientRotationToMovement = false;
+		OwnerCharacter->bUseControllerRotationYaw = true;
+	}
+	
+
+	Data.SetMove ? AttributeComp->SetMove() : AttributeComp->SetStop();
 }
 
 void ACEquipment::Begin_Equip_Implementation()
@@ -57,6 +67,7 @@ void ACEquipment::Begin_Equip_Implementation()
 void ACEquipment::End_Equip_Implementation()
 {
 	StateComp->SetIdleMode();
+	AttributeComp->SetMove();
 }
 
 void ACEquipment::UnEquip_Implementation()
@@ -71,7 +82,12 @@ void ACEquipment::UnEquip_Implementation()
 		Begin_UnEquip();
 		End_UnEquip();
 	}
+
+
+		OwnerCharacter->GetCharacterMovement()->bOrientRotationToMovement = true;
+		OwnerCharacter->bUseControllerRotationYaw = false;
 	
+	Data.SetMove ? AttributeComp->SetMove() : AttributeComp->SetStop();
 }
 
 void ACEquipment::Begin_UnEquip_Implementation()
@@ -85,4 +101,6 @@ void ACEquipment::End_UnEquip_Implementation()
 	{
 		OnUnequipmentDelegate.Broadcast();
 	}
+	
+	AttributeComp->SetMove();
 }

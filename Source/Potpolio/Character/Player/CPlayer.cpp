@@ -175,6 +175,8 @@ FGenericTeamId ACPlayer::GetGenericTeamId() const
 
 void ACPlayer::OnMoveForward(float Axis)
 {
+	CheckFalse(AttributeComp->IsMove());
+
 	FRotator ControlRotation = FRotator(0,GetControlRotation().Yaw,0);
 	FVector Direction = FQuat(ControlRotation).GetForwardVector();
 	AddMovementInput(Direction,Axis);
@@ -182,6 +184,8 @@ void ACPlayer::OnMoveForward(float Axis)
 
 void ACPlayer::OnMoveRight(float Axis)
 {
+	CheckFalse(AttributeComp->IsMove());
+
 	FRotator ControlRotation = FRotator(0, GetControlRotation().Yaw, 0);
 	FVector Direction = FQuat(ControlRotation).GetRightVector();
 	AddMovementInput(Direction, Axis);
@@ -203,11 +207,21 @@ void ACPlayer::OnLockRight(float Axix)
 //Player Speed Setting
 void ACPlayer::OnRun()
 {
+	if (ActionComp->IsSwordMode())
+	{
+		GetCharacterMovement()->bOrientRotationToMovement = true;
+		bUseControllerRotationYaw = false;
+	}
 	GetCharacterMovement()->MaxWalkSpeed =AttributeComp->GetSprintpeed();
 }
 
 void ACPlayer::OnWalk()
 {
+	if (ActionComp->IsSwordMode())
+	{
+		GetCharacterMovement()->bOrientRotationToMovement = false;
+		bUseControllerRotationYaw = true;
+	}
 	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetWalkpeed();
 }
 

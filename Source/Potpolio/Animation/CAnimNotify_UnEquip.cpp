@@ -2,6 +2,8 @@
 #include "Global.h"
 #include "Component/CStateComponent.h"
 #include "Component/CActionComponent.h"
+#include "Component/CAttributeComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 FString UCAnimNotify_UnEquip::GetNotifyName() const
@@ -18,6 +20,7 @@ void UCAnimNotify_UnEquip::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenc
     CheckNull(StateComp);
 
 	UCActionComponent* ActionComp = CHelpers::GetComponent<UCActionComponent>(MeshComp->GetOwner());
+	UCAttributeComponent* AttributeComp = CHelpers::GetComponent<UCAttributeComponent>(MeshComp->GetOwner());
 	CheckNull(ActionComp);
 
 	if (ActionComp->IsCanUnArm())
@@ -30,7 +33,6 @@ void UCAnimNotify_UnEquip::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenc
 	}
 
     StateComp->SetIdleMode();
-
-	
+	AttributeComp->SetMove();
 
 }

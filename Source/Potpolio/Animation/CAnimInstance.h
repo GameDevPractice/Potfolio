@@ -20,7 +20,7 @@ protected:
 
 private:
 	UFUNCTION()
-		void OnActionTypeChanged(EActionType InPrevType, EActionType InNewType);
+	void OnActionTypeChanged(EActionType InPrevType, EActionType InNewType);
 
 	UFUNCTION()
 	void ONAimChanged(bool InbAim);
@@ -37,10 +37,13 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Blend")
 	FRotator Rotator;
 
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "BlendSpace")
+	float Direction;
+
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Blend")
 	bool bAiming;
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "ActionType")
-		EActionType ActionType;
+	EActionType ActionType;
 
 };

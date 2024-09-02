@@ -28,7 +28,13 @@ public:
 		float PlayRate = 1.f;
 
 	UPROPERTY(EditDefaultsOnly)
-		FName StartSection;
+	FName StartSection;
+
+	UPROPERTY(EditDefaultsOnly)
+	bool SetMove;
+
+	UPROPERTY(EditDefaultsOnly)
+	bool SetForward;
 };
 
 USTRUCT(BlueprintType)

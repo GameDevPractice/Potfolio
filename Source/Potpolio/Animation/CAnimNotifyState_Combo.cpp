@@ -20,6 +20,7 @@ void UCAnimNotifyState_Combo::NotifyBegin(USkeletalMeshComponent* MeshComp, UAni
     CheckNull(Action);
     ACDoAction_Katana* DoAction = Cast<ACDoAction_Katana>(Action->GetDoAction());
     CheckNull(DoAction);
+
     DoAction->EnableCombo();
 }
 

@@ -13,7 +13,7 @@ void ACDoAction_Katana::DoAction()
 	{
 		bcanCombo = false;
 		bSuccessCombo = true;
-
+		CLog::Print("SuccessCombo");
 		return;
 	}
 	CheckFalse(StateComp->IsIdleMode());
@@ -39,14 +39,14 @@ void ACDoAction_Katana::Begin_DoAction()
 {
 	Super::Begin_DoAction();
 	
+	
 	CheckFalse(bSuccessCombo);
 	bSuccessCombo = false;
 
 	OwnerCharacter->StopAnimMontage();
-
+	CLog::Print("Begin Action");
 	ComboCount++;
 	ComboCount = FMath::Clamp(ComboCount, 0, Data.Num() - 1);
-	CLog::Print(ComboCount);
 
 	OwnerCharacter->PlayAnimMontage(Data[ComboCount].AnimMontage, Data[ComboCount].PlayRate, Data[ComboCount].StartSection);
 	Data[0].SetMove ? AttributeComp->SetMove() : AttributeComp->SetStop();

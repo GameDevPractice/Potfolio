@@ -255,7 +255,6 @@ void ACPlayer::OnPistol()
 
 void ACPlayer::OnPrimaryAct()
 {
-	CheckFalse(StateComp->IsIdleMode());
 	ActionComp->DoAction();
 }
 

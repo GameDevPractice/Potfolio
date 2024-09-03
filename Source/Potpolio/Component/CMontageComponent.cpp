@@ -52,6 +52,11 @@ void UCMontageComponent::PlayDead()
 	PlayAnimMontage(EStateType::Dead);
 }
 
+void UCMontageComponent::PlayEvade()
+{
+	PlayAnimMontage(EStateType::Evade);
+}
+
 void UCMontageComponent::PlayAnimMontage(EStateType NewType)
 {
 	ACharacter* OwnerChar = Cast<ACharacter>(GetOwner());

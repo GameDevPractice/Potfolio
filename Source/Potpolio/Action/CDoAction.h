@@ -9,6 +9,7 @@
 
 class UCStateComponent;
 class UCActionComponent;
+class UCAttributeComponent;
 class UCActionData;
 class APlayerController;
 class ACAIController;
@@ -32,7 +33,14 @@ public:
 	virtual void Begin_DoAction() {};
 	virtual void End_DoAction() {};
 
+	UFUNCTION()
+		virtual void OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter) {};
+	UFUNCTION()
+		virtual void OnAttachEndOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter) {};
+
 	FORCEINLINE bool GetbAiming() {  return bAiming; }
+
+
 
 public:
 	void SetActionData(const TArray<FDoActionData>& InData);
@@ -42,6 +50,7 @@ protected:
 	ACharacter* OwnerCharacter;
 	UCStateComponent* StateComp;
 	UCActionComponent* ActionComp;
+	UCAttributeComponent* AttributeComp;
 
 	APlayerController* PC;
 	ACAIController* AIC;

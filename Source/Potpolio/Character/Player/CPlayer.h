@@ -62,6 +62,9 @@ protected:
 	void OnStateTypeChanged(EStateType PreType, EStateType NewType);
 	float TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
 
+	UFUNCTION()
+		void OnStartRun();
+
 private:
 	void Hitted();
 
@@ -100,4 +103,6 @@ private:
 private:
 	float DamageValue;
 	AController* DamageInstigator;
+
+	FTimerHandle RunTimer;
 };

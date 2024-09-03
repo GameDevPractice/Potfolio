@@ -43,6 +43,7 @@ public:
 	void PlayReload();
 	void PlayHitted();
 	void PlayDead();
+	void PlayEvade();
 
 private:
 	void PlayAnimMontage(EStateType NewType);

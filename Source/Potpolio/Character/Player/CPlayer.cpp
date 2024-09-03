@@ -207,16 +207,31 @@ void ACPlayer::OnLockRight(float Axix)
 //Player Speed Setting
 void ACPlayer::OnRun()
 {
+	CheckFalse(StateComp->IsIdleMode());
 	if (ActionComp->IsSwordMode())
 	{
-		GetCharacterMovement()->bOrientRotationToMovement = true;
-		bUseControllerRotationYaw = false;
+	MontageComp->PlayEvade();
+	StateComp->SetEvadeMode();
+	FTimerDynamicDelegate Delegate;
+	Delegate.BindUFunction(this,"OnStartRun");
+	GetWorldTimerManager().SetTimer(RunTimer, Delegate,1.5f,false);
+	return;
 	}
-	GetCharacterMovement()->MaxWalkSpeed =AttributeComp->GetSprintpeed();
+	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetSprintpeed();
+}
+
+void ACPlayer::OnStartRun()
+{
+	GetWorldTimerManager().ClearTimer(RunTimer);
+	StopAnimMontage();
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	bUseControllerRotationYaw = false;
+	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetSprintpeed();
 }
 
 void ACPlayer::OnWalk()
 {
+	GetWorldTimerManager().ClearTimer(RunTimer);
 	if (ActionComp->IsSwordMode())
 	{
 		GetCharacterMovement()->bOrientRotationToMovement = false;
@@ -260,6 +275,7 @@ void ACPlayer::OffSecondaryAct()
 void ACPlayer::OnJump()
 {
 	CheckFalse(StateComp->IsIdleMode());
+	StateComp->SetJumpMode();
 	Jump();
 }
 
@@ -309,6 +325,8 @@ float ACPlayer::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContr
 
 	return DamageValue;
 }
+
+
 
 void ACPlayer::Hitted()
 {

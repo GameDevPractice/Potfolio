@@ -3,6 +3,7 @@
 #include "Gameframework/Character.h"
 #include "Component/CStateComponent.h"
 #include "Component/CActionComponent.h"
+#include "Component/CAttributeComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "AI/CAIController.h"
 
@@ -23,6 +24,8 @@ void ACDoAction::BeginPlay()
 	ActionComp = CHelpers::GetComponent<UCActionComponent>(OwnerCharacter);
 	CheckNull(ActionComp);
 
+	AttributeComp = CHelpers::GetComponent<UCAttributeComponent>(OwnerCharacter);
+	CheckNull(AttributeComp);
 
 	PC = OwnerCharacter->GetController<APlayerController>();
 	AIC = OwnerCharacter->GetController<ACAIController>();

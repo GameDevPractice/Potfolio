@@ -8,6 +8,10 @@ class ACharacter;
 class USkeletalMeshComponent;
 class UParticleSystem;
 class USoundBase;
+class UShapeComponent;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FAttachmentBeginOverlap, ACharacter*, InAttacker, AActor*, InCauser, ACharacter*, InOtherCharacter);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FAttachmentEndOverlap, ACharacter*, InAttacker, AActor*, InCauser, ACharacter*, InOtherCharacter);
 
 UCLASS()
 class POTPOLIO_API ACAttachment : public AActor
@@ -23,7 +27,6 @@ protected:
 public:
 	UFUNCTION(BlueprintCallable)
 	 FORCEINLINE USkeletalMeshComponent* GetMesh() { return Mesh; }
-
 	 FORCEINLINE UParticleSystem* GetParticle() { return ParticleComp; }
 	 FORCEINLINE USoundBase* GetSound() { return Sound; }
 
@@ -34,10 +37,24 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnUnEquip();
 
+	void OnCollisions();
+	void OffCollisions();
+
 protected:
 	UFUNCTION(BlueprintCallable)
 		void ActorAttachTo(FName InSocketName);
 
+private:
+	UFUNCTION()
+		void OnComponentBeingOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION()
+		void OnComponentEndOverlap( UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+public:
+	UPROPERTY(BlueprintAssignable)
+	FAttachmentBeginOverlap OnAttachmentBeginOverlap;
+	UPROPERTY(BlueprintAssignable)
+	FAttachmentEndOverlap OnAttachmentEndOverlap;
 private:
 	UPROPERTY(VisibleDefaultsOnly)
 	USceneComponent* RootComp;
@@ -54,6 +71,9 @@ private:
 protected:
 	UPROPERTY(BlueprintReadOnly)
 		ACharacter* OwnerCharacter;
+
+private:
+	TArray<UShapeComponent*> Collisions;
 
 
 

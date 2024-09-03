@@ -9,7 +9,7 @@
 UENUM(BlueprintType)
 enum class EStateType : uint8
 {
-	Idle, Jump, Parkour,Reload ,Equip,UnEquip ,Action,Hitted, Dead,Max
+	Idle, Jump, Parkour,Reload ,Equip,UnEquip ,Action,Hitted, Dead,Evade ,Max
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FStateTypeChanged, EStateType, InPreType, EStateType, InNewType);
@@ -35,6 +35,7 @@ public:
 	FORCEINLINE bool IsHittedMode() { return Type == EStateType::Hitted; }
 	FORCEINLINE bool IsDeadMode() { return Type == EStateType::Dead; }
 	FORCEINLINE bool IsReloadMode() { return Type == EStateType::Reload; }
+	FORCEINLINE bool IsEvadeMode() { return Type == EStateType::Evade; }
 
 public:
 	void SetIdleMode();
@@ -45,6 +46,7 @@ public:
 	void SetHittedMode();
 	void SetDeadMode();
 	void SetReloadMode();
+	void SetEvadeMode();
 
 private:
 	void ChangeMode(EStateType InNewType);

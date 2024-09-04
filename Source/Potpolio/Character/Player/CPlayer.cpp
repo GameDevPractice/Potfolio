@@ -162,6 +162,7 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("PrimaryAct", EInputEvent::IE_Pressed,this, &ACPlayer::OnPrimaryAct);
 	PlayerInputComponent->BindAction("SecondaryAct", EInputEvent::IE_Pressed,this, &ACPlayer::OnSecondaryAct);
 	PlayerInputComponent->BindAction("SecondaryAct", EInputEvent::IE_Released,this, &ACPlayer::OffSecondaryAct);
+	PlayerInputComponent->BindAction("Target_On", EInputEvent::IE_Pressed,this, &ACPlayer::Target_On);
 
 }
 
@@ -260,13 +261,13 @@ void ACPlayer::OnPrimaryAct()
 
 void ACPlayer::OnSecondaryAct()
 {
-	CheckFalse(ActionComp->GetCurrentType() == EActionType::UnArmed)
+	CheckTrue(ActionComp->IsUnarmedMode())
 	ActionComp->DoSubAction(true);
 }
 
 void ACPlayer::OffSecondaryAct()
 {
-	CheckFalse(ActionComp->GetCurrentType() == EActionType::UnArmed)
+	CheckTrue(ActionComp->IsUnarmedMode())
 	ActionComp->DoSubAction(false);
 
 }
@@ -288,6 +289,23 @@ void ACPlayer::OnReload()
 void ACPlayer::Begin_Reload()
 {
 	MontageComp->PlayReload();
+}
+
+void ACPlayer::Target_On()
+{
+	FVector Center = GetActorLocation();
+	FVector End = GetActorLocation() + FVector(0,0,10);
+	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectType;
+	ObjectType.Add(EObjectTypeQuery::ObjectTypeQuery3);
+
+	TArray<AActor*> IgnoreActor;
+	IgnoreActor.Add(this);
+	TArray<FHitResult> TraceResult;
+
+	if (UKismetSystemLibrary::SphereTraceMultiForObjects(GetWorld(), Center, End, 1000.f, ObjectType, false, IgnoreActor, EDrawDebugTrace::ForDuration, TraceResult, true))
+	{
+
+	}
 }
 
 

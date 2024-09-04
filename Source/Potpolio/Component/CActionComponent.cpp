@@ -46,14 +46,14 @@ void UCActionComponent::DoAction()
 
 void UCActionComponent::DoSubAction(bool InbAiming)
 {
-	CheckFalse(IsPistolMode());
-
+	CheckTrue(IsUnarmedMode());
 	if (Datas[(int32)Type] && Datas[(int32)Type]->GetDoAction())
 	{
 		ACDoAction* DoAction = Datas[(int32)Type]->GetDoAction();
 		DoAction->SubDoAction(InbAiming);
 		if (ONAimChanged.IsBound())
 		{
+			
 			ONAimChanged.Broadcast(InbAiming);
 		}
 	}

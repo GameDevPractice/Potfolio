@@ -49,6 +49,8 @@ private:
 	void OnReload();
 	void Begin_Reload();
 
+	void Target_On();
+
 public:
 	void End_Jump();
 	void End_Parkour();

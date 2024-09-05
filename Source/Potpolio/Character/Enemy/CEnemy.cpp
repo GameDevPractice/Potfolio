@@ -5,7 +5,9 @@
 #include "Component/CMontageComponent.h"
 #include "Component/CAttributeComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/WidgetComponent.h"
 #include "AIController.h"
+#include "Blueprint/UserWidget.h"
 
 ACEnemy::ACEnemy()
 {
@@ -27,6 +29,17 @@ ACEnemy::ACEnemy()
 	CHelpers::CreateActorComponent(this, &StateComp, TEXT("StateComp"));
 	//AttributeComponet
 	CHelpers::CreateActorComponent(this, &AttributeComp, TEXT("Attribute"));
+	//Widget
+	CHelpers::CreateSceneComponent(this, &WidgetComp, TEXT("WidgetComp"),GetMesh());
+
+
+	
+	if (TargetWidgetClass)
+	{
+		WidgetComp->SetWidgetClass(TargetWidgetClass);
+		
+		//WidgetComp->SetVisibility(false);
+	}
 
 }
 
@@ -71,6 +84,20 @@ void ACEnemy::Dead()
 	GetMesh()->SetCollisionProfileName("Ragdoll");
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	AIC->UnPossess();
+}
+
+void ACEnemy::TagetWidgetOn()
+{
+	CheckNull(WidgetComp);
+	CLog::Print("Widget On");
+	WidgetComp->SetVisibility(true);
+}
+
+void ACEnemy::TagetWidgetOff()
+{
+	CheckNull(WidgetComp);
+	CLog::Print("Widget Off");
+	WidgetComp->SetVisibility(false);
 }
 
 void ACEnemy::OnStateTypeChanged(EStateType PreType, EStateType NewType)

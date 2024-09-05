@@ -12,12 +12,16 @@
 #include "Component/CAttributeComponent.h"
 #include "Action/CActionData.h"
 #include "Action/CDoAction.h"
+#include "../Enemy/CEnemy.h"
+
 
 
 
 
 ACPlayer::ACPlayer()
 {
+	TargetMax = -1.f;
+
 	GetMesh()->SetRelativeLocation(FVector(0, 0, -88));
 	GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));
 	USkeletalMesh* MeshComp;
@@ -63,6 +67,8 @@ ACPlayer::ACPlayer()
 	GetCharacterMovement()->RotationRate = FRotator(0, 720, 0);
 
 	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetWalkpeed();
+
+
 }
 
 void ACPlayer::BeginPlay()
@@ -304,8 +310,30 @@ void ACPlayer::Target_On()
 
 	if (UKismetSystemLibrary::SphereTraceMultiForObjects(GetWorld(), Center, End, 1000.f, ObjectType, false, IgnoreActor, EDrawDebugTrace::ForDuration, TraceResult, true))
 	{
+		for (const auto& Result : TraceResult)
+		{
+			TargetActors.AddUnique(Result.Actor.Get());
+		}
 
+		for (const auto& Actor : TargetActors)
+		{ 
+			float Dot = GetActorLocation() | Actor->GetActorLocation();
+			if (Dot >= TargetMax)
+			{
+				TargetMax = Dot;
+				MostLearestActor = Cast<ACEnemy>(Actor);
+			}
+		}
+		
 	}
+	if (MostLearestActor)
+	{
+		LockOnTarget = MostLearestActor;
+		FRotator ContorlRotator = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), LockOnTarget->GetActorLocation());
+		GetController()->SetControlRotation(ContorlRotator);
+		LockOnTarget->TagetWidgetOn();
+	}
+	
 }
 
 

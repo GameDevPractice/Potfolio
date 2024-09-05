@@ -15,6 +15,7 @@ class UCActionComponent;
 class UCMontageComponent;
 class UCStateComponent;
 class UCAttributeComponent;
+class ACEnemy;
 
 UCLASS()
 class POTPOLIO_API ACPlayer : public ACharacter, public IGenericTeamAgentInterface
@@ -98,6 +99,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
 		UCAttributeComponent* AttributeComp;
 
+
+
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "TeamID")
 		uint8 TeamID;
@@ -107,4 +110,12 @@ private:
 	AController* DamageInstigator;
 
 	FTimerHandle RunTimer;
+
+private:
+	//TagetActor
+	TArray<AActor*> TargetActors;
+	ACEnemy* MostLearestActor;
+	ACEnemy* LockOnTarget;
+
+	float TargetMax;
 };

@@ -11,6 +11,7 @@ class UCStateComponent;
 class UCAttributeComponent;
 class USkeletalMesh;
 class AAIController;
+class UWidgetComponent;
 
 
 UCLASS()
@@ -34,6 +35,10 @@ private:
 	void Hitted();
 	void Dead();
 
+public:
+	void TagetWidgetOn();
+	void TagetWidgetOff();
+
 protected:
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
 		UCActionComponent* ActionComp;
@@ -47,6 +52,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
 		UCAttributeComponent* AttributeComp;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Component")
+	UWidgetComponent* WidgetComp;
+
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+		TSubclassOf<UUserWidget> TargetWidgetClass;
+
+	UUserWidget* TargetWidget;
 
 
 private:

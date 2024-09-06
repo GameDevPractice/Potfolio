@@ -54,7 +54,7 @@ void ACAttachment::OnComponentBeingOverlap(UPrimitiveComponent* OverlappedCompon
 
 	if (OnAttachmentBeginOverlap.IsBound())
 	{
-		OnAttachmentBeginOverlap.Broadcast(OwnerCharacter,this,OtherCharacter);
+		OnAttachmentBeginOverlap.Broadcast(OwnerCharacter,this,OtherCharacter, OverlappedComponent);
 	}
 
 }

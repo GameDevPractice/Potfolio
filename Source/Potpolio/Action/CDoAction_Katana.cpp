@@ -3,6 +3,7 @@
 #include "GameFramework/Character.h"
 #include "Component/CStateComponent.h"
 #include "Component/CAttributeComponent.h"
+#include "Components/ShapeComponent.h"
 
 
 void ACDoAction_Katana::DoAction()
@@ -64,9 +65,9 @@ void ACDoAction_Katana::End_DoAction()
 	AttributeComp->SetMove();
 }
 
-void ACDoAction_Katana::OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter)
+void ACDoAction_Katana::OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter, UPrimitiveComponent* Component)
 {
-	Super::OnAttachBeginOverlap(InAttacker, InCauser, InOtherCharacter);
+	Super::OnAttachBeginOverlap(InAttacker, InCauser, InOtherCharacter, Component);
 
 	FDamageEvent DamageEvent;
 	InOtherCharacter->TakeDamage(Data[ComboCount].Power, DamageEvent,InAttacker->GetController(),InCauser);
@@ -87,7 +88,7 @@ void ACDoAction_Katana::OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InC
 	if (HitEffect)
 	{
 		FTransform Transform = Data[ComboCount].EffectTransforms;
-		Transform.AddToTranslation(InOtherCharacter->GetActorLocation());
+		Transform.AddToTranslation(Component->GetComponentLocation());
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitEffect, Transform);
 	}
 }

@@ -20,6 +20,8 @@
 
 ACPlayer::ACPlayer()
 {
+	PrimaryActorTick.bCanEverTick = true;
+
 	TargetMax = -1.f;
 
 	GetMesh()->SetRelativeLocation(FVector(0, 0, -88));
@@ -143,6 +145,28 @@ void ACPlayer::OnConstruction(const FTransform& Transform)
 	}
 
 	
+	
+}
+
+void ACPlayer::Tick(float DeltaSeconds)
+{
+	if (LockOnTarget)
+	{
+
+	if (1000.f < UKismetMathLibrary::Vector_Distance(GetActorLocation(), LockOnTarget->GetActorLocation()))
+	{
+		LockOnTarget->TagetWidgetOff();
+		MostLearestActor = nullptr;
+	}
+	}
+
+	CheckTrue(ActionComp->IsUnarmedMode());
+	if (MostLearestActor)
+	{
+		LockOnTarget = MostLearestActor;
+		FRotator ContorlRotator = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), LockOnTarget->GetActorLocation());
+		GetController()->SetControlRotation(ContorlRotator);
+	}
 	
 }
 
@@ -299,6 +323,8 @@ void ACPlayer::Begin_Reload()
 
 void ACPlayer::Target_On()
 {
+	CheckTrue(ActionComp->IsUnarmedMode());
+
 	FVector Center = GetActorLocation();
 	FVector End = GetActorLocation() + FVector(0,0,10);
 	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectType;
@@ -324,15 +350,13 @@ void ACPlayer::Target_On()
 				MostLearestActor = Cast<ACEnemy>(Actor);
 			}
 		}
-		
+		if (MostLearestActor)
+		{
+			LockOnTarget = MostLearestActor;
+			LockOnTarget->TagetWidgetOn();
+		}
 	}
-	if (MostLearestActor)
-	{
-		LockOnTarget = MostLearestActor;
-		FRotator ContorlRotator = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), LockOnTarget->GetActorLocation());
-		GetController()->SetControlRotation(ContorlRotator);
-		LockOnTarget->TagetWidgetOn();
-	}
+
 	
 }
 

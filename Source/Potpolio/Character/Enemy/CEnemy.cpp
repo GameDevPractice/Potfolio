@@ -8,6 +8,7 @@
 #include "Components/WidgetComponent.h"
 #include "AIController.h"
 #include "Blueprint/UserWidget.h"
+#include "UI/CWorldWidget.h"
 
 ACEnemy::ACEnemy()
 {
@@ -29,18 +30,8 @@ ACEnemy::ACEnemy()
 	CHelpers::CreateActorComponent(this, &StateComp, TEXT("StateComp"));
 	//AttributeComponet
 	CHelpers::CreateActorComponent(this, &AttributeComp, TEXT("Attribute"));
-	//Widget
-	CHelpers::CreateSceneComponent(this, &WidgetComp, TEXT("WidgetComp"),GetMesh());
-
 
 	
-	if (TargetWidgetClass)
-	{
-		WidgetComp->SetWidgetClass(TargetWidgetClass);
-		
-		//WidgetComp->SetVisibility(false);
-	}
-
 }
 
 void ACEnemy::BeginPlay()
@@ -50,6 +41,18 @@ void ACEnemy::BeginPlay()
 	StateComp->OnStateTypeChanged.AddDynamic(this, &ACEnemy::OnStateTypeChanged);
 
 	AIC = GetController<AAIController>();
+
+	if (TargetWidgetClass)
+	{
+
+		TargetWidget = CreateWidget<UCWorldWidget>(GetWorld(), TargetWidgetClass);
+		if (TargetWidget)
+		{
+			TargetWidget->AttachToActor = this;
+			TargetWidget->AddToViewport();
+			TargetWidget->SetVisibility(ESlateVisibility::Hidden);
+		}
+	}
 }
 
 float ACEnemy::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
@@ -88,17 +91,18 @@ void ACEnemy::Dead()
 
 void ACEnemy::TagetWidgetOn()
 {
-	CheckNull(WidgetComp);
-	CLog::Print("Widget On");
-	WidgetComp->SetVisibility(true);
+	CheckNull(TargetWidget);
+	TargetWidget->SetVisibility(ESlateVisibility::Visible) ;
+	
 }
 
 void ACEnemy::TagetWidgetOff()
 {
-	CheckNull(WidgetComp);
-	CLog::Print("Widget Off");
-	WidgetComp->SetVisibility(false);
+	CheckNull(TargetWidget);
+	TargetWidget->SetVisibility(ESlateVisibility::Hidden);
+
 }
+
 
 void ACEnemy::OnStateTypeChanged(EStateType PreType, EStateType NewType)
 {

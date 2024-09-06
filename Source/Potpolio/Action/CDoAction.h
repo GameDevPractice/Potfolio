@@ -34,7 +34,7 @@ public:
 	virtual void End_DoAction() {};
 
 	UFUNCTION()
-		virtual void OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter) {};
+		virtual void OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter, UPrimitiveComponent* Component) {};
 	UFUNCTION()
 		virtual void OnAttachEndOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter) {};
 

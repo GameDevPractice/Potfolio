@@ -13,6 +13,7 @@ class USkeletalMesh;
 class AAIController;
 class UWidgetComponent;
 class UCWorldWidget;
+class UBoxComponent;
 
 
 UCLASS()
@@ -30,6 +31,15 @@ protected:
 	UFUNCTION()
 		void OnStateTypeChanged(EStateType PreType, EStateType NewType);
 
+	UFUNCTION()
+		void OnTakeDown(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+		void OffTakeDown(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	UFUNCTION()
+	void EndTakeDown();
+
 	float TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
 
 private:
@@ -40,6 +50,8 @@ private:
 public:
 	void TagetWidgetOn();
 	void TagetWidgetOff();
+
+	void TakeDown();
 
 
 
@@ -56,6 +68,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
 		UCAttributeComponent* AttributeComp;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Component")
+		UBoxComponent* BoxComp;
 
 
 protected:
@@ -64,12 +78,19 @@ protected:
 
 	UCWorldWidget* TargetWidget;
 
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = "TakeDown")
+		UAnimMontage* TakeDownMontage;
+
 
 private:
 	float DamageValue;
 	AController* DamageInstigator;
 
 	AAIController* AIC;
+
+	//TakeDown
+	FTimerHandle TakeDownHandle;
 
 
 };

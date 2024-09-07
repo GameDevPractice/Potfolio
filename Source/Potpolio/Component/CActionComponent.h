@@ -53,8 +53,11 @@ public:
 
 public:
 	//상태 변경하는 함수 (외부)
+	UFUNCTION(BlueprintCallable)
 	void SetUnarmedMode();
+	UFUNCTION(BlueprintCallable)
 	void SetSwordMode();
+	UFUNCTION(BlueprintCallable)
 	void SetPistolMode();
 	UFUNCTION(BlueprintCallable)
 	void SetRifleMode();

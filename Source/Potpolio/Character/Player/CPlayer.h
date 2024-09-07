@@ -17,6 +17,7 @@ class UCStateComponent;
 class UCAttributeComponent;
 class ACEnemy;
 
+
 UCLASS()
 class POTPOLIO_API ACPlayer : public ACharacter, public IGenericTeamAgentInterface
 {
@@ -59,6 +60,9 @@ public:
 	void End_Parkour();
 	void End_Reload();
 
+	void OnTakeDown();
+	void OffTakeDown();
+
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual FGenericTeamId GetGenericTeamId() const override;
 
@@ -70,13 +74,16 @@ protected:
 	UFUNCTION()
 		void OnStartRun();
 
+	UFUNCTION()
+	void EndTakeDown();
 private:
 	void Hitted();
+	void TakeDown();
+
 
 
 private:
-	USpringArmComponent* SpringArmComp;
-	UCameraComponent* CameraComp;
+
 
 	UMaterialInstanceDynamic* HandsKatanaMat;
 	UMaterialInstanceDynamic* CostumeMat;
@@ -89,6 +96,10 @@ private:
 	TArray<UMaterialInstanceDynamic*> Materials;
 
 protected:
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
+	USpringArmComponent* SpringArmComp;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
+	UCameraComponent* CameraComp;
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
 		UCActionComponent* ActionComp;
 
@@ -120,4 +131,13 @@ private:
 	ACEnemy* LockOnTarget;
 
 	float TargetMax;
+
+	//TakeDown
+	bool CanStealthTakeDown;
+	UPROPERTY(EditDefaultsOnly, Category = "StealthTakeDown")
+	UAnimMontage* StealthTakeDownMontage;
+	FTimerHandle StealthTakeDownHandle;
+	ACameraActor* StealthTakeDownCamera;
+
+	
 };

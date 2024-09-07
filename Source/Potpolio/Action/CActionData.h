@@ -67,8 +67,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	int32 MaxBullet;
-
 };
+
+
 
 UCLASS()
 class POTPOLIO_API UCActionData : public UDataAsset

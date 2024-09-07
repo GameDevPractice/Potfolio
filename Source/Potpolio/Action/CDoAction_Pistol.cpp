@@ -16,8 +16,8 @@
 ACDoAction_Pistol::ACDoAction_Pistol()
 {
 	Aim = CreateDefaultSubobject<UAim>("Aim");
-	CHelpers::GetAsset(&ReloadSound, "/Game/Action/Sound/ReloadPistoll_Cue");
-	CHelpers::GetAsset(&AimSound, "/Game/Action/Sound/AimPistol_Cue");
+	CHelpers::GetAsset(&ReloadSound, "/Game/Player/Animations/Sound/Pistol/ReloadPistoll_Cue");
+	CHelpers::GetAsset(&AimSound, "/Game/Player/Animations/Sound/Pistol/AimPistol_Cue");
 }
 
 void ACDoAction_Pistol::BeginPlay()

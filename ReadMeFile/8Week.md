@@ -18,7 +18,7 @@
 ### Sword  애니메이션
 
 |이미지|애니메이션|
-|________________|
+|---|----|
 |<img src = "Image/Player_Equip.png" width = "450px"  Height = "400px"> | Sword_Equip |
 |<img src = "Image/Player_UnEquip.png" wight = "400px"  Height = "400px">| Sword_UnEquip|
 |<img src = "Image/Player_SwordAttack.png" wight = "100px" Height = "390px">| Sword_Attack_Up|

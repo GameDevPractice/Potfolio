@@ -23,7 +23,7 @@
 |<img src = "Image/Player_UnEquip.png" wight = "400px"  Height = "400px">| Sword_UnEquip|
 |<img src = "Image/Player_SwordAttack.png" wight = "100px" Height = "390px">| Sword_Attack_Up|
 |<img src = "Image/Player_SwordAttack_DownToUp.png"  wight = "100px" Height = "420px">|Sword_Attack_Down|
-|<img src = "Image/BS_Sword.png"   Height = "150px">| BS_Sowrd_|
+|<img src = "Image/BS_Sword.png"   Height = "150px">| BS_Sowrd|
 |<img src = "Image/Sword_StealTakeDown.png" wight = "500px" Height = "600px">|StealTakeDown|
 
 ### 대쉬

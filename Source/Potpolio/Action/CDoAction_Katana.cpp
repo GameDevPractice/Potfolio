@@ -50,7 +50,7 @@ void ACDoAction_Katana::Begin_DoAction()
 	ComboCount = FMath::Clamp(ComboCount, 0, Data.Num() - 1);
 
 	OwnerCharacter->PlayAnimMontage(Data[ComboCount].AnimMontage, Data[ComboCount].PlayRate, Data[ComboCount].StartSection);
-	Data[0].SetMove ? AttributeComp->SetMove() : AttributeComp->SetStop();
+	Data[ComboCount].SetMove ? AttributeComp->SetMove() : AttributeComp->SetStop();
 	
 }
 

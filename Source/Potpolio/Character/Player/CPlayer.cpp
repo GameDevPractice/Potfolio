@@ -315,6 +315,10 @@ void ACPlayer::OffSecondaryAct()
 void ACPlayer::OnJump()
 {
 	CheckFalse(StateComp->IsIdleMode());
+	if (GetCharacterMovement()->MaxWalkSpeed >= 600.f)
+	{
+		return;
+	}
 	StateComp->SetJumpMode();
 	Jump();
 }
@@ -428,7 +432,6 @@ void ACPlayer::TakeDown()
 	{
 		return;
 	}
-	CLog::Print("TakeDown");
 	if (StealthTakeDownMontage == nullptr)
 	{
 		return;
@@ -487,9 +490,6 @@ void ACPlayer::TakeDown()
 
 		float MontageTime = PlayAnimMontage(StealthTakeDownMontage);
 
-		
-
-		
 
 		GetCharacterMovement()->DisableMovement();
 		FTimerDelegate TakeDownDelegate;

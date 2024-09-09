@@ -15,6 +15,7 @@ UCBTService_Enemy::UCBTService_Enemy()
 
 void UCBTService_Enemy::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
+	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 	ACAIController* AIC = Cast<ACAIController>(OwnerComp.GetOwner());
 	CheckNull(AIC);
 	UCBehaviorComponent* BehaviorComp = CHelpers::GetComponent<UCBehaviorComponent>(AIC);

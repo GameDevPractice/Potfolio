@@ -11,6 +11,7 @@
 #include "Component/CActionComponent.h"
 #include "Component/CMontageComponent.h"
 #include "Component/CAttributeComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Action/CActionData.h"
 #include "Action/CDoAction.h"
 #include "Action/CAction.h"
@@ -27,6 +28,7 @@ ACPlayer::ACPlayer()
 
 	TargetMax = -1.f;
 
+	bJog = false;
 
 
 	GetMesh()->SetRelativeLocation(FVector(0, 0, -88));
@@ -203,6 +205,7 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("SecondaryAct", EInputEvent::IE_Released,this, &ACPlayer::OffSecondaryAct);
 	PlayerInputComponent->BindAction("Target_On", EInputEvent::IE_Pressed,this, &ACPlayer::Target_On);
 	PlayerInputComponent->BindAction("TakeDown", EInputEvent::IE_Pressed,this, &ACPlayer::TakeDown);
+	PlayerInputComponent->BindAction("Jog", EInputEvent::IE_Pressed,this, &ACPlayer::OnJog);
 
 }
 
@@ -251,11 +254,12 @@ void ACPlayer::OnRun()
 	CheckFalse(StateComp->IsIdleMode());
 	if (ActionComp->IsSwordMode())
 	{
+	
 	MontageComp->PlayEvade();
 	StateComp->SetEvadeMode();
 	FTimerDynamicDelegate Delegate;
-	Delegate.BindUFunction(this,"OnStartRun");
-	GetWorldTimerManager().SetTimer(RunTimer, Delegate,1.0f,false);
+	Delegate.BindUFunction(this,TEXT("OnStartRun"));
+	GetWorldTimerManager().SetTimer(RunTimer, Delegate,0.7f,false);
 	return;
 	}
 	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetSprintpeed();
@@ -263,8 +267,10 @@ void ACPlayer::OnRun()
 
 void ACPlayer::OnStartRun()
 {
-	GetWorldTimerManager().ClearTimer(RunTimer);
+	bJog = false;
+	GetCapsuleComponent()->SetCapsuleHalfHeight(88.f);
 	StopAnimMontage();
+	StateComp->SetIdleMode();
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	bUseControllerRotationYaw = false;
 	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetSprintpeed();
@@ -296,6 +302,12 @@ void ACPlayer::OnPistol()
 
 void ACPlayer::OnPrimaryAct()
 {
+	if (ActionComp->IsSwordMode())
+	{
+	ActionComp->DoAction();
+	return;
+	}
+	CheckFalse(StateComp->IsIdleMode());
 	ActionComp->DoAction();
 }
 
@@ -315,7 +327,7 @@ void ACPlayer::OffSecondaryAct()
 void ACPlayer::OnJump()
 {
 	CheckFalse(StateComp->IsIdleMode());
-	if (GetCharacterMovement()->MaxWalkSpeed >= 600.f)
+	if ( ActionComp->IsSwordMode())
 	{
 		return;
 	}
@@ -372,6 +384,21 @@ void ACPlayer::Target_On()
 	}
 
 	
+}
+
+void ACPlayer::OnJog()
+{
+	CheckFalse(ActionComp->IsSwordMode());
+	bJog = !bJog;
+	if (bJog)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetSneakpeed();
+		
+	}
+	else
+	{
+	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetWalkpeed();
+	}
 }
 
 
@@ -475,16 +502,15 @@ void ACPlayer::TakeDown()
 
 		//Spawn Camera & ViewTarget
 		FVector Location = GetActorLocation() + (GetActorForwardVector() * 250.f);
-		FRotator Rotation = FRotator(0.f, 180.f, 0.f);
 		FTransform CameraTransForm;
 		CameraTransForm.SetLocation(Location);
-		CameraTransForm.SetRotation(FQuat(Rotation));
 
 		StealthTakeDownCamera = GetWorld()->SpawnActor<ACameraActor>(ACameraActor::StaticClass(), CameraTransForm);
+		StealthTakeDownCamera->SetActorRotation(UKismetMathLibrary::FindLookAtRotation(Location,GetActorLocation()));
 		
 		APlayerController* PC = Cast<APlayerController>(GetController());
 		PC->SetViewTargetWithBlend(StealthTakeDownCamera);
-		StealthTakeDownCamera->GetCameraComponent()->SetFieldOfView(90.f);
+		StealthTakeDownCamera->GetCameraComponent()->bConstrainAspectRatio = false;
 
 		Enemy->TakeDown();
 

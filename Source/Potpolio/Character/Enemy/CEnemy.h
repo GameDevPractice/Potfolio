@@ -42,6 +42,9 @@ protected:
 
 	float TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
 
+	UFUNCTION()
+	void EnemyDestroy();
+
 private:
 	void Hitted();
 	void Dead();

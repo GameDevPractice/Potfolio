@@ -27,6 +27,7 @@ void ACDoAction_Rifle::BeginPlay()
 
 void ACDoAction_Rifle::DoAction()
 {
+	CheckFalse(StateComp->IsIdleMode());
 	if (CurrentBulletCount <= 0)
 	{
 		CLog::Print("Not Bullet");

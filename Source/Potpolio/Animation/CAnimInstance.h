@@ -26,7 +26,7 @@ private:
 	void ONAimChanged(bool InbAim);
 
 protected:
-	ACharacter* Player;
+	
 
 	UPROPERTY(BlueprintReadOnly, Category = "Blend")
 	float Speed;
@@ -45,5 +45,8 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "ActionType")
 	EActionType ActionType;
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+	bool bJog;
 
 };

@@ -2,6 +2,7 @@
 #include "Global.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
+#include "Character/Player/CPlayer.h"
 #include "Component/CActionComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -26,21 +27,28 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
 	//Save Player
-	Player = Cast<ACharacter>(TryGetPawnOwner());
-	CheckNull(Player);
+	ACharacter* Character = Cast<ACharacter>(TryGetPawnOwner());
+	CheckNull(Character);
 
-	bFalling = Player->GetCharacterMovement()->IsFalling();
+	ACPlayer* Player = Cast<ACPlayer>(Character);
+	if (Player)
+	{
+	bJog = Player->GetJog();
+	}
 
-	Speed = Player->GetVelocity().Size2D();
 
-	AController* PC = Player->GetController();
+	bFalling = Character->GetCharacterMovement()->IsFalling();
+
+	Speed = Character->GetVelocity().Size2D();
+
+	AController* PC = Character->GetController();
 	CheckNull(PC);
 
 	float rotation = PC->GetControlRotation().Pitch;
 
 	Rotator.Yaw = -1 * PC->GetControlRotation().Pitch;
 	
-	Direction = CalculateDirection(Player->GetVelocity(), Player->GetControlRotation());
+	Direction = CalculateDirection(Character->GetVelocity(), Character->GetControlRotation());
 
 }
 

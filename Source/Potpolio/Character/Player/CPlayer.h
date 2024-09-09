@@ -55,6 +55,8 @@ private:
 
 	void Target_On();
 
+	void OnJog();
+
 public:
 	void End_Jump();
 	void End_Parkour();
@@ -62,6 +64,8 @@ public:
 
 	void OnTakeDown();
 	void OffTakeDown();
+
+	FORCEINLINE bool GetJog() { return bJog; }
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual FGenericTeamId GetGenericTeamId() const override;
@@ -139,5 +143,6 @@ private:
 	FTimerHandle StealthTakeDownHandle;
 	ACameraActor* StealthTakeDownCamera;
 
-	
+	//Jog
+	bool bJog;
 };

@@ -1,6 +1,7 @@
 #include "CEnemy.h"
 #include "Global.h"
 #include "Character/Player/CPlayer.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/BoxComponent.h"
 #include "Component/CActionComponent.h"
@@ -98,6 +99,7 @@ float ACEnemy::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 
 	if (AttributeComp->GetCurrentHealth() <= 0)
 	{
+	
 		StateComp->SetDeadMode();
 		return 0.0f;
 	}
@@ -107,6 +109,12 @@ float ACEnemy::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 	return DamageValue;
 }
 
+void ACEnemy::EnemyDestroy()
+{
+	ActionComp->GetCurrentAction()->GetAttachment()->Destroy();
+	Destroy();
+}
+
 void ACEnemy::Hitted()
 {
 	MontageComp->PlayHitted();
@@ -114,11 +122,15 @@ void ACEnemy::Hitted()
 
 void ACEnemy::Dead()
 {
-	MontageComp->PlayDead();
+	GetMesh()->SetSimulatePhysics(true);
 	GetMesh()->SetCollisionProfileName("Ragdoll");
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetCharacterMovement()->DisableMovement();
 
-	AIC->UnPossess();
+	FTimerHandle DeadHandle;
+	FTimerDelegate Delegate;
+	Delegate.BindUFunction(this,TEXT("EnemyDestroy"));
+	GetWorldTimerManager().SetTimer(DeadHandle, Delegate,1.0f,false);
 }
 
 void ACEnemy::TagetWidgetOn()
@@ -138,6 +150,7 @@ void ACEnemy::TakeDown()
 
 	FTimerDelegate TakeDownDelegate;
 	TakeDownDelegate.BindUFunction(this, TEXT("EndTakeDown"));
+	GetCharacterMovement()->DisableMovement();
 
 	GetWorldTimerManager().SetTimer(TakeDownHandle, TakeDownDelegate, MontageTime-0.2f, false);
 	

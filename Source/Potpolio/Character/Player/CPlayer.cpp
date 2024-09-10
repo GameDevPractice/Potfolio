@@ -29,6 +29,7 @@ ACPlayer::ACPlayer()
 	TargetMax = -1.f;
 
 	bJog = false;
+	bRun = false;
 
 
 	GetMesh()->SetRelativeLocation(FVector(0, 0, -88));
@@ -161,6 +162,73 @@ void ACPlayer::OnConstruction(const FTransform& Transform)
 
 void ACPlayer::Tick(float DeltaSeconds)
 {
+
+	//Wall Location Trace
+	FVector Start = GetActorLocation();
+	FVector End = Start + (GetActorForwardVector() * 200.f);
+	TArray<TEnumAsByte<EObjectTypeQuery>> TypeQuery;
+	TypeQuery.Add(EObjectTypeQuery::ObjectTypeQuery1);
+	TArray<AActor*> IgnoreActor;
+	FHitResult HitResult;
+	bool CanVault;
+
+	//Wall Trace
+	if (UKismetSystemLibrary::LineTraceSingleForObjects(GetWorld(), Start, End, TypeQuery, false, IgnoreActor, EDrawDebugTrace::None, HitResult, true))
+	{
+		FVector WallLocation = HitResult.Location;
+		FVector WallNormal = HitResult.Normal;
+		
+		FVector TraceStart = WallLocation  + FVector(0.0f, 0.0f, 200.f);
+		FVector TraceEnd = TraceStart - FVector(0.0f, 0.0f, 200.f);
+
+		FHitResult TraceHitResult;
+
+		//Check Height
+		if (UKismetSystemLibrary::LineTraceSingleForObjects(GetWorld(), TraceStart, TraceEnd, TypeQuery, false, IgnoreActor, EDrawDebugTrace::None, TraceHitResult, true))
+		{
+			FVector Height = TraceHitResult.Location;
+			if ((Height - WallLocation).Z < 60.f)
+			{
+				CanVault = true;
+			}
+			else
+			{
+				CanVault = false;
+			}
+
+			//Check Wall Death
+			FVector DeathStart = WallLocation + (WallNormal * -100.f) + FVector(0.0f, 0.0f, 300.f);
+			FVector DeathEnd = DeathStart - FVector(0.0f, 0.0f, 275.f);
+			if (!UKismetSystemLibrary::LineTraceSingleForObjects(GetWorld(), DeathStart, DeathEnd, TypeQuery, false, IgnoreActor, EDrawDebugTrace::None, TraceHitResult, true))
+			{
+				if (CanVault)
+				{
+					if (bRun)
+					{
+						bRun = false;
+					FRotator ActorLookRotation = FRotator(GetActorRotation().Pitch, (UKismetMathLibrary::MakeRotFromX(WallNormal).Yaw + 180.f), GetActorRotation().Roll);
+					SetActorRotation(ActorLookRotation);
+					GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+					GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+
+
+					FVector NewLocation = FVector((WallLocation + (WallNormal * 150.f)).X, (WallLocation + (WallNormal * 60.f)).Y, (Height - FVector(0.f,0.0f,10.f)).Z);
+					SetActorLocation(NewLocation);
+					MontageComp->PlayVault();
+
+					FTimerHandle VaultHandel;
+					FTimerDelegate VaultDelegate;
+					VaultDelegate.BindUFunction(this,TEXT("EndVault"));
+					GetWorldTimerManager().SetTimer(VaultHandel, VaultDelegate,2.06f,false);
+					}
+				}
+			}
+		}
+		
+	}
+
+
+
 	if (LockOnTarget)
 	{
 
@@ -252,6 +320,8 @@ void ACPlayer::OnLockRight(float Axix)
 void ACPlayer::OnRun()
 {
 	CheckFalse(StateComp->IsIdleMode());
+	bJog = false;
+	
 	if (ActionComp->IsSwordMode())
 	{
 	
@@ -267,7 +337,7 @@ void ACPlayer::OnRun()
 
 void ACPlayer::OnStartRun()
 {
-	bJog = false;
+	bRun = true;
 	GetCapsuleComponent()->SetCapsuleHalfHeight(88.f);
 	StopAnimMontage();
 	StateComp->SetIdleMode();
@@ -278,6 +348,7 @@ void ACPlayer::OnStartRun()
 
 void ACPlayer::OnWalk()
 {
+	bRun = false;
 	GetWorldTimerManager().ClearTimer(RunTimer);
 	if (ActionComp->IsSwordMode())
 	{
@@ -448,6 +519,12 @@ float ACPlayer::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContr
 
 
 
+void ACPlayer::EndVault()
+{
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
+}
+
 void ACPlayer::Hitted()
 {
 	MontageComp->PlayHitted();
@@ -494,8 +571,9 @@ void ACPlayer::TakeDown()
 		bUseControllerRotationYaw = false;
 		GetCharacterMovement()->bOrientRotationToMovement = true;;
 
-		FVector TakeDownLocation = Enemy->GetActorLocation() + (Enemy->GetActorForwardVector() * -100.f);
-		FRotator TakeDownRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Enemy->GetActorLocation());
+		FVector TakeDownLocation = Enemy->GetActorLocation() + (Enemy->GetActorForwardVector() * -100.f) + (Enemy->GetActorRightVector() * 25.f);
+		FRotator TakeDownRotation = Enemy->GetActorRotation();
+			//UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Enemy->GetActorLocation());
 
 		SetActorLocation(TakeDownLocation);
 		SetActorRotation(TakeDownRotation);

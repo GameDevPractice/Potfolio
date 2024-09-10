@@ -80,6 +80,9 @@ protected:
 
 	UFUNCTION()
 	void EndTakeDown();
+
+	UFUNCTION()
+		void EndVault();
 private:
 	void Hitted();
 	void TakeDown();
@@ -145,4 +148,7 @@ private:
 
 	//Jog
 	bool bJog;
+
+	//Vault
+	bool bRun;
 };

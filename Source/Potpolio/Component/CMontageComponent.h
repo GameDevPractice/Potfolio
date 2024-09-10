@@ -44,6 +44,7 @@ public:
 	void PlayHitted();
 	void PlayDead();
 	void PlayEvade();
+	void PlayVault();
 
 private:
 	void PlayAnimMontage(EStateType NewType);

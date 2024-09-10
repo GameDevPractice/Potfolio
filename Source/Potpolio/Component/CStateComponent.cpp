@@ -56,6 +56,11 @@ void UCStateComponent::SetEvadeMode()
 	ChangeMode(EStateType::Evade);
 }
 
+void UCStateComponent::SetVaultMode()
+{
+	ChangeMode(EStateType::Vault);
+}
+
 void UCStateComponent::ChangeMode(EStateType InNewType)
 {
 	

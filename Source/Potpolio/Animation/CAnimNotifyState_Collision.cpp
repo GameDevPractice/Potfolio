@@ -3,6 +3,7 @@
 #include "Component/CActionComponent.h"
 #include "Action/CAction.h"
 #include "Action/CAttachment.h"
+#include "Action/CDoAction_Katana.h"
 
 
 FString UCAnimNotifyState_Collision::GetNotifyName() const
@@ -34,4 +35,8 @@ void UCAnimNotifyState_Collision::NotifyEnd(USkeletalMeshComponent* MeshComp, UA
     ACAttachment* Attachment = Action->GetAttachment();
     CheckNull(Attachment);
     Attachment->OffCollisions();
+    ACDoAction_Katana* DoAction = Cast<ACDoAction_Katana>(Action->GetDoAction());
+    CheckNull(DoAction);
+    DoAction->ClearHittedCharacter();
+
 }

@@ -128,7 +128,7 @@ void ACDoAction_Pistol::SubDoAction(bool InbAiming)
 void ACDoAction_Pistol::OnBulletBeginOverlap(FHitResult InHitResult)
 {
 	FHitResult HitResult = InHitResult;
-	
+	float DamageAmount = Data[0].Power;
 	if (Data[0].Particle)
 	{
 		FTransform EffectLocation = Data[0].EffectTransforms;
@@ -139,7 +139,12 @@ void ACDoAction_Pistol::OnBulletBeginOverlap(FHitResult InHitResult)
 	}
 
 	FDamageEvent DamageEvent;
-	HitResult.GetActor()->TakeDamage(Data[0].Power,DamageEvent,PC,this);
+	if (HitResult.BoneName == "Head")
+	{
+		DamageAmount *= 5.f;
+	}
+	CLog::Print(HitResult.BoneName.ToString());
+	HitResult.GetActor()->TakeDamage(DamageAmount,DamageEvent,PC,this);
 }
 
 void ACDoAction_Pistol::OnReload()

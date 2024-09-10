@@ -4,11 +4,13 @@
 #include "Component/CStateComponent.h"
 #include "Component/CAttributeComponent.h"
 #include "Components/ShapeComponent.h"
+#include "Character/Enemy/CEnemy.h"
 
 
 void ACDoAction_Katana::DoAction()
 {
 	Super::DoAction();
+
 	CheckFalse(Data.Num() > 0);
 	if (bcanCombo)
 	{
@@ -32,6 +34,11 @@ void ACDoAction_Katana::EnableCombo()
 void ACDoAction_Katana::DisableCombo()
 {
 	bcanCombo = false;
+}
+
+void ACDoAction_Katana::ClearHittedCharacter()
+{
+	HittedCharacters.Empty();
 }
 
 
@@ -69,8 +76,14 @@ void ACDoAction_Katana::OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InC
 {
 	Super::OnAttachBeginOverlap(InAttacker, InCauser, InOtherCharacter, Component);
 
+	int32 NumberOfHittedCharacters = HittedCharacters.Num();
+	HittedCharacters.AddUnique(InOtherCharacter);
+	CheckFalse(NumberOfHittedCharacters < HittedCharacters.Num());
+
 	FDamageEvent DamageEvent;
 	InOtherCharacter->TakeDamage(Data[ComboCount].Power, DamageEvent,InAttacker->GetController(),InCauser);
+
+	
 
 	//CameraShake
 	TSubclassOf<UCameraShake> ShakeClass = Data[ComboCount].CameraShake;

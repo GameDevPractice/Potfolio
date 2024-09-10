@@ -26,7 +26,7 @@ ACEnemy::ACEnemy()
 		MeshComp = MeshAsset.Object;
 		GetMesh()->SetSkeletalMesh(MeshComp);
 	}
-
+	
 	CHelpers::CreateSceneComponent(this, &BoxComp, TEXT("BoxComp"), GetMesh());
 	BoxComp->SetRelativeLocation(FVector(-0.000008f, -59.999950f, 100.000000f));
 	BoxComp->SetBoxExtent(FVector(32.f,32.f,88.f));
@@ -130,7 +130,7 @@ void ACEnemy::Dead()
 	FTimerHandle DeadHandle;
 	FTimerDelegate Delegate;
 	Delegate.BindUFunction(this,TEXT("EnemyDestroy"));
-	GetWorldTimerManager().SetTimer(DeadHandle, Delegate,1.0f,false);
+	GetWorldTimerManager().SetTimer(DeadHandle, Delegate,2.0f,false);
 }
 
 void ACEnemy::TagetWidgetOn()

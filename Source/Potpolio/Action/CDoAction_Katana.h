@@ -15,6 +15,7 @@ public:
 public:
 	void EnableCombo();
 	void DisableCombo();
+	void ClearHittedCharacter();
 
 private:
 	void Begin_DoAction();
@@ -29,4 +30,5 @@ private:
 	int32 ComboCount = 0;
 	bool bcanCombo = false;
 	bool bSuccessCombo = false;
+	TArray<ACharacter*> HittedCharacters;
 };

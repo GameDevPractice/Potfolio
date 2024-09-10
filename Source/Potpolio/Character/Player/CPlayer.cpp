@@ -214,6 +214,8 @@ void ACPlayer::Tick(float DeltaSeconds)
 
 					FVector NewLocation = FVector((WallLocation + (WallNormal * 150.f)).X, (WallLocation + (WallNormal * 60.f)).Y, (Height - FVector(0.f,0.0f,10.f)).Z);
 					SetActorLocation(NewLocation);
+					DisableInput(GetController<APlayerController>());
+					StateComp->SetVaultMode();
 					MontageComp->PlayVault();
 
 					FTimerHandle VaultHandel;
@@ -523,6 +525,7 @@ void ACPlayer::EndVault()
 {
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
+	EnableInput(GetController<APlayerController>());
 }
 
 void ACPlayer::Hitted()

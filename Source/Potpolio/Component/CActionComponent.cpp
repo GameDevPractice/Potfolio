@@ -121,6 +121,7 @@ void UCActionComponent::ChangeMode(EActionType InNextType)
 {
 	EActionType Prev = Type;
 	Type = InNextType;
+	NextType = InNextType;
 	if (OnActionTypeChanged.IsBound())
 	{
 		OnActionTypeChanged.Broadcast(Prev, InNextType);

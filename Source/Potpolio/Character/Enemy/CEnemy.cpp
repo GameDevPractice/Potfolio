@@ -4,7 +4,6 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/BoxComponent.h"
-#include "Component/CActionComponent.h"
 #include "Component/CMontageComponent.h"
 #include "Component/CAttributeComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -63,6 +62,54 @@ void ACEnemy::BeginPlay()
 			TargetWidget->AddToViewport();
 			TargetWidget->SetVisibility(ESlateVisibility::Hidden);
 		}
+	}
+
+	//Check DataTable
+	if (DataTable == nullptr)
+	{
+		CLog::Log("DataTable is not Set");
+		return;
+	}
+
+	//Save Montage
+	TArray<FEnemyStealthTakeDown*> FromDatasTable;
+	DataTable->GetAllRows<FEnemyStealthTakeDown>("", FromDatasTable);
+
+	for (int32 i = 0; i < (int32)EActionType::Max; i++)
+	{
+		for (const auto& Data : FromDatasTable)
+		{
+			if ((EActionType)i == Data->Type)
+			{
+				StealthTakeDownData[i] = Data;
+				break;
+			}
+		}
+	}
+
+}
+
+void ACEnemy::StealTakeDown(bool InCrouch, EActionType InActionType)
+{
+	
+	switch (InActionType)
+	{
+	case EActionType::UnArmed:
+	{
+		OnStandingUnArmed(InCrouch, InActionType);
+		break;
+	}
+	case EActionType::Sword:
+	{
+		InCrouch ? OnStandingSword(InCrouch,InActionType) : OnCrounhSword(InCrouch,InActionType);
+		break;
+	}
+	case EActionType::Pistol:
+	{
+		break;
+	}
+	default:
+		break;
 	}
 }
 
@@ -140,20 +187,48 @@ void ACEnemy::TagetWidgetOn()
 	
 }
 
-void ACEnemy::TakeDown()
+void ACEnemy::OnStandingSword(bool InCrouch,EActionType InType)
 {
-	if (TakeDownMontage == nullptr)
-	{
-		return;
-	}
-	float MontageTime = PlayAnimMontage(TakeDownMontage);
+	FEnemyStealthTakeDown* Data = StealthTakeDownData[(int32)InType];
+	CheckNull(Data->Montage[(int32)InCrouch]);
+	float MontageTime = PlayAnimMontage(Data->Montage[(int32)InCrouch], Data->PlayRate, Data->StartSection);
 
 	FTimerDelegate TakeDownDelegate;
 	TakeDownDelegate.BindUFunction(this, TEXT("EndTakeDown"));
 	GetCharacterMovement()->DisableMovement();
 
-	GetWorldTimerManager().SetTimer(TakeDownHandle, TakeDownDelegate, MontageTime-0.2f, false);
-	
+	GetWorldTimerManager().SetTimer(TakeDownHandle, TakeDownDelegate, MontageTime - 0.2f, false);
+}
+
+void ACEnemy::OnCrounhSword(bool InCrouch,EActionType InType)
+{
+	FEnemyStealthTakeDown* Data = StealthTakeDownData[(int32)InType];
+	CheckNull(Data->Montage[(int32)InCrouch]);
+	float MontageTime = PlayAnimMontage(Data->Montage[(int32)InCrouch], Data->PlayRate, Data->StartSection);
+
+	FTimerDelegate TakeDownDelegate;
+	TakeDownDelegate.BindUFunction(this, TEXT("EndTakeDown"));
+	GetCharacterMovement()->DisableMovement();
+
+	GetWorldTimerManager().SetTimer(TakeDownHandle, TakeDownDelegate, MontageTime - 0.2f, false);
+}
+
+void ACEnemy::OnStandingUnArmed(bool InCrouch, EActionType InType)
+{
+	FEnemyStealthTakeDown* Data = StealthTakeDownData[(int32)InType];
+	CheckNull(Data->Montage[(int32)InCrouch]);
+	float MontageTime = PlayAnimMontage(Data->Montage[(int32)InCrouch], Data->PlayRate, Data->StartSection);
+
+	FTimerDelegate TakeDownDelegate;
+	TakeDownDelegate.BindUFunction(this, TEXT("EndTakeDown"));
+	GetCharacterMovement()->DisableMovement();
+
+	GetWorldTimerManager().SetTimer(TakeDownHandle, TakeDownDelegate, MontageTime - 0.2f, false);
+}
+
+void ACEnemy::TakeDown(bool InCrouch, EActionType InType)
+{
+	StealTakeDown(InCrouch, InType);
 }
 
 void ACEnemy::EndTakeDown()

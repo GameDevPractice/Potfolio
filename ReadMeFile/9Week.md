@@ -3,7 +3,7 @@
 1. ~~파쿠르~~
 2. ~~다단히트 처리~~
 3. StealTakeDown이 아닌 콤보 후 TakeDown
-4. Pistol StealTakeDown? 할 지 안 할 지 모름
+4. ~~Pistol StealTakeDown? 할 지 안 할 지 모름~~ 
 5. ~~Bullet HeadShot 적용~~
 6. 적 처리 시 Bullet 스폰 -> 되면 MaxBullet 소모
 
@@ -39,9 +39,23 @@ Enemy의 CapsuleComponent의 ObjectType을 변경 (Pawn -> PhysicsBody)
 Mesh의 Collision PreSet을 변경(World 시리즈와 Camera를 제외한 모든 Collision 무시)   
 변경 시 DoAction_Katana 시 튕겨지는 버그 발견->PlayerMesh도 Enemy와 같이 변경
 
+### StealthTakeDown 추가
+MontageComponent에서 이용한 DataTable을 사용하여 Montage를 관리하였다
+
+Interface를 사용하여 Enemy, Player가 ActionType에 맞게 TakeDown을 실행하도록 하였다.
+중요한 Montage는 배열로 받는다.  
+이때 Crouch 상태에 따라 다른 Montage가 재생된다.  
+
+|사진|설명|
+|___|___|
+|<img src = Image/Interface.png>|인터페이스 함수|
+|<img src = Image/PlayerStealTakeDown.png width = 600px>| ActionType에 맞게 실행(Player)|
+|<img src = Image/PlayerStealTakeDown_Crouch.png width = 600px>|Crouch 상태에 맞게 실행(Player)|
+|__Enemy__|이하동문|
+
 
 ### Todo
-StealTakeDown이 아닌 콤보 후 TakeDown을 위해 애니메이션 찾아보기 (0911)
+상호작용 액터? Trace를 이용할지 Overlap을 이용할지 고민 (0912)
 
 
 

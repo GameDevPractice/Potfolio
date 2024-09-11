@@ -2,7 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Engine/DataTable.h"
 #include "Component/CStateComponent.h"
+#include "Component/CActionComponent.h"
+#include "Interface/CStealTakeDownInterface.h"
 #include "CEnemy.generated.h"
 
 class UCActionComponent;
@@ -15,9 +18,28 @@ class UWidgetComponent;
 class UCWorldWidget;
 class UBoxComponent;
 
+USTRUCT(BlueprintType)
+struct FEnemyStealthTakeDown : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere)
+		EActionType Type;
+
+	UPROPERTY(EditAnywhere)
+		TArray<UAnimMontage*> Montage;
+
+	UPROPERTY(EditAnywhere)
+		float PlayRate;
+
+	UPROPERTY(EditAnywhere)
+		FName StartSection;
+};
+
 
 UCLASS()
-class POTPOLIO_API ACEnemy : public ACharacter
+class POTPOLIO_API ACEnemy : public ACharacter, public ICStealTakeDownInterface
 {
 	GENERATED_BODY()
 
@@ -26,6 +48,8 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+	void StealTakeDown(bool InCrouch, EActionType InActionType) override;
 
 protected:
 	UFUNCTION()
@@ -54,7 +78,13 @@ public:
 	void TagetWidgetOn();
 	void TagetWidgetOff();
 
-	void TakeDown();
+	void TakeDown(bool InCrouch, EActionType InType);
+
+private:
+	//StealthTakeDown
+	void OnStandingSword(bool InCrouch,EActionType InType);
+	void OnCrounhSword(bool InCrouch,EActionType InType);
+	void OnStandingUnArmed(bool InCrouch,EActionType InType);
 
 
 
@@ -94,6 +124,12 @@ private:
 
 	//TakeDown
 	FTimerHandle TakeDownHandle;
+
+private:
+	UPROPERTY(EditDefaultsOnly)
+		UDataTable* DataTable;
+
+	FEnemyStealthTakeDown* StealthTakeDownData[(int32)EActionType::Max];
 
 
 };

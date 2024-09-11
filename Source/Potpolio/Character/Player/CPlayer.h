@@ -2,8 +2,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Engine/DataTable.h"
 #include "Component/CStateComponent.h"
 #include "GenericTeamAgentInterface.h"
+#include "Component/CActionComponent.h"
+#include "Interface/CStealTakeDownInterface.h"
 #include "CPlayer.generated.h"
 
 class USpringArmComponent;
@@ -17,9 +20,28 @@ class UCStateComponent;
 class UCAttributeComponent;
 class ACEnemy;
 
+USTRUCT(BlueprintType)
+struct FStealthTakeDown : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere)
+		EActionType Type;
+
+	UPROPERTY(EditAnywhere)
+		TArray<UAnimMontage*> Montage;
+
+	UPROPERTY(EditAnywhere)
+		float PlayRate;
+
+	UPROPERTY(EditAnywhere)
+		FName StartSection;
+};
+
 
 UCLASS()
-class POTPOLIO_API ACPlayer : public ACharacter, public IGenericTeamAgentInterface
+class POTPOLIO_API ACPlayer : public ACharacter, public IGenericTeamAgentInterface, public ICStealTakeDownInterface
 {
 	GENERATED_BODY()
 
@@ -32,6 +54,8 @@ protected:
 	virtual void OnConstruction(const FTransform& Transform) override;
 
 	virtual void Tick(float DeltaSeconds) override;
+
+	void StealTakeDown(bool InCrouch, EActionType InActionType) override;
 
 private:
 	void OnMoveForward(float Axis);
@@ -56,6 +80,10 @@ private:
 	void Target_On();
 
 	void OnJog();
+
+	void OnSwordStealthTakeDown(bool InCrouch,EActionType InActionType);
+	void OnSwordCrouchStealthTakeDown(bool InCrouch,EActionType InActionType);
+	void OnUnArmdStandingStealthTakeDown(bool InCrouch, EActionType InActionType);
 
 public:
 	void End_Jump();
@@ -142,9 +170,14 @@ private:
 	//TakeDown
 	bool CanStealthTakeDown;
 	UPROPERTY(EditDefaultsOnly, Category = "StealthTakeDown")
-	UAnimMontage* StealthTakeDownMontage;
 	FTimerHandle StealthTakeDownHandle;
 	ACameraActor* StealthTakeDownCamera;
+
+private:
+	UPROPERTY(EditDefaultsOnly)
+	UDataTable* DataTable;
+
+	FStealthTakeDown* StealthTakeDownData[(int32)EActionType::Max];
 
 	//Jog
 	bool bJog;

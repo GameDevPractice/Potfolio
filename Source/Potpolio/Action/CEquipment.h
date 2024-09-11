@@ -28,6 +28,8 @@ protected:
 public:
 	void SetData(const FEquipData& InData);
 	void SetUnData(const FUnEquipData& InData);
+
+	FORCEINLINE bool GetSetForward() { return Data.SetForward; }
 	
 
 public:

@@ -8,12 +8,12 @@
 #include "Materials/MaterialInstanceConstant.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "Component/CActionComponent.h"
 #include "Component/CMontageComponent.h"
 #include "Component/CAttributeComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Action/CActionData.h"
 #include "Action/CDoAction.h"
+#include "Action/CEquipment.h"
 #include "Action/CAction.h"
 #include "../Enemy/CEnemy.h"
 
@@ -81,7 +81,7 @@ ACPlayer::ACPlayer()
 
 	//TakeDown
 	CanStealthTakeDown = false;
-	StealthTakeDownCamera = NewObject<ACameraActor>();
+	//StealthTakeDownCamera = NewObject<ACameraActor>();
 
 }
 
@@ -91,6 +91,29 @@ void ACPlayer::BeginPlay()
 
 	//Bind Func
 	StateComp->OnStateTypeChanged.AddDynamic(this,&ACPlayer::OnStateTypeChanged);
+
+	//Check DataTable
+	if (DataTable == nullptr)
+	{
+		CLog::Log("DataTable is not Set");
+		return;
+	}
+
+	//Save Montage
+	TArray<FStealthTakeDown*> FromDatasTable;
+	DataTable->GetAllRows<FStealthTakeDown>("", FromDatasTable);
+
+	for (int32 i = 0; i < (int32)EActionType::Max; i++)
+	{
+		for (const auto& Data : FromDatasTable)
+		{
+			if ((EActionType)i == Data->Type)
+			{
+				StealthTakeDownData[i] = Data;
+				break;
+			}
+		}
+	}
 	
 }
 
@@ -251,6 +274,29 @@ void ACPlayer::Tick(float DeltaSeconds)
 	
 }
 
+void ACPlayer::StealTakeDown(bool InCrouch, EActionType InActionType)
+{
+
+	switch (InActionType)
+	{
+	case EActionType::Sword :
+		{
+			InCrouch ? OnSwordCrouchStealthTakeDown(InCrouch,InActionType): OnSwordStealthTakeDown(InCrouch,InActionType);
+			break;
+		}
+	case EActionType::UnArmed:
+	{
+		
+		OnUnArmdStandingStealthTakeDown(InCrouch, InActionType);
+		break;
+		
+	}
+	default:
+		break;
+	}
+	
+}
+
 
 void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -351,7 +397,6 @@ void ACPlayer::OnStartRun()
 void ACPlayer::OnWalk()
 {
 	bRun = false;
-	GetWorldTimerManager().ClearTimer(RunTimer);
 	if (ActionComp->IsSwordMode())
 	{
 		GetCharacterMovement()->bOrientRotationToMovement = false;
@@ -474,6 +519,193 @@ void ACPlayer::OnJog()
 	}
 }
 
+void ACPlayer::OnSwordCrouchStealthTakeDown(bool InCrouch, EActionType InActionType)
+{
+	FStealthTakeDown* Data = StealthTakeDownData[(int32)InActionType];
+
+	FVector Start = GetActorLocation();
+	FVector End = GetActorLocation() + GetActorForwardVector() * 250.f;
+
+	ETraceTypeQuery TakeDownTraceType;
+	TakeDownTraceType = ETraceTypeQuery::TraceTypeQuery1;
+
+	TArray<AActor*> IngnoreActors;
+	IngnoreActors.Add(this);
+
+	FHitResult HitResult;
+
+	//Trace - True : TakeDown
+	if (UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TakeDownTraceType, false, IngnoreActors, EDrawDebugTrace::None, HitResult, true))
+	{
+		GetCharacterMovement()->DisableMovement();
+		ACEnemy* Enemy = Cast<ACEnemy>(HitResult.Actor);
+		if (Enemy == nullptr)
+		{
+			return;
+		}
+
+		//Player Set Location , Rotation
+		bUseControllerRotationYaw = false;
+		GetCharacterMovement()->bOrientRotationToMovement = true;;
+
+		FVector TakeDownLocation = Enemy->GetActorLocation() + (Enemy->GetActorForwardVector() * -50.f) + (Enemy->GetActorRightVector() * 65.f);
+		FRotator TakeDownRotation = Enemy->GetActorRotation();
+		//UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Enemy->GetActorLocation());
+
+		SetActorLocation(TakeDownLocation);
+		SetActorRotation(TakeDownRotation);
+
+		//Spawn Camera & ViewTarget
+		FVector Location = GetActorLocation() + (GetActorForwardVector() * 250.f) + (GetActorRightVector() * -50.f) + (GetActorUpVector() * 50.f);
+		FTransform CameraTransForm;
+		CameraTransForm.SetLocation(Location);
+
+		StealthTakeDownCamera = GetWorld()->SpawnActor<ACameraActor>(ACameraActor::StaticClass(), CameraTransForm);
+		StealthTakeDownCamera->SetActorRotation(UKismetMathLibrary::FindLookAtRotation(Location, GetActorLocation()));
+
+		APlayerController* PC = Cast<APlayerController>(GetController());
+		PC->SetViewTargetWithBlend(StealthTakeDownCamera);
+		StealthTakeDownCamera->GetCameraComponent()->bConstrainAspectRatio = false;
+
+		Enemy->TakeDown(bJog, InActionType);
+
+		
+		if (Data && Data->Montage[(int32)InCrouch])
+		{
+		float MontageTime = PlayAnimMontage(Data->Montage[(int32)InCrouch],Data->PlayRate,Data->StartSection);
+		GetCharacterMovement()->DisableMovement();
+		FTimerDelegate TakeDownDelegate;
+		TakeDownDelegate.BindUFunction(this, TEXT("EndTakeDown"));
+		GetWorldTimerManager().SetTimer(StealthTakeDownHandle, TakeDownDelegate, MontageTime, false);
+		}
+	}
+}
+
+void ACPlayer::OnUnArmdStandingStealthTakeDown(bool InCrouch, EActionType InActionType)
+{
+	FStealthTakeDown* Data = StealthTakeDownData[(int32)InActionType];
+
+	FVector Start = GetActorLocation();
+	FVector End = GetActorLocation() + GetActorForwardVector() * 250.f;
+
+	ETraceTypeQuery TakeDownTraceType;
+	TakeDownTraceType = ETraceTypeQuery::TraceTypeQuery1;
+
+	TArray<AActor*> IngnoreActors;
+	IngnoreActors.Add(this);
+
+	FHitResult HitResult;
+
+	//Trace - True : TakeDown
+	if (UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TakeDownTraceType, false, IngnoreActors, EDrawDebugTrace::None, HitResult, true))
+	{
+		GetCharacterMovement()->DisableMovement();
+		ACEnemy* Enemy = Cast<ACEnemy>(HitResult.Actor);
+		if (Enemy == nullptr)
+		{
+			return;
+		}
+
+		//Player Set Location , Rotation
+		bUseControllerRotationYaw = false;
+		GetCharacterMovement()->bOrientRotationToMovement = true;;
+
+		FVector TakeDownLocation = Enemy->GetActorLocation() + (Enemy->GetActorForwardVector() * -50.f) + (Enemy->GetActorRightVector() * 25.f);
+		FRotator TakeDownRotation = Enemy->GetActorRotation();
+		//UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Enemy->GetActorLocation());
+
+		SetActorLocation(TakeDownLocation);
+		SetActorRotation(TakeDownRotation);
+
+		//Spawn Camera & ViewTarget
+		FVector Location = GetActorLocation() + (GetActorForwardVector() * 400.f) ;
+		FTransform CameraTransForm;
+		CameraTransForm.SetLocation(Location);
+
+		StealthTakeDownCamera = GetWorld()->SpawnActor<ACameraActor>(ACameraActor::StaticClass(), CameraTransForm);
+		StealthTakeDownCamera->SetActorRotation(UKismetMathLibrary::FindLookAtRotation(Location, GetActorLocation()));
+
+		APlayerController* PC = Cast<APlayerController>(GetController());
+		PC->SetViewTargetWithBlend(StealthTakeDownCamera);
+		StealthTakeDownCamera->GetCameraComponent()->bConstrainAspectRatio = false;
+
+		Enemy->TakeDown(bJog, InActionType);
+
+
+		if (Data && Data->Montage[(int32)InCrouch])
+		{
+			float MontageTime = PlayAnimMontage(Data->Montage[(int32)InCrouch], Data->PlayRate, Data->StartSection);
+			GetCharacterMovement()->DisableMovement();
+			FTimerDelegate TakeDownDelegate;
+			TakeDownDelegate.BindUFunction(this, TEXT("EndTakeDown"));
+			GetWorldTimerManager().SetTimer(StealthTakeDownHandle, TakeDownDelegate, MontageTime, false);
+		}
+	}
+}
+
+void ACPlayer::OnSwordStealthTakeDown(bool InCrouch ,EActionType InActionType)
+{
+	FStealthTakeDown* Data = StealthTakeDownData[(int32)InActionType];
+
+	FVector Start = GetActorLocation();
+	FVector End = GetActorLocation() + GetActorForwardVector() * 250.f;
+
+	ETraceTypeQuery TakeDownTraceType;
+	TakeDownTraceType = ETraceTypeQuery::TraceTypeQuery1;
+
+	TArray<AActor*> IngnoreActors;
+	IngnoreActors.Add(this);
+
+	FHitResult HitResult;
+
+	//Trace - True : TakeDown
+	if (UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TakeDownTraceType, false, IngnoreActors, EDrawDebugTrace::None, HitResult, true))
+	{
+		GetCharacterMovement()->DisableMovement();
+		ACEnemy* Enemy = Cast<ACEnemy>(HitResult.Actor);
+		if (Enemy == nullptr)
+		{
+			return;
+		}
+
+		//Player Set Location , Rotation
+		bUseControllerRotationYaw = false;
+		GetCharacterMovement()->bOrientRotationToMovement = true;;
+
+		FVector TakeDownLocation = Enemy->GetActorLocation() + (Enemy->GetActorForwardVector() * -100.f) + (Enemy->GetActorRightVector() * 25.f);
+		FRotator TakeDownRotation = Enemy->GetActorRotation();
+		//UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Enemy->GetActorLocation());
+
+		SetActorLocation(TakeDownLocation);
+		SetActorRotation(TakeDownRotation);
+
+		//Spawn Camera & ViewTarget
+		FVector Location = GetActorLocation() +(GetActorForwardVector() * 250.f) + (GetActorUpVector() * 100.f);
+		FTransform CameraTransForm;
+		CameraTransForm.SetLocation(Location);
+
+		StealthTakeDownCamera = GetWorld()->SpawnActor<ACameraActor>(ACameraActor::StaticClass(), CameraTransForm);
+		StealthTakeDownCamera->SetActorRotation(UKismetMathLibrary::FindLookAtRotation(Location, GetActorLocation()));
+
+		APlayerController* PC = Cast<APlayerController>(GetController());
+		PC->SetViewTargetWithBlend(StealthTakeDownCamera);
+		StealthTakeDownCamera->GetCameraComponent()->bConstrainAspectRatio = false;
+
+		Enemy->TakeDown(bJog, InActionType);
+
+		
+		if (Data && Data->Montage[(int32)InCrouch])
+		{
+			float MontageTime = PlayAnimMontage(Data->Montage[(int32)InCrouch], Data->PlayRate, Data->StartSection);
+
+			GetCharacterMovement()->DisableMovement();
+			FTimerDelegate TakeDownDelegate;
+			TakeDownDelegate.BindUFunction(this, TEXT("EndTakeDown"));
+			GetWorldTimerManager().SetTimer(StealthTakeDownHandle, TakeDownDelegate, MontageTime, false);
+		}
+	}
+}
+
 
 
 void ACPlayer::End_Jump()
@@ -539,79 +771,30 @@ void ACPlayer::TakeDown()
 	{
 		return;
 	}
-	if (StealthTakeDownMontage == nullptr)
-	{
-		return;
-	}
-
-	if (!ActionComp->IsSwordMode())
+	if (DataTable == nullptr)
 	{
 		return;
 	}
 	CanStealthTakeDown = false;
-	FVector Start = GetActorLocation();
-	FVector End = GetActorLocation() + GetActorForwardVector() * 250.f;
-	
-	ETraceTypeQuery TakeDownTraceType;
-	TakeDownTraceType = ETraceTypeQuery::TraceTypeQuery1;
-
-	TArray<AActor*> IngnoreActors;
-	IngnoreActors.Add(this);
-
-	FHitResult HitResult;
-
-	//Trace - True : TakeDown
-	if (UKismetSystemLibrary::LineTraceSingle(GetWorld(), Start, End, TakeDownTraceType, false, IngnoreActors, EDrawDebugTrace::None, HitResult, true))
-	{
-		GetCharacterMovement()->DisableMovement();
-		ACEnemy* Enemy = Cast<ACEnemy>(HitResult.Actor);
-		if (Enemy == nullptr)
-		{
-			return;
-		}
-
-		//Player Set Location , Rotation
-		bUseControllerRotationYaw = false;
-		GetCharacterMovement()->bOrientRotationToMovement = true;;
-
-		FVector TakeDownLocation = Enemy->GetActorLocation() + (Enemy->GetActorForwardVector() * -100.f) + (Enemy->GetActorRightVector() * 25.f);
-		FRotator TakeDownRotation = Enemy->GetActorRotation();
-			//UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), Enemy->GetActorLocation());
-
-		SetActorLocation(TakeDownLocation);
-		SetActorRotation(TakeDownRotation);
-
-		//Spawn Camera & ViewTarget
-		FVector Location = GetActorLocation() + (GetActorForwardVector() * 250.f);
-		FTransform CameraTransForm;
-		CameraTransForm.SetLocation(Location);
-
-		StealthTakeDownCamera = GetWorld()->SpawnActor<ACameraActor>(ACameraActor::StaticClass(), CameraTransForm);
-		StealthTakeDownCamera->SetActorRotation(UKismetMathLibrary::FindLookAtRotation(Location,GetActorLocation()));
-		
-		APlayerController* PC = Cast<APlayerController>(GetController());
-		PC->SetViewTargetWithBlend(StealthTakeDownCamera);
-		StealthTakeDownCamera->GetCameraComponent()->bConstrainAspectRatio = false;
-
-		Enemy->TakeDown();
-
-		float MontageTime = PlayAnimMontage(StealthTakeDownMontage);
-
-
-		GetCharacterMovement()->DisableMovement();
-		FTimerDelegate TakeDownDelegate;
-		TakeDownDelegate.BindUFunction(this,TEXT("EndTakeDown"));
-		GetWorldTimerManager().SetTimer(StealthTakeDownHandle, TakeDownDelegate, MontageTime,false);
-	}
-
+	StealTakeDown(bJog, ActionComp->GetCurrentType());
 }
+
 
 void ACPlayer::EndTakeDown()
 {
 	GetWorldTimerManager().ClearTimer(StealthTakeDownHandle);
 	StealthTakeDownCamera->Destroy();
-	bUseControllerRotationYaw = true;
-	GetCharacterMovement()->bOrientRotationToMovement = false;;
+	if (ActionComp->GetCurrentAction()->GetEquipment()->GetSetForward())
+	{
+		bUseControllerRotationYaw = true;
+		GetCharacterMovement()->bOrientRotationToMovement = false;
+	}
+	else
+	{
+		bUseControllerRotationYaw = false;
+		GetCharacterMovement()->bOrientRotationToMovement = true;
+	}
+	
 	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
 	APlayerController* PC = Cast<APlayerController>(GetController());
 	PC->SetViewTargetWithBlend(CameraComp->GetAttachmentRootActor());

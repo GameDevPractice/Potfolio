@@ -48,6 +48,7 @@ private:
 	ACAttachment* Attachment;
 	int32 CurrentBulletCount;
 	int32 MaxBulletCount;
+	int32 ReloadBullet;
 	USoundBase* ReloadSound;
 	USoundBase* AimSound;
 

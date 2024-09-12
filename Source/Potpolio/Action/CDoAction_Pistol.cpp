@@ -29,7 +29,8 @@ void ACDoAction_Pistol::BeginPlay()
 
 	
 
-	MaxBulletCount = Data[0].MaxBullet;
+	ReloadBullet = Data[0].MaxBullet;
+	MaxBulletCount = ReloadBullet;
 	CurrentBulletCount = MaxBulletCount;
 	
 }
@@ -149,7 +150,19 @@ void ACDoAction_Pistol::OnBulletBeginOverlap(FHitResult InHitResult)
 
 void ACDoAction_Pistol::OnReload()
 {
-	CurrentBulletCount = MaxBulletCount;
+	if (MaxBulletCount <= 0)
+	{
+		return;
+	}
+	if ( (ReloadBullet - CurrentBulletCount) >= MaxBulletCount)
+	{
+		MaxBulletCount = 0;
+	}
+	else
+	{
+		MaxBulletCount -= (ReloadBullet - CurrentBulletCount);
+	}
+	CurrentBulletCount += (ReloadBullet - CurrentBulletCount);
 	UGameplayStatics::PlaySound2D(GetWorld(),ReloadSound);
 }
 

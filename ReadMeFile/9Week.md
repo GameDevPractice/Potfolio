@@ -17,7 +17,7 @@ Tick을 통해 넘을 수 있는 벽인지 판단
 5. 재생 후 변경 한거 원래대로 변경하기
 
 |단계|이미지|설명|
-|___|___|___|
+|:---|:---:|:---|
 |1|<img src = "Image/VaultFirst.png" width = 400px>|플레이어의 위치를 기준으로 2미터 앞에 충돌체가 있는지 확인한다.|
 |2|<img src = "Image/VaultSecond.png" width = 400px height = 200px>|확인한 위치의 2미터 상공을 기준으로 충돌한 물체의 높이를 확인한다|
 |3|<img src = Image/VaultThird.png width = 400px height = 200px>|측정된 높이가 일정높이 이상이면 물체의 길이를 측정한다|
@@ -47,7 +47,7 @@ Interface를 사용하여 Enemy, Player가 ActionType에 맞게 TakeDown을 실�
 이때 Crouch 상태에 따라 다른 Montage가 재생된다.  
 
 |사진|설명|
-|___|___|
+|:---|:---|
 |<img src = Image/Interface.png>|인터페이스 함수|
 |<img src = Image/PlayerStealTakeDown.png width = 600px>| ActionType에 맞게 실행(Player)|
 |<img src = Image/PlayerStealTakeDown_Crouch.png width = 600px>|Crouch 상태에 맞게 실행(Player)|
@@ -58,7 +58,7 @@ Interface를 사용하여 Enemy, Player가 ActionType에 맞게 TakeDown을 실�
 총 장전 시 Max Bullet 소모 하게 끔 함
 
 |사진|설명|
-|___|___|
+|:---|:---|
 |<img src = Image/ReloadMBefore.png>|장전 전|
 |<img src = Image/Reload_After.png width = 150px>|장전 후|
 |<img src = Image/PickupBullet_Overlap.png width = 150px>|스폰 된 PickUp_Bullet를 Overlap 할 시 MaxBullet을 증가 한다. 증가 하는 양은 랜덤|

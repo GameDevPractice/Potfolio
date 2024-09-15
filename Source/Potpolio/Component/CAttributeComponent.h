@@ -24,7 +24,9 @@ public:
 	FORCEINLINE bool IsMove() {return bCanMove;}
 
 	//Health
+	UFUNCTION(BlueprintPure)
 	FORCEINLINE float GetMaxHealth() {return MaxHealth;}
+	UFUNCTION(BlueprintPure)
 	FORCEINLINE float GetCurrentHealth() {return CurrentHealth;}
 
 	//WalkSpeed
@@ -36,6 +38,7 @@ public:
 
 public:
 	//Health Func
+	UFUNCTION(BlueprintCallable)
 	void OnIncreseHealth(float InHeal);
 	void OnDecreseHealth(float InDeal);
 

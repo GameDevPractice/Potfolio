@@ -144,8 +144,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Component")
 	UCStateComponent* StateComp;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Component")
-		UCAttributeComponent* AttributeComp;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
+	UCAttributeComponent* AttributeComp;
 
 
 
@@ -172,6 +172,12 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "StealthTakeDown")
 	FTimerHandle StealthTakeDownHandle;
 	ACameraActor* StealthTakeDownCamera;
+
+	//UI
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UUserWidget> HealthWidgetClass;
+
+	UUserWidget* HealthWidget;
 
 private:
 	UPROPERTY(EditDefaultsOnly)

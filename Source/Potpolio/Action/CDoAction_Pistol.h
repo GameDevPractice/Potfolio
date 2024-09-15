@@ -39,6 +39,10 @@ private:
 public:
 	void OnReload();
 
+public:
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
+	int32 MaxBulletCount;
+
 
 private:
 	ACbullet* Bullet;
@@ -47,7 +51,7 @@ private:
 	UCAction* ActionData;
 	ACAttachment* Attachment;
 	int32 CurrentBulletCount;
-	int32 MaxBulletCount;
+
 	int32 ReloadBullet;
 	USoundBase* ReloadSound;
 	USoundBase* AimSound;

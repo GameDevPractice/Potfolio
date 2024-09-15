@@ -16,6 +16,7 @@
 #include "Action/CEquipment.h"
 #include "Action/CAction.h"
 #include "../Enemy/CEnemy.h"
+#include "Blueprint/UserWidget.h"
 
 
 
@@ -83,6 +84,9 @@ ACPlayer::ACPlayer()
 	CanStealthTakeDown = false;
 	//StealthTakeDownCamera = NewObject<ACameraActor>();
 
+	
+	
+
 }
 
 void ACPlayer::BeginPlay()
@@ -114,7 +118,13 @@ void ACPlayer::BeginPlay()
 			}
 		}
 	}
-	
+
+
+	//Widget
+	HealthWidget = CreateWidget(GetWorld(), HealthWidgetClass);
+	HealthWidget->AddToViewport();
+	HealthWidget->SetVisibility(ESlateVisibility::Visible);
+
 }
 
 //Construction

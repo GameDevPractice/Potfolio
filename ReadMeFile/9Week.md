@@ -5,7 +5,7 @@
 3. StealTakeDown이 아닌 콤보 후 TakeDown
 4. ~~Pistol StealTakeDown? 할 지 안 할 지 모름~~ 
 5. ~~Bullet HeadShot 적용~~
-6. 적 처리 시 Bullet 스폰 -> 되면 MaxBullet 소모
+6. ~~적 처리 시 Bullet 스폰 -> 되면 MaxBullet 소모~~
 
 ### 달성도
 #### Parkour
@@ -54,8 +54,25 @@ Interface를 사용하여 Enemy, Player가 ActionType에 맞게 TakeDown을 실�
 |__Enemy__|이하동문|
 
 
-### Todo
-상호작용 액터? Trace를 이용할지 Overlap을 이용할지 고민 (0912)
+### 적 사망 시 PickUp Actor 스폰
+총 장전 시 Max Bullet 소모 하게 끔 함
 
+|사진|설명|
+|___|___|
+|<img src = Image/ReloadMBefore.png>|장전 전|
+|<img src = Image/Reload_After.png width = 150px>|장전 후|
+|<img src = Image/PickupBullet_Overlap.png width = 150px>|스폰 된 PickUp_Bullet를 Overlap 할 시 MaxBullet을 증가 한다. 증가 하는 양은 랜덤|
+|<img src = Image/Pickup_Soju.png width = 150px>|스폰 된 PickUp_Soju를 Overlap 할 시 Player Health을 증가 한다. 증가 하는 양은 랜덤|
+
+스폰 하는 Actor는 블루프린트로 선택을 사용하여 랜덤으로 나오게 하였다.
+
+### 플레이어 Health UI
+![Player Health](Image/PlayerHealth.png)   
+프로그레스 바를 사용
+
+
+### Todo
+마무리 공격 TakeDown
+게임 UI (시작 시, 사망 시, 자동 저장은 희망)
 
 

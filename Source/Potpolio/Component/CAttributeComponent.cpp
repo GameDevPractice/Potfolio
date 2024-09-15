@@ -32,7 +32,7 @@ void UCAttributeComponent::SetWalkSpeed(ESpeedType InWalkSpeed)
 void UCAttributeComponent::OnIncreseHealth(float InHeal)
 {
 	CurrentHealth += InHeal;
-	//FMath::Clamp(CurrentHealth, 0.0f, MaxHealth);
+	CurrentHealth = FMath::Clamp(CurrentHealth, 0.0f, MaxHealth);
 }
 
 void UCAttributeComponent::OnDecreseHealth(float InDeal)

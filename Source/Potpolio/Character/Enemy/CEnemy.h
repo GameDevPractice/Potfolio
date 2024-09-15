@@ -92,16 +92,16 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
 		UCActionComponent* ActionComp;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Component")
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
 		UCMontageComponent* MontageComp;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Component")
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
 		UCStateComponent* StateComp;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Component")
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
 		UCAttributeComponent* AttributeComp;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Component")
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
 		UBoxComponent* BoxComp;
 
 

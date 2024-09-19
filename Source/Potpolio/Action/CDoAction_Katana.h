@@ -31,4 +31,5 @@ private:
 	bool bcanCombo = false;
 	bool bSuccessCombo = false;
 	TArray<ACharacter*> HittedCharacters;
+	bool bFinalAttack = false;
 };

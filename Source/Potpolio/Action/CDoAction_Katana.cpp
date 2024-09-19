@@ -11,6 +11,13 @@ void ACDoAction_Katana::DoAction()
 {
 	Super::DoAction();
 
+	if (bFinalAttack)
+	{
+		CLog::Print("Can Final Attack");
+		bFinalAttack = false;
+		return;
+	}
+
 	CheckFalse(Data.Num() > 0);
 	if (bcanCombo)
 	{
@@ -80,9 +87,27 @@ void ACDoAction_Katana::OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InC
 	HittedCharacters.AddUnique(InOtherCharacter);
 	CheckFalse(NumberOfHittedCharacters < HittedCharacters.Num());
 
+
 	FDamageEvent DamageEvent;
 	InOtherCharacter->TakeDamage(Data[ComboCount].Power, DamageEvent,InAttacker->GetController(),InCauser);
 
+	ACEnemy* Enemy = Cast<ACEnemy>(InOtherCharacter);
+	if (Enemy)
+	{
+	UCAttributeComponent* EnemyAttributeComp = CHelpers::GetComponent<UCAttributeComponent>(Enemy);
+	if (EnemyAttributeComp)
+	{
+		if (EnemyAttributeComp->GetCurrentHealth() <= Data[ComboCount].Power)
+		{
+			bFinalAttack = true;
+		}
+		else
+		{
+			bFinalAttack = false;
+		}
+	}
+
+	}
 	
 
 	//CameraShake
@@ -109,4 +134,5 @@ void ACDoAction_Katana::OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InC
 void ACDoAction_Katana::OnAttachEndOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter)
 {
 	Super::OnAttachEndOverlap(InAttacker, InCauser, InOtherCharacter);
+	bFinalAttack = false;
 }

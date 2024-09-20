@@ -21,7 +21,7 @@ protected:
 	virtual void OnUnPossess() override;
 	
 public:
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
 
 private:
 	UFUNCTION()

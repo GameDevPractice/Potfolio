@@ -401,7 +401,7 @@ void ACPlayer::OnStartRun()
 	StateComp->SetIdleMode();
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	bUseControllerRotationYaw = false;
-	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetSprintpeed();
+	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetSprintpeed() + 50.f;
 }
 
 void ACPlayer::OnWalk()

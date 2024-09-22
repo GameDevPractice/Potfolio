@@ -177,7 +177,9 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> HealthWidgetClass;
 
-	UUserWidget* HealthWidget;
+	public:
+		UPROPERTY(BlueprintReadOnly, VisibleDefaultsOnly, Category = "UI")
+		UUserWidget* HealthWidget;
 
 private:
 	UPROPERTY(EditDefaultsOnly)

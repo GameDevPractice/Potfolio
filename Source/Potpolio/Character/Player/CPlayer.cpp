@@ -82,11 +82,6 @@ ACPlayer::ACPlayer()
 
 	//TakeDown
 	CanStealthTakeDown = false;
-	//StealthTakeDownCamera = NewObject<ACameraActor>();
-
-	
-	
-
 }
 
 void ACPlayer::BeginPlay()

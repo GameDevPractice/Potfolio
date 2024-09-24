@@ -84,15 +84,15 @@ void ACDoAction_Pistol::DoAction()
 	{
 		 TraceEnd = TraceHit.ImpactPoint;
 	}
-		 DrawDebugLine(GetWorld(),TraceStart,TraceEnd,FColor::Red,false,5.f);
+	DrawDebugLine(GetWorld(),TraceStart,TraceEnd,FColor::Red,false,5.f);
 	
 
 	FRotator Rotation =  FRotationMatrix::MakeFromX( TraceEnd - MuzzleLocation).Rotator();
 	FTransform SpawnTransform(Rotation, MuzzleLocation);
 
-
-	Bullet = GetWorld()->SpawnActor<ACbullet>(Data[0].Bullet, SpawnTransform, SpawnParam);
-	
+	ACbullet* Bullet = GetWorld()->SpawnActor<ACbullet>(Data[0].Bullet, SpawnTransform, SpawnParam);
+	CLog::Print(GetNameSafe(Bullet),1,5.f,FColor::Red);
+	CLog::Print(GetNameSafe(Data[0].Bullet),1,5.f,FColor::Blue);
 	CheckNull(Bullet);
 	//Bind BulletDelegate
 	Bullet->OnBulletBeginOverlap.AddDynamic(this, &ACDoAction_Pistol::OnBulletBeginOverlap);
@@ -122,6 +122,14 @@ void ACDoAction_Pistol::DoAction()
 void ACDoAction_Pistol::SubDoAction(bool InbAiming)
 {
 	bAiming = InbAiming;
+	if (InbAiming)
+	{
+	OwnerCharacter->PlayAnimMontage(SubData.AnimMontage, SubData.PlayRate, SubData.StartSection);
+	}
+	else
+	{
+		OwnerCharacter->StopAnimMontage();
+	}
 	Aim->SetVisiblity(InbAiming);
 	UGameplayStatics::PlaySound2D(GetWorld(), AimSound);
 }
@@ -133,7 +141,7 @@ void ACDoAction_Pistol::OnBulletBeginOverlap(FHitResult InHitResult)
 	if (Data[0].Particle)
 	{
 		FTransform EffectLocation = Data[0].EffectTransforms;
-		EffectLocation.AddToTranslation(Bullet->GetActorLocation());
+		EffectLocation.AddToTranslation(HitResult.ImpactPoint);
 		EffectLocation.SetRotation(FQuat(HitResult.ImpactNormal.Rotation()));
 
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),Data[0].Particle, EffectLocation);

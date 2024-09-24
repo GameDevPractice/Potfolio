@@ -40,6 +40,7 @@ void UCActionData::BeginPlay(ACharacter* InOwnerCharacter, UCAction** OutAction)
 	{
 		DoAction = InOwnerCharacter->GetWorld()->SpawnActorDeferred<ACDoAction>(DoActionClass,Transform,InOwnerCharacter);
 		DoAction->SetActionData(DoActionData);
+		DoAction->SetSubActionData(SubActionData);
 		DoAction->AttachToComponent(InOwnerCharacter->GetMesh(), FAttachmentTransformRules(EAttachmentRule::KeepRelative, true), NAME_None);
 		DoAction->FinishSpawning(Transform);
 		if (Attachment)

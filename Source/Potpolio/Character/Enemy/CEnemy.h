@@ -127,7 +127,7 @@ private:
 
 private:
 	UPROPERTY(EditDefaultsOnly)
-		UDataTable* DataTable;
+	UDataTable* DataTable;
 
 	FEnemyStealthTakeDown* StealthTakeDownData[(int32)EActionType::Max];
 

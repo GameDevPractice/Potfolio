@@ -45,7 +45,7 @@ public:
 
 
 private:
-	ACbullet* Bullet;
+	
 	UCMontageComponent* MontageComp;
 	UAim* Aim;
 	UCAction* ActionData;

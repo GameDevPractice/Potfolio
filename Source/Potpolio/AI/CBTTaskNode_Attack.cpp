@@ -14,6 +14,7 @@ EBTNodeResult::Type UCBTTaskNode_Attack::ExecuteTask(UBehaviorTreeComponent& Own
 	AAIController* AIC = Cast<AAIController>(OwnerComp.GetOwner());
 	if (AIC == nullptr)
 	{
+		
 		return EBTNodeResult::Failed;
 	}
 	APawn* Pawn = AIC->GetPawn();

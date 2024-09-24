@@ -49,6 +49,7 @@ public:
 public:
 	void DoAction();
 	void DoSubAction(bool InbAiming);
+	void Abort();
 	void ChangeEquip(EActionType InNextType);
 
 public:

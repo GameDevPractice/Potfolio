@@ -5,32 +5,41 @@
 #include "Component/CAttributeComponent.h"
 #include "Components/ShapeComponent.h"
 #include "Character/Enemy/CEnemy.h"
+#include "Character/Player/CPlayer.h"
 
 
 void ACDoAction_Katana::DoAction()
 {
 	Super::DoAction();
 
-	if (bFinalAttack)
-	{
-		CLog::Print("Can Final Attack");
-		bFinalAttack = false;
-		return;
-	}
 
 	CheckFalse(Data.Num() > 0);
 	if (bcanCombo)
 	{
 		bcanCombo = false;
 		bSuccessCombo = true;
-		CLog::Print("SuccessCombo");
 		return;
 	}
 	CheckFalse(StateComp->IsIdleMode());
 	StateComp->SetActionMode();
-
 	OwnerCharacter->PlayAnimMontage(Data[0].AnimMontage, Data[0].PlayRate, Data[0].StartSection);
 	Data[0].SetMove ? AttributeComp->SetMove() : AttributeComp->SetStop();
+}
+
+void ACDoAction_Katana::SubDoAction(bool InSbuAction)
+{
+	ACPlayer* Player = Cast<ACPlayer>(OwnerCharacter);
+	
+	if (InSbuAction)
+	{
+		OwnerCharacter->PlayAnimMontage(SubData.AnimMontage, SubData.PlayRate, SubData.StartSection);
+		Player->OnBlockBox();
+	}
+	else
+	{
+		OwnerCharacter->StopAnimMontage();
+		Player->OffBlockBox();
+	}
 }
 
 void ACDoAction_Katana::EnableCombo()
@@ -48,6 +57,11 @@ void ACDoAction_Katana::ClearHittedCharacter()
 	HittedCharacters.Empty();
 }
 
+void ACDoAction_Katana::IncreasCount()
+{
+	bSuccessCombo = true;
+}
+
 
 
 void ACDoAction_Katana::Begin_DoAction()
@@ -59,7 +73,7 @@ void ACDoAction_Katana::Begin_DoAction()
 	bSuccessCombo = false;
 
 	OwnerCharacter->StopAnimMontage();
-	CLog::Print("Begin Action");
+
 	ComboCount++;
 	ComboCount = FMath::Clamp(ComboCount, 0, Data.Num() - 1);
 
@@ -134,5 +148,4 @@ void ACDoAction_Katana::OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InC
 void ACDoAction_Katana::OnAttachEndOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter)
 {
 	Super::OnAttachEndOverlap(InAttacker, InCauser, InOtherCharacter);
-	bFinalAttack = false;
 }

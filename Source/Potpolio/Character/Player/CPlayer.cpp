@@ -11,10 +11,12 @@
 #include "Component/CMontageComponent.h"
 #include "Component/CAttributeComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/BoxComponent.h"
 #include "Action/CActionData.h"
 #include "Action/CDoAction.h"
 #include "Action/CEquipment.h"
 #include "Action/CAction.h"
+#include "Action/CBullet.h"
 #include "../Enemy/CEnemy.h"
 #include "Blueprint/UserWidget.h"
 
@@ -53,7 +55,13 @@ ACPlayer::ACPlayer()
 		CHelpers::CreateActorComponent(this, &StateComp, TEXT("StateComp"));
 		//AttributeComponet
 		CHelpers::CreateActorComponent(this, &AttributeComp, TEXT("Attribute"));
+
+		CHelpers::CreateSceneComponent(this, &BoxComp, TEXT("BoxComp"),GetMesh());
 	}
+
+	//Block BoxComp
+	BoxComp->SetRelativeLocation(FVector(30.f,70.f,120.f));
+	BoxComp->SetGenerateOverlapEvents(false);
 
 	//CameraComponent, SpringArmComponent Upload in memory 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
@@ -120,6 +128,8 @@ void ACPlayer::BeginPlay()
 	HealthWidget->AddToViewport();
 	HealthWidget->SetVisibility(ESlateVisibility::Visible);
 
+
+	BoxComp->OnComponentBeginOverlap.AddDynamic(this,&ACPlayer::BlockBoxOverlap);
 }
 
 //Construction
@@ -444,7 +454,6 @@ void ACPlayer::OffSecondaryAct()
 {
 	CheckTrue(ActionComp->IsUnarmedMode())
 	ActionComp->DoSubAction(false);
-
 }
 
 void ACPlayer::OnJump()
@@ -737,17 +746,30 @@ void ACPlayer::OffTakeDown()
 	CanStealthTakeDown = false;
 }
 
+void ACPlayer::OnBlockBox()
+{
+	BoxComp->SetGenerateOverlapEvents(true);
+}
+
+void ACPlayer::OffBlockBox()
+{
+	BoxComp->SetGenerateOverlapEvents(false);
+}
+
 float ACPlayer::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	DamageValue = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 	DamageInstigator = EventInstigator;
 
-	//ActionComp->Abort();
+	ActionComp->Abort();
 	AttributeComp->OnDecreseHealth(Damage);
 
-	if (AttributeComp->GetCurrentHealth() <= 0)
+	if (AttributeComp->GetCurrentHealth() <= 0.f)
 	{
 		StateComp->SetDeadMode();
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		GetMesh()->SetCollisionProfileName("Ragdoll");
+		GetMesh()->SetSimulatePhysics(true);
 		return 0.0f;
 	}
 
@@ -782,6 +804,15 @@ void ACPlayer::TakeDown()
 	}
 	CanStealthTakeDown = false;
 	StealTakeDown(bJog, ActionComp->GetCurrentType());
+}
+
+void ACPlayer::BlockBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	ACbullet* Bullet = Cast<ACbullet>(OtherActor);
+		if (Bullet)
+		{
+
+		}
 }
 
 

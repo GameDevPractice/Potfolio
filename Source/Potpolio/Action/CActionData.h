@@ -69,6 +69,18 @@ public:
 	int32 MaxBullet;
 };
 
+USTRUCT(BlueprintType)
+struct FSubActionData : public FEquipData
+{
+	GENERATED_BODY()
+
+public:
+		UPROPERTY(EditDefaultsOnly)
+		UParticleSystem* Particle;
+
+	UPROPERTY(EditDefaultsOnly)
+		FTransform EffectTransforms;
+};
 
 
 UCLASS()
@@ -100,5 +112,8 @@ public:
 		TSubclassOf<ACDoAction> DoActionClass;
 	UPROPERTY(EditDefaultsOnly, Category = "DoAction")
 		TArray<FDoActionData> DoActionData;
+
+	UPROPERTY(EditDefaultsOnly, Category = "SubAction")
+		FSubActionData SubActionData;
 
 };

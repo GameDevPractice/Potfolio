@@ -18,13 +18,6 @@ ACEnemy::ACEnemy()
 {
 	GetMesh()->SetRelativeLocation(FVector(0, 0, -88));
 	GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));
-	USkeletalMesh* MeshComp;
-	ConstructorHelpers::FObjectFinder<USkeletalMesh>MeshAsset(TEXT("/Game/Enemy/Mesh/Swat"));
-	if (MeshAsset.Succeeded())
-	{
-		MeshComp = MeshAsset.Object;
-		GetMesh()->SetSkeletalMesh(MeshComp);
-	}
 	
 	CHelpers::CreateSceneComponent(this, &BoxComp, TEXT("BoxComp"), GetMesh());
 	BoxComp->SetRelativeLocation(FVector(-0.000008f, -59.999950f, 100.000000f));

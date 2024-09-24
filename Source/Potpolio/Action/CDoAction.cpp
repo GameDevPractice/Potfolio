@@ -39,3 +39,8 @@ void ACDoAction::SetActionData(const TArray<FDoActionData>& InData)
 	Data = InData;
 }
 
+void ACDoAction::SetSubActionData(const FSubActionData InData)
+{
+	SubData = InData;
+}
+

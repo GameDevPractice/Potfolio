@@ -44,9 +44,11 @@ public:
 
 public:
 	void SetActionData(const TArray<FDoActionData>& InData);
+	void SetSubActionData(const FSubActionData InData);
 
 protected:
 	TArray<FDoActionData> Data;
+	FSubActionData SubData;
 	ACharacter* OwnerCharacter;
 	UCStateComponent* StateComp;
 	UCActionComponent* ActionComp;
@@ -55,5 +57,4 @@ protected:
 	APlayerController* PC;
 	ACAIController* AIC;
 	bool bAiming;
-
 };

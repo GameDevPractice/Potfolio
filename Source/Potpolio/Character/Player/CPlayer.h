@@ -19,6 +19,7 @@ class UCMontageComponent;
 class UCStateComponent;
 class UCAttributeComponent;
 class ACEnemy;
+class UBoxComponent;
 
 USTRUCT(BlueprintType)
 struct FStealthTakeDown : public FTableRowBase
@@ -93,6 +94,9 @@ public:
 	void OnTakeDown();
 	void OffTakeDown();
 
+	void OnBlockBox();
+	void OffBlockBox();
+
 	FORCEINLINE bool GetJog() { return bJog; }
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -111,10 +115,13 @@ protected:
 
 	UFUNCTION()
 		void EndVault();
+
+	UFUNCTION()
+	void BlockBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 private:
 	void Hitted();
 	void TakeDown();
-
 
 
 private:
@@ -146,6 +153,9 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
 	UCAttributeComponent* AttributeComp;
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Component")
+	UBoxComponent* BoxComp;
 
 
 

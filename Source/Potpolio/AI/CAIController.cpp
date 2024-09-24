@@ -58,17 +58,17 @@ void ACAIController::OnUnPossess()
 	PerceptionComp->OnPerceptionUpdated.Clear();
 }
 
-//void ACAIController::Tick(float DeltaTime)
-//{
-//
-//	Super::Tick(DeltaTime);
-//
-//	FVector Center = OwnerEnemy->GetActorLocation();
-//	CheckFalse(bDrawRange);
-//	DrawDebugSphere(GetWorld(), Center, Sight->SightRadius, Segment, FColor::Green);
-//	DrawDebugSphere(GetWorld(), Center, BehaviorRange, Segment, FColor::Green);
-//
-//}
+void ACAIController::Tick(float DeltaTime)
+{
+
+	Super::Tick(DeltaTime);
+
+	FVector Center = OwnerEnemy->GetActorLocation();
+	CheckFalse(bDrawRange);
+	DrawDebugSphere(GetWorld(), Center, Sight->SightRadius, Segment, FColor::Green);
+	DrawDebugSphere(GetWorld(), Center, BehaviorRange, Segment, FColor::Green);
+
+}
 
 
 void ACAIController::OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors)

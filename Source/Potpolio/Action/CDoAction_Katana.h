@@ -11,11 +11,12 @@ class POTPOLIO_API ACDoAction_Katana : public ACDoAction
 
 public:
 	virtual void DoAction() override;
-
+	virtual void SubDoAction(bool InSbuAction) override;
 public:
 	void EnableCombo();
 	void DisableCombo();
 	void ClearHittedCharacter();
+	void IncreasCount();
 
 private:
 	void Begin_DoAction();

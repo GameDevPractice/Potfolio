@@ -51,14 +51,21 @@ void UCActionComponent::DoSubAction(bool InbAiming)
 	{
 		ACDoAction* DoAction = Datas[(int32)Type]->GetDoAction();
 		DoAction->SubDoAction(InbAiming);
-		if (ONAimChanged.IsBound())
-		{
-			
-			ONAimChanged.Broadcast(InbAiming);
-		}
 	}
 }
 
+
+void UCActionComponent::Abort()
+{
+	CheckNull(GetCurrentAction());
+	CheckTrue(IsUnarmedMode());
+
+	if (GetCurrentAction()->GetEquipment())
+	{
+		GetCurrentAction()->GetEquipment()->Begin_Equip();
+		GetCurrentAction()->GetEquipment()->End_Equip();
+	}
+}
 
 
 void UCActionComponent::SetUnarmedMode()

@@ -107,9 +107,9 @@ protected:
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
-	TSubclassOf<UCWorldWidget> TargetWidgetClass;
+	TSubclassOf<UCWorldWidget> TakeOverClass;
 
-	UCWorldWidget* TargetWidget;
+	UCWorldWidget* TakeOverWidget;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "TakeDown")

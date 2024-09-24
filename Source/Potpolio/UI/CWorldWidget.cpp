@@ -3,7 +3,7 @@
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/SizeBox.h"
 
-void UCWorldWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+void  UCWorldWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
 

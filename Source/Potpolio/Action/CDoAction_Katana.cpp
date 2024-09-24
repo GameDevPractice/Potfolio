@@ -30,16 +30,6 @@ void ACDoAction_Katana::SubDoAction(bool InSbuAction)
 {
 	ACPlayer* Player = Cast<ACPlayer>(OwnerCharacter);
 	
-	if (InSbuAction)
-	{
-		OwnerCharacter->PlayAnimMontage(SubData.AnimMontage, SubData.PlayRate, SubData.StartSection);
-		Player->OnBlockBox();
-	}
-	else
-	{
-		OwnerCharacter->StopAnimMontage();
-		Player->OffBlockBox();
-	}
 }
 
 void ACDoAction_Katana::EnableCombo()

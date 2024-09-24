@@ -160,14 +160,14 @@ void ACDoAction_Pistol::OnReload()
 	
 	if ( (ReloadBullet - CurrentBulletCount) >= MaxBulletCount)
 	{
-		ReloadBullet = MaxBulletCount;
+		CurrentBulletCount += MaxBulletCount;
 		MaxBulletCount = 0;
 	}
 	else
 	{
-		MaxBulletCount -= (ReloadBullet - CurrentBulletCount);
-	}
+	MaxBulletCount -= (ReloadBullet - CurrentBulletCount);
 	CurrentBulletCount += (ReloadBullet - CurrentBulletCount);
+	}
 	ReloadBullet = Data[0].MaxBullet;
 	UGameplayStatics::PlaySound2D(GetWorld(),ReloadSound);
 }

@@ -56,12 +56,9 @@ ACPlayer::ACPlayer()
 		//AttributeComponet
 		CHelpers::CreateActorComponent(this, &AttributeComp, TEXT("Attribute"));
 
-		CHelpers::CreateSceneComponent(this, &BoxComp, TEXT("BoxComp"),GetMesh());
 	}
 
-	//Block BoxComp
-	BoxComp->SetRelativeLocation(FVector(30.f,70.f,120.f));
-	BoxComp->SetGenerateOverlapEvents(false);
+
 
 	//CameraComponent, SpringArmComponent Upload in memory 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
@@ -129,7 +126,6 @@ void ACPlayer::BeginPlay()
 	HealthWidget->SetVisibility(ESlateVisibility::Visible);
 
 
-	BoxComp->OnComponentBeginOverlap.AddDynamic(this,&ACPlayer::BlockBoxOverlap);
 }
 
 //Construction
@@ -395,7 +391,7 @@ void ACPlayer::OnRun()
 	GetWorldTimerManager().SetTimer(RunTimer, Delegate,0.7f,false);
 	return;
 	}
-	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetSprintpeed();
+	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetSprintpeed() + 50.f;
 }
 
 void ACPlayer::OnStartRun()
@@ -746,15 +742,7 @@ void ACPlayer::OffTakeDown()
 	CanStealthTakeDown = false;
 }
 
-void ACPlayer::OnBlockBox()
-{
-	BoxComp->SetGenerateOverlapEvents(true);
-}
 
-void ACPlayer::OffBlockBox()
-{
-	BoxComp->SetGenerateOverlapEvents(false);
-}
 
 float ACPlayer::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
@@ -806,14 +794,6 @@ void ACPlayer::TakeDown()
 	StealTakeDown(bJog, ActionComp->GetCurrentType());
 }
 
-void ACPlayer::BlockBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	ACbullet* Bullet = Cast<ACbullet>(OtherActor);
-		if (Bullet)
-		{
-
-		}
-}
 
 
 void ACPlayer::EndTakeDown()

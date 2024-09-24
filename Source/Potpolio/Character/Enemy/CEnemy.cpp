@@ -45,15 +45,15 @@ void ACEnemy::BeginPlay()
 
 	AIC = GetController<AAIController>();
 
-	if (TargetWidgetClass)
+	if (TakeOverClass)
 	{
 
-		TargetWidget = CreateWidget<UCWorldWidget>(GetWorld(), TargetWidgetClass);
-		if (TargetWidget)
+		TakeOverWidget = CreateWidget<UCWorldWidget>(GetWorld(), TakeOverClass);
+		if (TakeOverWidget)
 		{
-			TargetWidget->AttachToActor = this;
-			TargetWidget->AddToViewport();
-			TargetWidget->SetVisibility(ESlateVisibility::Hidden);
+			TakeOverWidget->AttachToActor = this;
+			TakeOverWidget->AddToViewport();
+			TakeOverWidget->SetVisibility(ESlateVisibility::Hidden);
 		}
 	}
 
@@ -115,6 +115,7 @@ void ACEnemy::OnTakeDown(UPrimitiveComponent* OverlappedComponent, AActor* Other
 		return;
 	}
 	Player->OnTakeDown();
+	TakeOverWidget->SetVisibility(ESlateVisibility::Visible);
 }
 
 void ACEnemy::OffTakeDown(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
@@ -125,6 +126,7 @@ void ACEnemy::OffTakeDown(UPrimitiveComponent* OverlappedComponent, AActor* Othe
 		return;
 	}
 	Player->OffTakeDown();
+	TakeOverWidget->SetVisibility(ESlateVisibility::Hidden);
 }
 
 float ACEnemy::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
@@ -175,8 +177,8 @@ void ACEnemy::Dead()
 
 void ACEnemy::TagetWidgetOn()
 {
-	CheckNull(TargetWidget);
-	TargetWidget->SetVisibility(ESlateVisibility::Visible) ;
+	CheckNull(TakeOverWidget);
+	TakeOverWidget->SetVisibility(ESlateVisibility::Visible) ;
 	
 }
 
@@ -235,8 +237,8 @@ void ACEnemy::EndTakeDown()
 
 void ACEnemy::TagetWidgetOff()
 {
-	CheckNull(TargetWidget);
-	TargetWidget->SetVisibility(ESlateVisibility::Hidden);
+	CheckNull(TakeOverWidget);
+	TakeOverWidget->SetVisibility(ESlateVisibility::Hidden);
 
 }
 

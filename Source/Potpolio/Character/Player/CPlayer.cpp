@@ -773,6 +773,7 @@ void ACPlayer::EndVault()
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
 	EnableInput(GetController<APlayerController>());
+	GetCharacterMovement()->MaxWalkSpeed = AttributeComp->GetWalkpeed();
 }
 
 void ACPlayer::Hitted()

@@ -39,7 +39,10 @@ void ACDoAction_Pistol::DoAction()
 {
 	CheckNull(Data[0].Bullet);
 	CheckFalse(bAiming);
-
+	if (CurrentBulletCount <= 0)
+	{
+		return;
+	}
 	CurrentBulletCount--;
 
 	CheckNull(ActionComp);
@@ -91,7 +94,7 @@ void ACDoAction_Pistol::DoAction()
 	FTransform SpawnTransform(Rotation, MuzzleLocation);
 
 	ACbullet* Bullet = GetWorld()->SpawnActor<ACbullet>(Data[0].Bullet, SpawnTransform, SpawnParam);
-	CLog::Print(GetNameSafe(Bullet),1,5.f,FColor::Red);
+	CLog::Print(*GetNameSafe(Bullet),1,5.f,FColor::Red);
 	CLog::Print(GetNameSafe(Data[0].Bullet),1,5.f,FColor::Blue);
 	CheckNull(Bullet);
 	//Bind BulletDelegate
@@ -122,14 +125,6 @@ void ACDoAction_Pistol::DoAction()
 void ACDoAction_Pistol::SubDoAction(bool InbAiming)
 {
 	bAiming = InbAiming;
-	if (InbAiming)
-	{
-	OwnerCharacter->PlayAnimMontage(SubData.AnimMontage, SubData.PlayRate, SubData.StartSection);
-	}
-	else
-	{
-		OwnerCharacter->StopAnimMontage();
-	}
 	Aim->SetVisiblity(InbAiming);
 	UGameplayStatics::PlaySound2D(GetWorld(), AimSound);
 }
@@ -162,8 +157,10 @@ void ACDoAction_Pistol::OnReload()
 	{
 		return;
 	}
+	
 	if ( (ReloadBullet - CurrentBulletCount) >= MaxBulletCount)
 	{
+		ReloadBullet = MaxBulletCount;
 		MaxBulletCount = 0;
 	}
 	else
@@ -171,6 +168,7 @@ void ACDoAction_Pistol::OnReload()
 		MaxBulletCount -= (ReloadBullet - CurrentBulletCount);
 	}
 	CurrentBulletCount += (ReloadBullet - CurrentBulletCount);
+	ReloadBullet = Data[0].MaxBullet;
 	UGameplayStatics::PlaySound2D(GetWorld(),ReloadSound);
 }
 

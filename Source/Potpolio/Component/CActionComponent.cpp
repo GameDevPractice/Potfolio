@@ -51,6 +51,11 @@ void UCActionComponent::DoSubAction(bool InbAiming)
 	{
 		ACDoAction* DoAction = Datas[(int32)Type]->GetDoAction();
 		DoAction->SubDoAction(InbAiming);
+		if (ONAimChanged.IsBound())
+		{
+
+			ONAimChanged.Broadcast(InbAiming);
+		}
 	}
 }
 

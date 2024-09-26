@@ -17,6 +17,7 @@ void UAim::BeginPlay(ACharacter* InCharacter)
 	SpringArmComp = CHelpers::GetComponent<USpringArmComponent>(OwnerCharacter);
 	CameraComp = CHelpers::GetComponent<UCameraComponent>(OwnerCharacter);
 
+	CheckNull(OwnerCharacter->GetController<APlayerController>());
 	APlayerController* PC = OwnerCharacter->GetController<APlayerController>();
 	
 	HUD = PC->GetHUD<ACHUD>();
@@ -28,12 +29,24 @@ void UAim::SetVisiblity(bool IsVisiblity)
 	(IsVisiblity ? OnAim() : OffAim());
 }
 
+void UAim::SetHUD(ACharacter* InCharacter)
+{
+	OwnerCharacter = InCharacter;
+	SpringArmComp = CHelpers::GetComponent<USpringArmComponent>(OwnerCharacter);
+	CameraComp = CHelpers::GetComponent<UCameraComponent>(OwnerCharacter);
+
+	CheckNull(OwnerCharacter->GetController<APlayerController>());
+	APlayerController* PC = OwnerCharacter->GetController<APlayerController>();
+
+	HUD = PC->GetHUD<ACHUD>();
+}
+
 void UAim::OnAim()
 {
 	CheckTrue(bZoom);
-
+	CLog::Print(GetNameSafe(OwnerCharacter));
+	CheckNull(HUD);
 	bZoom = true;
-
 	HUD->VisibleAim();
 
 	//Camera zoom out

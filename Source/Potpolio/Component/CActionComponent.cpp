@@ -33,6 +33,23 @@ void UCActionComponent::BeginPlay()
 	
 }
 
+void UCActionComponent::ResetBeginplay()
+{
+	ACharacter* OwnerCharacter = Cast<ACharacter>(GetOwner());
+	CheckNull(OwnerCharacter);
+
+	for (int32 i = 0; i < (int32)EActionType::Max; i++)
+	{
+		if (DataAssets[i])
+		{
+			DataAssets[i]->BeginPlay(OwnerCharacter, &Datas[i]);
+		}
+
+	}
+	Type = EActionType::UnArmed;
+
+}
+
 void UCActionComponent::DoAction()
 {
 	CheckTrue(IsUnarmedMode());

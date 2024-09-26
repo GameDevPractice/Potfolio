@@ -129,6 +129,11 @@ void ACDoAction_Pistol::SubDoAction(bool InbAiming)
 	UGameplayStatics::PlaySound2D(GetWorld(), AimSound);
 }
 
+void ACDoAction_Pistol::SetAimBeginPlay()
+{
+	Aim->SetHUD(OwnerCharacter);
+}
+
 void ACDoAction_Pistol::OnBulletBeginOverlap(FHitResult InHitResult)
 {
 	FHitResult HitResult = InHitResult;

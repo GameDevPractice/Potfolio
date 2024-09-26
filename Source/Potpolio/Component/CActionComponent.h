@@ -28,6 +28,9 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintCallable)
+	void ResetBeginplay();
+
 public:
 	//현재 상태가 무엇인지 확인하는 함수들
 	FORCEINLINE bool IsUnarmedMode() { return (Type == EActionType::UnArmed); }

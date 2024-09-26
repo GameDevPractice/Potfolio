@@ -22,9 +22,6 @@
 
 
 
-
-
-
 ACPlayer::ACPlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;

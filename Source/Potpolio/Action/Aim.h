@@ -20,6 +20,7 @@ public:
 	void BeginPlay(ACharacter* InCharacter);
 	void Tick(float DeltaTime);
 	void SetVisiblity(bool IsVisiblity);
+	void SetHUD(ACharacter* InCharacter);
 
 private:
 	void OnAim();

@@ -17,4 +17,4 @@
 |<img src = Image/TakeDownInfo.png  width = 400px Height = 200px>|**TakeDown**  TakeDown이 가능한지 알려주는 UI|
 
 ### ToDo
-사망 시 UI, 자잘한 버그 수정, 적 배치 후 포폴 마무리
+자잘한 버그 수정, 적 배치 후 포폴 마무리

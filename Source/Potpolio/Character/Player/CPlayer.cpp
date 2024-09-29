@@ -377,10 +377,9 @@ void ACPlayer::OnRun()
 {
 	CheckFalse(StateComp->IsIdleMode());
 	bJog = false;
-	
+	//ActionComp->Abort();
 	if (ActionComp->IsSwordMode())
 	{
-	
 	MontageComp->PlayEvade();
 	StateComp->SetEvadeMode();
 	FTimerDynamicDelegate Delegate;
@@ -405,6 +404,7 @@ void ACPlayer::OnStartRun()
 void ACPlayer::OnWalk()
 {
 	bRun = false;
+	GetWorldTimerManager().ClearTimer(RunTimer);
 	if (ActionComp->IsSwordMode())
 	{
 		GetCharacterMovement()->bOrientRotationToMovement = false;

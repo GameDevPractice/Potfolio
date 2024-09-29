@@ -197,4 +197,5 @@ private:
 
 	//Vault
 	bool bRun;
+
 };

@@ -12,6 +12,14 @@ class POTPOLIO_API APotpolioGameModeBase : public AGameModeBase
 public:
 	APotpolioGameModeBase();
 
+public:
+	UFUNCTION(BlueprintPure)
+	const int32 GetVictoryItem() { return VictoryItem; }
 
-	
+	UFUNCTION(BlueprintCallable)
+	void IncreaseVictory();
+
+private:
+	int32 VictoryItem;
+
 };

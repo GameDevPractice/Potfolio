@@ -115,15 +115,15 @@ void ACDoAction_Katana::OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InC
 	
 
 	//CameraShake
-	TSubclassOf<UCameraShake> ShakeClass = Data[ComboCount].CameraShake;
-	if (ShakeClass)
-	{
-		
-		if (PC)
-		{
-			PC->PlayerCameraManager->PlayCameraShake(ShakeClass);
-		}
-	}
+	//TSubclassOf<UCameraShake> ShakeClass = Data[ComboCount].CameraShake;
+	//if (ShakeClass)
+	//{
+	//	
+	//	if (PC)
+	//	{
+	//		PC->PlayerCameraManager->PlayCameraShake(ShakeClass);
+	//	}
+	//}
 
 	//Hit Effect
 	UParticleSystem* HitEffect = Data[ComboCount].Particle;

@@ -26,7 +26,7 @@ void UCAttributeComponent::SetWalkSpeed(ESpeedType InWalkSpeed)
 	UCharacterMovementComponent* Movement = CHelpers::GetComponent<UCharacterMovementComponent>(GetOwner());
 	CheckNull(Movement);
 
-	Movement->MaxWalkSpeed = WalkSpeed[(int32)InWalkSpeed];
+	Movement->MaxWalkSpeed = WalkSpeed[(int32)InWalkSpeed] - 50.f;
 }
 
 void UCAttributeComponent::OnIncreseHealth(float InHeal)

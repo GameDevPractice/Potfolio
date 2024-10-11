@@ -59,7 +59,5 @@ void UCAnimInstance::OnActionTypeChanged(EActionType InPrevType, EActionType InN
 
 void UCAnimInstance::ONAimChanged(bool InbAim)
 {
-	if(InbAim)
-	CLog::Print("On");
 	bAiming = InbAim;
 }

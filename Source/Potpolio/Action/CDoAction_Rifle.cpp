@@ -30,7 +30,6 @@ void ACDoAction_Rifle::DoAction()
 	CheckFalse(StateComp->IsIdleMode());
 	if (CurrentBulletCount <= 0)
 	{
-		CLog::Print("Not Bullet");
 		UCBehaviorComponent* BehaviorComp = AIC->GetBehaviorComp();
 		CheckNull(BehaviorComp);
 		BehaviorComp->SetReloadMode();

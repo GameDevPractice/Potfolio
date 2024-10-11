@@ -416,6 +416,7 @@ void ACPlayer::OnWalk()
 void ACPlayer::OnSword()
 {
 	CheckFalse(StateComp->IsIdleMode());
+	ActionComp->DoSubAction(false);
 	ActionComp->SetSwordMode();
 }
 
@@ -439,13 +440,15 @@ void ACPlayer::OnPrimaryAct()
 
 void ACPlayer::OnSecondaryAct()
 {
-	CheckTrue(ActionComp->IsUnarmedMode())
+	CheckFalse(StateComp->IsIdleMode());
+	CheckFalse(ActionComp->IsPistolMode());
 	ActionComp->DoSubAction(true);
 }
 
 void ACPlayer::OffSecondaryAct()
 {
-	CheckTrue(ActionComp->IsUnarmedMode())
+	CheckFalse(StateComp->IsIdleMode());
+	CheckFalse(ActionComp->IsPistolMode());
 	ActionComp->DoSubAction(false);
 }
 
@@ -464,6 +467,7 @@ void ACPlayer::OnReload()
 {
 	CheckFalse(StateComp->IsIdleMode());
 	CheckFalse(ActionComp->IsPistolMode());
+	ActionComp->DoSubAction(false);
 	StateComp->SetReloadMode();
 }
 

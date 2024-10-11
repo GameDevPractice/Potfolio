@@ -86,7 +86,6 @@ void ACAIController::OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors)
 			break;
 		}
 	}
-
 	Blackboard->SetValueAsObject("PlayerKey", Player);
 }
 

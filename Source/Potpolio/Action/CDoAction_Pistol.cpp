@@ -94,8 +94,7 @@ void ACDoAction_Pistol::DoAction()
 	FTransform SpawnTransform(Rotation, MuzzleLocation);
 
 	ACbullet* Bullet = GetWorld()->SpawnActor<ACbullet>(Data[0].Bullet, SpawnTransform, SpawnParam);
-	CLog::Print(*GetNameSafe(Bullet),1,5.f,FColor::Red);
-	CLog::Print(GetNameSafe(Data[0].Bullet),1,5.f,FColor::Blue);
+	
 	CheckNull(Bullet);
 	//Bind BulletDelegate
 	Bullet->OnBulletBeginOverlap.AddDynamic(this, &ACDoAction_Pistol::OnBulletBeginOverlap);
@@ -126,7 +125,10 @@ void ACDoAction_Pistol::SubDoAction(bool InbAiming)
 {
 	bAiming = InbAiming;
 	Aim->SetVisiblity(InbAiming);
+	if (bAiming)
+	{
 	UGameplayStatics::PlaySound2D(GetWorld(), AimSound);
+	}
 }
 
 void ACDoAction_Pistol::SetAimBeginPlay()
@@ -152,12 +154,12 @@ void ACDoAction_Pistol::OnBulletBeginOverlap(FHitResult InHitResult)
 	{
 		DamageAmount *= 5.f;
 	}
-	CLog::Print(HitResult.BoneName.ToString());
 	HitResult.GetActor()->TakeDamage(DamageAmount,DamageEvent,PC,this);
 }
 
 void ACDoAction_Pistol::OnReload()
 {
+	
 	if (MaxBulletCount <= 0)
 	{
 		return;

@@ -31,6 +31,7 @@ private:
 	USpringArmComponent* SpringArmComp;
 	UCameraComponent* CameraComp;
 
+	UPROPERTY()
 	ACHUD* HUD;
 	bool bZoom;
 };

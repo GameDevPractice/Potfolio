@@ -22,4 +22,6 @@ public:
 private:
 	int32 VictoryItem;
 
+	UUserWidget* WinWidget;
+
 };

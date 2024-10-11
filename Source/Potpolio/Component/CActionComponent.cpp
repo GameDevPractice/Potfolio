@@ -70,7 +70,6 @@ void UCActionComponent::DoSubAction(bool InbAiming)
 		DoAction->SubDoAction(InbAiming);
 		if (ONAimChanged.IsBound())
 		{
-
 			ONAimChanged.Broadcast(InbAiming);
 		}
 	}

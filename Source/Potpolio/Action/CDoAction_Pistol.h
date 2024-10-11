@@ -50,13 +50,22 @@ public:
 private:
 	
 	UCMontageComponent* MontageComp;
-	UAim* Aim;
-	UCAction* ActionData;
-	ACAttachment* Attachment;
-	int32 CurrentBulletCount;
 
+	UPROPERTY()
+	UAim* Aim;
+	UPROPERTY()
+	UCAction* ActionData;
+	UPROPERTY()
+	ACAttachment* Attachment;
+
+	int32 CurrentBulletCount;
 	int32 ReloadBullet;
+
+
+	UPROPERTY()
 	USoundBase* ReloadSound;
+
+	UPROPERTY()
 	USoundBase* AimSound;
 
 };

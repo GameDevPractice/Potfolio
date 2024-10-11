@@ -44,7 +44,6 @@ void UAim::SetHUD(ACharacter* InCharacter)
 void UAim::OnAim()
 {
 	CheckTrue(bZoom);
-	CLog::Print(GetNameSafe(OwnerCharacter));
 	CheckNull(HUD);
 	bZoom = true;
 	HUD->VisibleAim();

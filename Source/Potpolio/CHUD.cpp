@@ -2,14 +2,11 @@
 #include "Global.h"
 #include "Engine/Canvas.h"
 #include "Blueprint/UserWidget.h"
-#include "UI/CBulletCountWidget.h"
 
 ACHUD::ACHUD()
 {
 	CHelpers::GetAsset(&CrossHairTexture,"/Game/UI/Img/T_Crosshair");
 	CHelpers::GetClass(&BulletWidget, "/Game/UI/WB_BulletCount");
-
-
 	bVisibleAim = false;
 }
 
@@ -17,9 +14,10 @@ void ACHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	BulletCountWidget = Cast<UCBulletCountWidget>(CreateWidget(GetWorld(), BulletWidget));
-	CheckNull(BulletCountWidget);
+	CheckNull(BulletWidget);
+	BulletCountWidget = CreateWidget(GetWorld(), BulletWidget);
 
+	CheckNull(BulletCountWidget);
 	BulletCountWidget->AddToViewport();
 	
 }

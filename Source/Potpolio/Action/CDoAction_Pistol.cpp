@@ -111,7 +111,7 @@ void ACDoAction_Pistol::DoAction()
 
 	//Play CameraShake
 	CheckNull(Data[0].CameraShake);
-	PC->PlayerCameraManager->PlayCameraShake(Data[0].CameraShake);
+	PC->PlayerCameraManager->StartMatineeCameraShake(Data[0].CameraShake);
 
 	if (CurrentBulletCount <= 0)
 	{

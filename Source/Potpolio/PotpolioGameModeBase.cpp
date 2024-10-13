@@ -6,6 +6,7 @@
 
 
 
+
 APotpolioGameModeBase::APotpolioGameModeBase()
 {
 	VictoryItem = 0;
@@ -21,19 +22,16 @@ APotpolioGameModeBase::APotpolioGameModeBase()
 	if (WidgetClass.Succeeded())
 	{
 		WinWidget = CreateWidget(GetWorld(), WidgetClass.Class);
-		
 	}
+
 }
 
 void APotpolioGameModeBase::IncreaseVictory()
 {
 	VictoryItem++;
+
 	if (VictoryItem >= 4)
 	{
-		WinWidget->AddToViewport();
-		WinWidget->SetVisibility(ESlateVisibility::Visible);
-		UWidgetBlueprintLibrary::SetInputMode_UIOnly(UGameplayStatics::GetPlayerController(GetWorld(),0));
-		UGameplayStatics::GetPlayerController(GetWorld(), 0)->SetShowMouseCursor(true);
-		UGameplayStatics::SetGlobalTimeDilation(GetWorld(),0.0f);
+		PlayEnding();
 	}
 }

@@ -6,7 +6,7 @@
 
 
 class UUserWidget;
-class UCBulletCountWidget;
+
 
 UCLASS()
 class POTPOLIO_API ACHUD : public AHUD
@@ -31,8 +31,10 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UTexture2D* CrossHairTexture;
 
+	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> BulletWidget;
-	UCBulletCountWidget* BulletCountWidget;
+
+	UUserWidget* BulletCountWidget;
 	 
 	
 	bool bVisibleAim;

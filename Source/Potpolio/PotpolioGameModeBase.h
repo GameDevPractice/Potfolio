@@ -2,7 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+
 #include "PotpolioGameModeBase.generated.h"
+
+class ULevelSequence;
 
 UCLASS()
 class POTPOLIO_API APotpolioGameModeBase : public AGameModeBase
@@ -22,6 +25,12 @@ public:
 private:
 	int32 VictoryItem;
 
+
+protected:
+	UPROPERTY(BlueprintReadOnly)
 	UUserWidget* WinWidget;
 
+public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void PlayEnding();
 };

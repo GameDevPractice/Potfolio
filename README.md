@@ -24,7 +24,7 @@ Character들이 가지고 있는 무기에 따라 행하는 행동을 제어하�
 가지고 있는 무기를 ActionType(Enum)으로 판단하며 Player는 이 ActionType을 통해 무기를 변경 할 수 있습니다.<br/>
 행하는 행동들은 DataAsset에 저장되어 있는 AnimMontage를 실행 합니다.
 <br/>
-[DataAsset](####DataAsset)
+[DataAsset](#DataAsset)
 #### StateComponent
 Character들의 상태를 관리하는 Component입니다.<br/>
 EStateType(Enum 타입)으로 Character들의 상태를 정의합니다.<br/>

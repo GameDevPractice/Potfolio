@@ -2,8 +2,11 @@
 ## MarkDown 사용법
 https://github.com/kimasill/MarkDown/blob/main/README.md?plain=1
 
-## 목차  
-### 일지 
+# 목차  
+1. [일지](#일지)<br/>
+2. [영상](#영상)<br/>
+3. [기술문서](#기술문서)<br/>
+## 일지 
 [1주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/1Week.md)  
 [2주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/2Week.md)  
 [3주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/3Week.md)  

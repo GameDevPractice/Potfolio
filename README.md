@@ -19,9 +19,15 @@ https://github.com/kimasill/MarkDown/blob/main/README.md?plain=1
 
 
 ## 기술 문서
-[1.Component](#Components)<br/>
-[2.Actions](#Actions)<br/>
+1. [Component](#Components)<br/>
+2. [Actions](#Actions)<br/>
 ### Components
+ - [ActionComponent](#ActionComponent)<br/>
+ - [StateComponet](#StateComponent)<br/>
+ - [MontageComponent](#MontageComponent)<br/>
+ - [AttributeComponent](#AttributeComponent)<br/>
+ - [BehaviorComponent](#BehaviorComponent)<br/>
+ - [PatrolComponent](#PatrolComponent)<br/>
 #### ActionComponent
 Character들이 가지고 있는 무기에 따라 행하는 행동을 제어하는 Component입니다.<br/>
 가지고 있는 무기를 ActionType(Enum)으로 판단하며 Player는 이 ActionType을 통해 무기를 변경 할 수 있습니다.<br/>
@@ -67,12 +73,26 @@ BehaviorType이라는 Enum 변수를 만들어 상황에 맞게 사용합니다.
 AI 전용 Component 입니다.<br/>
 BehaviorType이 Patrol일 경우 사용되는 Component입니다.<br/>
 플레이어를 발견하기 전까지 정해진 경로를 돌아다니게 하는 Component로 사용하였습니다.<br/>
-경로는 후술할 PatrolPath를 사용하였습니다.<br/>
+경로는 PatrolPath를 사용하였습니다.<br/>
 [PatrolComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CPatrolComponent.cpp)<br/>
 [PatrolComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CPatrolComponent.h)<br/>
-[PatrolPath](#PatrolPath)<br/>
+
+#### PatrolPath
+AI가 순찰하는 경로로 사용하는 Actor입니다.<br/>
+SplineComponent를 가지고 있습니다.<br/>
+공개 변수 bClosedLoop를 통해 SplineComponent가 루프를 할지 말지를 정합니다.<br/>
+잘 보이기 위해 TextRender를 주었습니다.<br/>
+[PatrolPath.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CPatrolPath.cpp)<br/>
+[PatrolPath.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CPatrolPath.h)<br/>
 
 ### Actions
+- [ActiondData](#ActionData)<br/>
+- [Attachment](#Attachment)<br/>
+- [Equipment](#Equipment)<br/>
+- [DoAction](#DoAction)<br/>
+- [DoAction_Katana](#DoAction_Katana)<br/>
+- [DoAction_Pistol](#DoAction_Pistol)<br/>
+- [DoAction_Rifle](#DoAction_Rifle)<br/>
 #### ActionData
 Actor 타입인 Attachment,DoAction, Equipment를 저장하고 이용하는 DataAseet입니다.<br/>
 [ActionData.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CActionData.cpp)<br/>
@@ -148,14 +168,4 @@ AI의 BehaviorType이 Action일 경우 실행이 됩니다.<br/>
 [DoAction_Rifle.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CDoAction_Rifle.h)<br/>
 
 
-
-
-
-
-
-
-
-
-
-#### PatrolPath
 

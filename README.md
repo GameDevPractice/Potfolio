@@ -140,10 +140,12 @@ Overlap이 실행될 때 변수(NumberOfHittedCharacters)를 배열의 크기로
 DoAction을 상속받은 자식입니다.<br/>
 권총(Pistol)을 장착하고 있을 시 공격이 가능하며 플레이어 전용 DoAction입니다.<br/>
 ###### 조준
+***
 마우스 우클릭을 하면 조준을 하게끔 만들었습니다.<br/>
 조준 할 때는 [Aim.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/Aim.h) , [Aim.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/Aim.cpp)를 사용하였습니다.<br/>
 UI는 HUD를 사용하였습니다.<br/>
 ###### 공격
+***
 마우스 좌클릭을 하면 공격이 나가게끔 만들었습니다.<br/>
 조준을 하고 있지 않으면 공격이 나가지 않습니다.<br/>
 공격을 할 때 카메라의 위치를 시작 점 카메라의 위치에서 카메라 전방 1000M를 끝 지점으로 삼아 LineTrace를 하였으며 Line이 충돌되었다면<br/>
@@ -153,6 +155,7 @@ UI는 HUD를 사용하였습니다.<br/>
 공격을 할 때 카메라를 흔들림, 파열음, 발사 했을 때 Paricle을 주어 몰입감을 주었습니다.<br/>
 카메라 쉐이크,Paricle은 ActionData에 저장되어있으며 파열음과 같은 소리는 Attachment에 저장되어 있습니다.<br/>
 ###### 재장전
+***
 공격을 하던 중 총알이 부족하면 재장전을 하게 만들었습니다.<br/>
 총알은 현재 장전되어 있는 총알 수 / 가지고 있는 최대 총알 수 입니다.<br/>
 장전을 하면 장전되어 있는 총알 수가 늘어나며 최대 총알 수는 줄어듭니다.<br/>

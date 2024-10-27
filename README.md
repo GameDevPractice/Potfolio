@@ -25,6 +25,8 @@ https://github.com/kimasill/MarkDown/blob/main/README.md?plain=1
 1. [Component](#Components)<br/>
 2. [Actions](#Actions)<br/>
 3. [AI](#AI)<br/>
+4. [Interface](#Interface(StealTakeDown))<br/>
+5. [Player](#Player)<br/>
 ### Components
  - [ActionComponent](#ActionComponent)<br/>
  - [StateComponet](#StateComponent)<br/>
@@ -52,8 +54,8 @@ EStateType(Enum 타입)으로 Character들의 상태를 정의합니다.<br/>
 #### MontageComponent  
 Character들이 공동으로 행해야하는 Montage를 관리하는 Component 입니다.<br/>
 Montage가 재생되려면 위에 서술한 StateComponent를 통해 재생이 됩니다.<br/>
-재생될 Montage들은 구조체로 저장하여 관리합니다.<br/>
-구조체는 EStateType, UAnimMotage, PlayRate(float Type), StartSection(FName)을 가지고 있습니다.<br/>
+재생될 Montage들은 데이터 테이블로 저장하여 관리합니다.<br/>
+ 데이터 테이블은 EStateType, UAnimMotage, PlayRate(float Type), StartSection(FName)을 가지고 있습니다.<br/>
 저장한 구조체에서 EStateType에 맞는 Montage를 재생합니다.<br/>
 [MontageComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CMontageComponent.cpp)<br/>
 [MontageComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CMontageComponent.h)<br/>
@@ -219,4 +221,29 @@ AI가 플레이어를 찾지 못했을 시 Behaviortype이 Patrol일때 실행�
 [BTTaskNode_Patrol.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Patrol.cpp)<br/>
 [BTTaskNode_Patrol.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Patrol.h)<br/>
 
+#### BTTaskNode_Speed
+AI의 행동이 추격일 때와 순찰일 때 속도를 정하기 위해 만든 Node입니다.<br/>
+[BTTaskNode_Speed.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Speed.cpp)<br/>
+[BTTaskNode_Speed.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Speed.h)<br/>
 
+### Interface(StealTakeDown)
+StealTakeDown을 위한 Interface입니다.<br/>
+플레이어는 몰래 적을 기습할 때, 적은 기습을 당할 때 실행되게 만들었습니다.<br/>
+플레이어의 무기 상태가 Unarmed와 Katana일때만 실행이 가능합니다.<br/>
+또한 Katana일시 앉아서도 기습이 가능하게 하였습니다.<br/>
+매개변수로 앉았는지 확인하는 bool 변수(InCrouch) 와 무기상태를 확인하는 변수 EActionType 변수(InActionType)를 받습니다.<br/>
+[Player.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.cpp) 258번째 줄입니다.<br/>
+[Enemy.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Enemy/CEnemy.cpp) 85번째 줄입니다.<br/>
+<br/>
+StealTakeDown의 Montage관리는 데이터테이블을 사용하였습니다.<br/>
+
+
+### Player
+플레이어가 조종할 수 있는 Character입니다.<br/>
+위에 서술한 대부분 기술들을 사용하여 만들었습니다.<br/>
+player는 좌Shift를 누르고 있으면 속도가 빨라져 달리게 됩니다.<br/>
+그러나 Katana를 장착하고 있으면 누르면 회피를 하게 만들었습니다.<br/>
+회피를 하고도 계속 누르고 있으면 달리게 만들었습니다.<br/>
+또한 Tick을 사용하여 Player가 달리는 도중 앞을 가로 막는 장애물이 있다면 뛰어넘게 만들었습니다.<br/>
+[Player.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.cpp)
+[Player.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.h)

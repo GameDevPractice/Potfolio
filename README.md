@@ -24,6 +24,7 @@ https://github.com/kimasill/MarkDown/blob/main/README.md?plain=1
 ## 기술문서
 1. [Component](#Components)<br/>
 2. [Actions](#Actions)<br/>
+3. [AI](#AI)<br/>
 ### Components
  - [ActionComponent](#ActionComponent)<br/>
  - [StateComponet](#StateComponent)<br/>
@@ -173,5 +174,47 @@ AI의 BehaviorType이 Action일 경우 실행이 됩니다.<br/>
 [DoAction_Rifle.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CDoAction_Rifle.cpp)<br/>
 [DoAction_Rifle.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CDoAction_Rifle.h)<br/>
 
+
+### AI
+- [AIController](#AIController)
+- [BTService_RifleEnemy](#BTService_RifleEnemy)
+- [BTService_MeleeEnemy](#BTService_MeleeEnemy)
+
+#### AIController
+AI가 가지고 있는 Controller입니다<br/>
+AI에게 감각를 주기 위해 PerceptionComponent를 사용하였으며 오감 중 시야를 주기위해 UAISenseConfig_Sight를 사용하였습니다.<br/>
+또한,일정 거리에 들어오면 특정 행동(공격, 도망)을 할 수 있게 하였습니다.<br/>
+플레이어가 시야에 잡히면 플레이어를 Blackboard에 값으로 보냅니다.<br/>
+[AIController.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CAIController.cpp)<br/>
+[AIController.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CAIController.h)<br/>
+
+#### BTService_RifleEnemy
+Rifle를 가진 적 전용 Service입니다.<br/>
+시야에 플레이어가 잡히면 공격을 하고 플레이어가 일정 거리 안으로 들어온다면 도망가도록 하였습니다.<br/>
+이 때 EQS를 사용하여 플레이어에게는 멀고 방향은 반대로 움직이게 하였습니다.<br/>
+[BTService_RifleEnemy.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTService_Enemy.cpp)<br/>
+[BTService_RifleEnemy.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTService_Enemy.h)<br/>
+
+#### BTService_MeleeEnemy
+Katana를 가진 적 전용 Service입니다.<br/>
+시야에 플레이어가 잡히면 플레이어를 쫒아옵니다.<br/>
+그러다 일정 공간에 들어오면 플레이어에게 공격을 시작합니다.<br>
+[BTService_MeleeEnemy.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTService_MeleeEnemy.cpp)<br/>
+[BTService_MeleeEnemy.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTService_MeleeEnemy.h)<br/>
+
+#### BTTaskNode_Attack
+AI의 BehaviorType가 Attack일때 실행되는 Node입니다.<br/>
+[BTTaskNode_Attack.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Attack.cpp)<br/>
+[BTTaskNode_Attack.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Attack.h)<br/>
+
+#### BTTaskNode_Reload
+Rifle을 가진 적이 총알을 소진 했을 시 실행되는 Node입니다.<br/>
+[BTTaskNode_Reload.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Reload.cpp)<br/>
+[BTTaskNode_Reload.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Reload.h)<br/>
+
+#### BTTaskNode_Patrol
+AI가 플레이어를 찾지 못했을 시 Behaviortype이 Patrol일때 실행되는 Node입니다.<br/>
+[BTTaskNode_Patrol.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Patrol.cpp)<br/>
+[BTTaskNode_Patrol.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Patrol.h)<br/>
 
 

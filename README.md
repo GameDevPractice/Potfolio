@@ -4,7 +4,7 @@ https://github.com/kimasill/MarkDown/blob/main/README.md?plain=1
 
 # 목차  
 1. [일지](#일지)<br/>
-2. [영상](#영상)<br/>
+2. [영상](#영상)(예정)<br/>
 3. [기술문서](#기술문서)<br/>
 ## 일지 
 [1주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/1Week.md)  

@@ -25,7 +25,7 @@ https://github.com/kimasill/MarkDown/blob/main/README.md?plain=1
 1. [Component](#Components)<br/>
 2. [Actions](#Actions)<br/>
 3. [AI](#AI)<br/>
-4. [Interface](#Interface)<br/>
+4. [Interface](#interface-stealtakedown)<br/>
 5. [Player](#Player)<br/>
 ### Components
  - [ActionComponent](#ActionComponent)<br/>

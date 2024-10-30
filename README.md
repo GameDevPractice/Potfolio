@@ -25,7 +25,7 @@ https://github.com/kimasill/MarkDown/blob/main/README.md?plain=1
 1. [Component](#Components)<br/>
 2. [Actions](#Actions)<br/>
 3. [AI](#AI)<br/>
-4. [Interface](#Interface(StealTakeDown))<br/>
+4. [Interface](#Interface)<br/>
 5. [Player](#Player)<br/>
 ### Components
  - [ActionComponent](#ActionComponent)<br/>
@@ -226,7 +226,7 @@ AI의 행동이 추격일 때와 순찰일 때 속도를 정하기 위해 만든
 [BTTaskNode_Speed.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Speed.cpp)<br/>
 [BTTaskNode_Speed.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Speed.h)<br/>
 
-### Interface(StealTakeDown)
+### Interface (StealTakeDown)
 StealTakeDown을 위한 Interface입니다.<br/>
 플레이어는 몰래 적을 기습할 때, 적은 기습을 당할 때 실행되게 만들었습니다.<br/>
 플레이어의 무기 상태가 Unarmed와 Katana일때만 실행이 가능합니다.<br/>

@@ -1,7 +1,4 @@
 # Potforio
-## MarkDown 사용법
-https://github.com/kimasill/MarkDown/blob/main/README.md?plain=1
-
 # 목차  
 1. [일지](#일지)<br/>
 2. [영상](#영상)(예정)<br/>

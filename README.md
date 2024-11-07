@@ -1,7 +1,7 @@
 # Potforio
 # 목차  
 1. [일지](#일지)<br/>
-2. [영상](#영상)(예정)<br/>
+2. [영상](#영상)<br/>
 3. [기술문서](#기술문서)<br/>
 ## 일지 
 [1주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/1Week.md)  
@@ -17,6 +17,10 @@
 [11주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/11Week.md)  
 [12주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/12Week.md)  
 
+## 영상
+
+![Portfolio-1-썸네일](https://github.com/user-attachments/assets/a3de8a77-f8d9-44fa-8275-ceecd24b6bbd) <br/>
+[영상보러 가기](https://youtu.be/7g2pprpEhlY)
 
 ## 기술문서
 1. [Component](#Components)<br/>

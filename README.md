@@ -1,26 +1,18 @@
-# Potforio
+# 언리얼 엔진(C++)을 활용한 게임 개발
 # 목차  
-1. [일지](#일지)<br/>
-2. [영상](#영상)<br/>
-3. [기술문서](#기술문서)<br/>
-## 일지 
-[1주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/1Week.md)  
-[2주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/2Week.md)  
-[3주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/3Week.md)  
-[4주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/4Week.md)  
-[5주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/5Week.md)  
-[6주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/6Week.md)  
-[7주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/7Week.md)  
-[8주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/8Week.md)  
-[9주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/9Week.md)  
-[10주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/10Week.md)  
-[11주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/11Week.md)  
-[12주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/12Week.md)  
+1. [영상](#영상)<br/>
+2. [기술문서](#기술문서)<br/>
+3. [일지](#일지)<br/>
+
+## 개요
+
 
 ## 영상
 
 ![Portfolio-1-썸네일](https://github.com/user-attachments/assets/a3de8a77-f8d9-44fa-8275-ceecd24b6bbd) <br/>
 [영상보러 가기](https://youtu.be/7g2pprpEhlY)
+
+
 
 ## 기술문서
 1. [Component](#Components)<br/>
@@ -248,3 +240,17 @@ player는 좌Shift를 누르고 있으면 속도가 빨라져 달리게 됩니�
 또한 Tick을 사용하여 Player가 달리는 도중 앞을 가로 막는 장애물이 있다면 뛰어넘게 만들었습니다.<br/>
 [Player.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.cpp)<br/>
 [Player.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.h)<br/>
+
+## 일지 
+[1주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/1Week.md)  
+[2주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/2Week.md)  
+[3주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/3Week.md)  
+[4주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/4Week.md)  
+[5주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/5Week.md)  
+[6주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/6Week.md)  
+[7주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/7Week.md)  
+[8주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/8Week.md)  
+[9주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/9Week.md)  
+[10주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/10Week.md)  
+[11주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/11Week.md)  
+[12주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/12Week.md)  

@@ -200,6 +200,18 @@ AI의 BehaviorType이 Action일 경우 실행이 됩니다.<br/>
 [DoAction_Rifle.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CDoAction_Rifle.h)<br/>
 
 
+### Interface (StealTakeDown)
+StealTakeDown을 위한 Interface입니다.<br/>
+플레이어는 몰래 적을 기습할 때, 적은 기습을 당할 때 실행되게 만들었습니다.<br/>
+플레이어의 무기 상태가 Unarmed와 Katana일때만 실행이 가능합니다.<br/>
+또한 Katana일시 앉아서도 기습이 가능하게 하였습니다.<br/>
+매개변수로 앉았는지 확인하는 bool 변수(InCrouch) 와 무기상태를 확인하는 변수 EActionType 변수(InActionType)를 받습니다.<br/>
+[Player.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.cpp) 258번째 줄입니다.<br/>
+[Enemy.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Enemy/CEnemy.cpp) 85번째 줄입니다.<br/>
+<br/>
+StealTakeDown의 Montage관리는 데이터테이블을 사용하였습니다.<br/>
+
+
 ### AI
 - [AIController](#AIController)
 - [BTService_RifleEnemy](#BTService_RifleEnemy)
@@ -249,16 +261,6 @@ AI의 행동이 추격일 때와 순찰일 때 속도를 정하기 위해 만든
 [BTTaskNode_Speed.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Speed.cpp)<br/>
 [BTTaskNode_Speed.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTTaskNode_Speed.h)<br/>
 
-### Interface (StealTakeDown)
-StealTakeDown을 위한 Interface입니다.<br/>
-플레이어는 몰래 적을 기습할 때, 적은 기습을 당할 때 실행되게 만들었습니다.<br/>
-플레이어의 무기 상태가 Unarmed와 Katana일때만 실행이 가능합니다.<br/>
-또한 Katana일시 앉아서도 기습이 가능하게 하였습니다.<br/>
-매개변수로 앉았는지 확인하는 bool 변수(InCrouch) 와 무기상태를 확인하는 변수 EActionType 변수(InActionType)를 받습니다.<br/>
-[Player.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.cpp) 258번째 줄입니다.<br/>
-[Enemy.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Enemy/CEnemy.cpp) 85번째 줄입니다.<br/>
-<br/>
-StealTakeDown의 Montage관리는 데이터테이블을 사용하였습니다.<br/>
 
 
 ### Player

@@ -16,18 +16,24 @@
 
 - 개발 시간 : 2024.09 ~ 2024.11<br/>
 - 사용한 기술 : C++, 블루프린트, AI시스템, 애니메이션<br/>
+- 게임의 흐름 <br/>
+- ![image](https://github.com/user-attachments/assets/c48908df-5c2d-4fde-a04a-d0e2bf33e204) <br/>
 
 
 
 
 
 ## 기술문서
+![image](https://github.com/user-attachments/assets/daf36e40-5a1e-4818-b95f-51aad6757421)
+
+
 1. [Component](#Components)<br/>
 2. [Actions](#Actions)<br/>
 3. [AI](#AI)<br/>
 4. [Interface](#interface-stealtakedown)<br/>
 5. [Player](#Player)<br/>
 ### Components
+![image](https://github.com/user-attachments/assets/c7c33f50-76e5-41a8-bb2d-7105ccaae1fb)<br/>
  - [ActionComponent](#ActionComponent)<br/>
  - [StateComponet](#StateComponent)<br/>
  - [MontageComponent](#MontageComponent)<br/>
@@ -35,6 +41,9 @@
  - [BehaviorComponent](#BehaviorComponent)<br/>
  - [PatrolComponent](#PatrolComponent)<br/>
 #### ActionComponent
+![image](https://github.com/user-attachments/assets/7665af1c-d44d-4d73-9566-a6cc44704e2a)
+<br/>
+
 Character들이 가지고 있는 무기에 따라 행하는 행동을 제어하는 Component입니다.<br/>
 가지고 있는 무기를 ActionType(Enum)으로 판단하며 Player는 이 ActionType을 통해 무기를 변경 할 수 있습니다.<br/>
 행하는 행동들은 ActionData(DataAsset)에 저장되어 있는 정보를 사용하여 실행 합니다.<br/>
@@ -42,6 +51,10 @@ Character들이 가지고 있는 무기에 따라 행하는 행동을 제어하�
 [ActionComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CActionComponent.h)<br/>
 
 #### StateComponent
+![image](https://github.com/user-attachments/assets/60154ca6-68a3-4d24-a47d-b9fe19881fbf) <br/>
+![image](https://github.com/user-attachments/assets/04b16e8e-dcd7-4419-841a-ded3a397f0ff) <br/>
+
+
 Character들의 상태를 관리하는 Component입니다.<br/>
 EStateType(Enum 타입)으로 Character들의 상태를 정의합니다.<br/>
 함수를 통해 상태를 변경할 수 있으며, 현재 상태를 검사할 수 도 있습니다.<br/>
@@ -52,6 +65,10 @@ EStateType(Enum 타입)으로 Character들의 상태를 정의합니다.<br/>
 [StateComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CStateComponent.h)<br/>
 
 #### MontageComponent  
+![image](https://github.com/user-attachments/assets/53547ced-5721-4239-8b33-8ab6caf2beac)<br/>
+![image](https://github.com/user-attachments/assets/4a053df6-4e9b-4e5d-b7c9-600c2965a379)<br/>
+
+
 Character들이 공동으로 행해야하는 Montage를 관리하는 Component 입니다.<br/>
 Montage가 재생되려면 위에 서술한 StateComponent를 통해 재생이 됩니다.<br/>
 재생될 Montage들은 데이터 테이블로 저장하여 관리합니다.<br/>
@@ -61,6 +78,9 @@ Montage가 재생되려면 위에 서술한 StateComponent를 통해 재생이 �
 [MontageComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CMontageComponent.h)<br/>
 
 #### AttributeComponent
+![image](https://github.com/user-attachments/assets/04f97678-ba4e-4124-afb5-22074ed2a2c9)<br/>
+
+
 Character들의 가지고 있는 기본 능력치를 조정하는 Component 입니다.<br/>
 Character의 기본 최대체력, 걸음 속도(Sneak, walk, Run)을 엔진에서 정할 수 있게 했습니다.<br/>
 [AttributeComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CAttributeComponent.cpp)<br/>

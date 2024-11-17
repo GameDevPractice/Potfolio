@@ -13,11 +13,13 @@
 ## 개요
 - 목표 : 어쌔신크리드와 비슷한 잠입 액션 게임을 개발<br/>
 ![TriplePush_1000x540](https://github.com/user-attachments/assets/43f5ce22-3904-4fd8-b0c1-35dc0b2d1b08) <br/>
-
 - 개발 시간 : 2024.09 ~ 2024.11<br/>
 - 사용한 기술 : C++, 블루프린트, AI시스템, 애니메이션<br/>
+- 중점 목표 : 어쌔신크리드의 후방 기습과 파쿠르를 자연스럽게 가능하게 제작
+![image](https://github.com/user-attachments/assets/5880cc18-bb17-401c-86ca-4761be286e0e)
+
 - 게임의 흐름 <br/>
-- ![image](https://github.com/user-attachments/assets/c48908df-5c2d-4fde-a04a-d0e2bf33e204) <br/>
+  ![image](https://github.com/user-attachments/assets/c48908df-5c2d-4fde-a04a-d0e2bf33e204) <br/>
 
 
 
@@ -28,10 +30,9 @@
 
 
 1. [Component](#Components)<br/>
-2. [Actions](#Actions)<br/>
+2. [Interface](#interface-stealtakedown)<br/>
 3. [AI](#AI)<br/>
-4. [Interface](#interface-stealtakedown)<br/>
-5. [Player](#Player)<br/>
+4. [Player](#Player)<br/>
 ### Components
 ![image](https://github.com/user-attachments/assets/c7c33f50-76e5-41a8-bb2d-7105ccaae1fb)<br/>
  - [ActionComponent](#ActionComponent)<br/>
@@ -49,6 +50,8 @@ Character들이 가지고 있는 무기에 따라 행하는 행동을 제어하�
 행하는 행동들은 ActionData(DataAsset)에 저장되어 있는 정보를 사용하여 실행 합니다.<br/>
 [ActionComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CActionComponent.cpp)<br/>
 [ActionComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CActionComponent.h)<br/>
+<br/>
+[Actions](#Actions)<br/>
 
 #### StateComponent
 ![image](https://github.com/user-attachments/assets/60154ca6-68a3-4d24-a47d-b9fe19881fbf) <br/>

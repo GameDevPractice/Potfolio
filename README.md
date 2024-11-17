@@ -7,8 +7,8 @@
 
 ## 영상
 
-![Portfolio-1-썸네일](https://github.com/user-attachments/assets/a3de8a77-f8d9-44fa-8275-ceecd24b6bbd) <br/>
-[영상보러 가기](https://youtu.be/7g2pprpEhlY)
+[![Portfolio-1-썸네일](https://github.com/user-attachments/assets/a3de8a77-f8d9-44fa-8275-ceecd24b6bbd)](https://youtu.be/7g2pprpEhlY) <br/>
+
 
 ## 개요
 - 목표 : 어쌔신크리드와 비슷한 잠입 액션 게임을 개발<br/>

@@ -35,12 +35,12 @@
 4. [Player](#Player)<br/>
 ### Components
 ![image](https://github.com/user-attachments/assets/c7c33f50-76e5-41a8-bb2d-7105ccaae1fb)<br/>
- - [ActionComponent](#ActionComponent)<br/>
- - [StateComponet](#StateComponent)<br/>
- - [MontageComponent](#MontageComponent)<br/>
- - [AttributeComponent](#AttributeComponent)<br/>
- - [BehaviorComponent](#BehaviorComponent)<br/>
- - [PatrolComponent](#PatrolComponent)<br/>
+- [AttributeComponent](#AttributeComponent)<br/>
+- [StateComponet](#StateComponent)<br/>
+- [ActionComponent](#ActionComponent)<br/>
+- [MontageComponent](#MontageComponent)<br/>
+- [PatrolComponent](#PatrolComponent)<br/>  
+- [BehaviorComponent](#BehaviorComponent)<br/>
 #### ActionComponent
 ![image](https://github.com/user-attachments/assets/2406086e-5e3a-4358-b3d9-4d46d251ee26)
 

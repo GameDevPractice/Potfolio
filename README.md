@@ -90,6 +90,9 @@ Character의 기본 최대체력, 걸음 속도(Sneak, walk, Run)을 엔진에�
 [AttributeComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CAttributeComponent.h)<br/>
 
 #### BehaviorComponent
+![image](https://github.com/user-attachments/assets/87446317-a6f1-47a3-81f4-8f532dff3e71)<br/>
+![image](https://github.com/user-attachments/assets/566b7bb1-2e0c-4af8-8f7a-94a7e982e850)<br/>
+
 AI 전용 Component 입니다.<br/>
 BehaviorTree를 상태에 맞게 사용하기 위한 Component 입니다.<br/>
 BehaviorType이라는 Enum 변수를 만들어 상황에 맞게 사용합니다.<br/>
@@ -99,6 +102,9 @@ BehaviorType이라는 Enum 변수를 만들어 상황에 맞게 사용합니다.
 [BehaviorComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CBehaviorComponent.h)<br/>
 
 #### PatrolComponent
+![image](https://github.com/user-attachments/assets/6fbba850-8a6d-4b5b-9b33-c23c5fb899a4)<br/>
+![image](https://github.com/user-attachments/assets/42550cc0-76ca-493b-b86e-c92ee299f69f)<br/>
+
 AI 전용 Component 입니다.<br/>
 BehaviorType이 Patrol일 경우 사용되는 Component입니다.<br/>
 플레이어를 발견하기 전까지 정해진 경로를 돌아다니게 하는 Component로 사용하였습니다.<br/>

@@ -42,7 +42,8 @@
  - [BehaviorComponent](#BehaviorComponent)<br/>
  - [PatrolComponent](#PatrolComponent)<br/>
 #### ActionComponent
-![image](https://github.com/user-attachments/assets/7665af1c-d44d-4d73-9566-a6cc44704e2a)
+![image](https://github.com/user-attachments/assets/2406086e-5e3a-4358-b3d9-4d46d251ee26)
+
 <br/>
 
 Character들이 가지고 있는 무기에 따라 행하는 행동을 제어하는 Component입니다.<br/>

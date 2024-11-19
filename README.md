@@ -41,18 +41,14 @@
 - [MontageComponent](#MontageComponent)<br/>
 - [PatrolComponent](#PatrolComponent)<br/>  
 - [BehaviorComponent](#BehaviorComponent)<br/>
-#### ActionComponent
-![image](https://github.com/user-attachments/assets/2406086e-5e3a-4358-b3d9-4d46d251ee26)
+#### AttributeComponent
+![image](https://github.com/user-attachments/assets/04f97678-ba4e-4124-afb5-22074ed2a2c9)<br/>
 
-<br/>
 
-Character들이 가지고 있는 무기에 따라 행하는 행동을 제어하는 Component입니다.<br/>
-가지고 있는 무기를 ActionType(Enum)으로 판단하며 Player는 이 ActionType을 통해 무기를 변경 할 수 있습니다.<br/>
-행하는 행동들은 ActionData(DataAsset)에 저장되어 있는 정보를 사용하여 실행 합니다.<br/>
-[ActionComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CActionComponent.cpp)<br/>
-[ActionComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CActionComponent.h)<br/>
-<br/>
-[Actions](#Actions)<br/>
+Character들의 가지고 있는 기본 능력치를 조정하는 Component 입니다.<br/>
+Character의 기본 최대체력, 걸음 속도(Sneak, walk, Run)을 엔진에서 정할 수 있게 했습니다.<br/>
+[AttributeComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CAttributeComponent.cpp)<br/>
+[AttributeComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CAttributeComponent.h)<br/>
 
 #### StateComponent
 ![image](https://github.com/user-attachments/assets/60154ca6-68a3-4d24-a47d-b9fe19881fbf) <br/>
@@ -68,6 +64,20 @@ EStateType(Enum 타입)으로 Character들의 상태를 정의합니다.<br/>
 [StateComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CStateComponent.cpp)<br/>
 [StateComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CStateComponent.h)<br/>
 
+#### ActionComponent
+![image](https://github.com/user-attachments/assets/2406086e-5e3a-4358-b3d9-4d46d251ee26)
+
+<br/>
+
+Character들이 가지고 있는 무기에 따라 행하는 행동을 제어하는 Component입니다.<br/>
+가지고 있는 무기를 ActionType(Enum)으로 판단하며 Player는 이 ActionType을 통해 무기를 변경 할 수 있습니다.<br/>
+행하는 행동들은 ActionData(DataAsset)에 저장되어 있는 정보를 사용하여 실행 합니다.<br/>
+[ActionComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CActionComponent.cpp)<br/>
+[ActionComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CActionComponent.h)<br/>
+<br/>
+[Actions](#Actions)<br/>
+
+
 #### MontageComponent  
 ![image](https://github.com/user-attachments/assets/53547ced-5721-4239-8b33-8ab6caf2beac)<br/>
 ![image](https://github.com/user-attachments/assets/4a053df6-4e9b-4e5d-b7c9-600c2965a379)<br/>
@@ -80,27 +90,6 @@ Montage가 재생되려면 위에 서술한 StateComponent를 통해 재생이 �
 저장한 구조체에서 EStateType에 맞는 Montage를 재생합니다.<br/>
 [MontageComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CMontageComponent.cpp)<br/>
 [MontageComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CMontageComponent.h)<br/>
-
-#### AttributeComponent
-![image](https://github.com/user-attachments/assets/04f97678-ba4e-4124-afb5-22074ed2a2c9)<br/>
-
-
-Character들의 가지고 있는 기본 능력치를 조정하는 Component 입니다.<br/>
-Character의 기본 최대체력, 걸음 속도(Sneak, walk, Run)을 엔진에서 정할 수 있게 했습니다.<br/>
-[AttributeComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CAttributeComponent.cpp)<br/>
-[AttributeComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CAttributeComponent.h)<br/>
-
-#### BehaviorComponent
-![image](https://github.com/user-attachments/assets/87446317-a6f1-47a3-81f4-8f532dff3e71)<br/>
-![image](https://github.com/user-attachments/assets/566b7bb1-2e0c-4af8-8f7a-94a7e982e850)<br/>
-
-AI 전용 Component 입니다.<br/>
-BehaviorTree를 상태에 맞게 사용하기 위한 Component 입니다.<br/>
-BehaviorType이라는 Enum 변수를 만들어 상황에 맞게 사용합니다.<br/>
-예를 들어 플레이어를 쫒아가야 하는 상황이라면 BehaviorType을 Approch로 변경하여 이 정보를 BehaviorTree로 보냅니다.<br/>
-보내진 정보를 사용해 AI의 움직임을 조정 할 수 있습니다.<br/>
-[BehaviorComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CBehaviorComponent.cpp)<br/>
-[BehaviorComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CBehaviorComponent.h)<br/>
 
 #### PatrolComponent
 ![image](https://github.com/user-attachments/assets/6fbba850-8a6d-4b5b-9b33-c23c5fb899a4)<br/>
@@ -120,6 +109,20 @@ SplineComponent를 가지고 있습니다.<br/>
 잘 보이기 위해 TextRender를 주었습니다.<br/>
 [PatrolPath.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CPatrolPath.cpp)<br/>
 [PatrolPath.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CPatrolPath.h)<br/>
+
+
+#### BehaviorComponent
+![image](https://github.com/user-attachments/assets/87446317-a6f1-47a3-81f4-8f532dff3e71)<br/>
+![image](https://github.com/user-attachments/assets/566b7bb1-2e0c-4af8-8f7a-94a7e982e850)<br/>
+
+AI 전용 Component 입니다.<br/>
+BehaviorTree를 상태에 맞게 사용하기 위한 Component 입니다.<br/>
+BehaviorType이라는 Enum 변수를 만들어 상황에 맞게 사용합니다.<br/>
+예를 들어 플레이어를 쫒아가야 하는 상황이라면 BehaviorType을 Approch로 변경하여 이 정보를 BehaviorTree로 보냅니다.<br/>
+보내진 정보를 사용해 AI의 움직임을 조정 할 수 있습니다.<br/>
+[BehaviorComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CBehaviorComponent.cpp)<br/>
+[BehaviorComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CBehaviorComponent.h)<br/>
+
 
 ### Actions
 ![image](https://github.com/user-attachments/assets/f826acbe-7fcc-4c73-a4ec-e402e4abce2e)

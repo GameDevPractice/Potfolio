@@ -122,6 +122,9 @@ SplineComponent를 가지고 있습니다.<br/>
 [PatrolPath.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CPatrolPath.h)<br/>
 
 ### Actions
+![image](https://github.com/user-attachments/assets/f826acbe-7fcc-4c73-a4ec-e402e4abce2e)
+<br/>
+
 - [ActiondData](#ActionData)<br/>
 - [Attachment](#Attachment)<br/>
 - [Equipment](#Equipment)<br/>

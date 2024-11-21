@@ -214,6 +214,11 @@ AI의 BehaviorType이 Action일 경우 실행이 됩니다.<br/>
 
 
 ### Interface (StealTakeDown)
+![image](https://github.com/user-attachments/assets/494310bc-d6f3-44f1-9b97-f9730f3ed4bd)<br/>
+![image](https://github.com/user-attachments/assets/6980b64b-7133-40e9-8576-b2656d558a10)
+<br/>
+
+
 StealTakeDown을 위한 Interface입니다.<br/>
 플레이어는 몰래 적을 기습할 때, 적은 기습을 당할 때 실행되게 만들었습니다.<br/>
 플레이어의 무기 상태가 Unarmed와 Katana일때만 실행이 가능합니다.<br/>
@@ -222,6 +227,9 @@ StealTakeDown을 위한 Interface입니다.<br/>
 [Player.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.cpp) 258번째 줄입니다.<br/>
 [Enemy.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Enemy/CEnemy.cpp) 85번째 줄입니다.<br/>
 <br/>
+
+![image](https://github.com/user-attachments/assets/c9bbe373-c8da-4992-9e38-01f4076f085f)<br/>
+
 StealTakeDown의 Montage관리는 데이터테이블을 사용하였습니다.<br/>
 
 

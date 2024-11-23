@@ -158,6 +158,8 @@ AttributeComponent를 사용하여 정면만 바라보는지 아닌지를 정하
 [Equipment.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CEquipment.h)<br/>
 
 #### DoAction
+![image](https://github.com/user-attachments/assets/20fd6a8e-9677-4004-8fee-74b28df19124)<br/>
+
 Character가 무기를 장착한 상태에서 행하는 행동을 담당을 하는 Actor이며 CPP로 자식을 만들어 사용하였습니다.<br/>
 ActionData에 저장되어 있는 정보에 따라 행동합니다.<br/>
 [DoAction.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CDoAction.cpp)<br/>

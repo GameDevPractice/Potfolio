@@ -167,6 +167,8 @@ ActionData에 저장되어 있는 정보에 따라 행동합니다.<br/>
 
 
 #### DoAction_Katana
+![image](https://github.com/user-attachments/assets/88669306-e64a-4ffe-aef2-663f4a86fc31) <br/>
+
 ![image](https://github.com/user-attachments/assets/db819a69-e6e4-4ace-aaed-71d19f183f2f) <br/>
 ![image](https://github.com/user-attachments/assets/2c035568-4442-4d00-87e9-dd2c7c6d8ff6) <br/>
 

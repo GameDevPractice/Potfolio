@@ -21,12 +21,14 @@
 
 ## CBullet
 ### CBullet.h
-![C Bullet](Image/CBullet.h)
+![image](https://github.com/user-attachments/assets/69a16049-39da-4d92-a828-bdea5e7e014f)
+
 
 총알을 StaticMesh로 표현을 하지 않고 Particle로 표현 하였다  
 
 ### CBullet.CPP
-![C Bullet](Image/CBullet.CPP)  
+![image](https://github.com/user-attachments/assets/f5afeb83-2c10-4622-acdb-4ce0866c63db)
+
 
 Bullet에 관한 정보를 입력 하였다
 

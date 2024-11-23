@@ -13,7 +13,7 @@
 ## 개요
 - 목표 : 어쌔신크리드와 비슷한 잠입 액션 게임을 개발<br/>
 ![TriplePush_1000x540](https://github.com/user-attachments/assets/43f5ce22-3904-4fd8-b0c1-35dc0b2d1b08) <br/>
-- 개발 시간 : 2024.09 ~ 2024.11<br/>
+- 개발 시간 : 2024.08 ~ 2024.10<br/>
 - 사용한 기술 : C++, 블루프린트, AI시스템, 애니메이션<br/>
 - 중점 목표 : 어쌔신크리드의 후방 기습과 파쿠르를 자연스럽게 가능하게 제작
 ![image](https://github.com/user-attachments/assets/5880cc18-bb17-401c-86ca-4761be286e0e)

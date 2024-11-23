@@ -167,6 +167,10 @@ ActionData에 저장되어 있는 정보에 따라 행동합니다.<br/>
 
 
 #### DoAction_Katana
+![image](https://github.com/user-attachments/assets/db819a69-e6e4-4ace-aaed-71d19f183f2f) <br/>
+![image](https://github.com/user-attachments/assets/2c035568-4442-4d00-87e9-dd2c7c6d8ff6) <br/>
+
+
 DoAction을 상속받은 자식입니다.<br/>
 칼(Katana)를 장착하고 있을 시 공격이 가능한 DoAction입니다.<br/>
 마우스 좌클릭을 하면 공격이 나가게끔 만들었습니다.<br/>

@@ -30,9 +30,10 @@
 
 
 1. [Component](#Components)<br/>
-2. [Interface](#interface-stealtakedown)<br/>
-3. [AI](#AI)<br/>
-4. [Player](#Player)<br/>
+2. [Actions](#Actions)<br/>
+3. [Interface](#interface-stealtakedown)<br/>
+4. [AI](#AI)<br/>
+5. [Player](#Player)<br/>
 ### Components
 ![image](https://github.com/user-attachments/assets/c7c33f50-76e5-41a8-bb2d-7105ccaae1fb)<br/>
 - [AttributeComponent](#AttributeComponent)<br/>
@@ -75,7 +76,7 @@ Character들이 가지고 있는 무기에 따라 행하는 행동을 제어하�
 [ActionComponent.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CActionComponent.cpp)<br/>
 [ActionComponent.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Component/CActionComponent.h)<br/>
 <br/>
-[Actions](#Actions)<br/>
+
 
 
 #### MontageComponent  

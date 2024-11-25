@@ -189,13 +189,22 @@ Overlap이 실행될 때 변수(NumberOfHittedCharacters)를 배열의 크기로
 #### DoAction_Pistol
 DoAction을 상속받은 자식입니다.<br/>
 권총(Pistol)을 장착하고 있을 시 공격이 가능하며 플레이어 전용 DoAction입니다.<br/>
+![image](https://github.com/user-attachments/assets/0070f5a9-aca6-46c4-8fb8-2509adcae3bc)<br/>
+
 ###### 조준
 ***
+![image](https://github.com/user-attachments/assets/370f7723-8593-4c6a-960e-21092bf03f34)<br/>
+
 마우스 우클릭을 하면 조준을 하게끔 만들었습니다.<br/>
 조준 할 때는 [Aim.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/Aim.h) , [Aim.cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/Aim.cpp)를 사용하였습니다.<br/>
 UI는 HUD를 사용하였습니다.<br/>
 ###### 공격
 ***
+![image](https://github.com/user-attachments/assets/5b85597e-32cd-4d38-a884-949d67f3dd4f)<br/>
+![image](https://github.com/user-attachments/assets/8779a161-b1d4-4eaf-9ad5-16618142f664)<br/>
+
+
+
 마우스 좌클릭을 하면 공격이 나가게끔 만들었습니다.<br/>
 조준을 하고 있지 않으면 공격이 나가지 않습니다.<br/>
 공격을 할 때 카메라의 위치를 시작 점 카메라의 위치에서 카메라 전방 1000M를 끝 지점으로 삼아 LineTrace를 하였으며 Line이 충돌되었다면<br/>
@@ -206,12 +215,18 @@ UI는 HUD를 사용하였습니다.<br/>
 카메라 쉐이크,Paricle은 ActionData에 저장되어있으며 파열음과 같은 소리는 Attachment에 저장되어 있습니다.<br/>
 ###### 재장전
 ***
+![image](https://github.com/user-attachments/assets/fc5decd1-59e8-4c11-951f-35b6df70b9be)<br/>
+![image](https://github.com/user-attachments/assets/e733d0cc-441f-488e-a694-5e5cd4c8d99d)<br/>
+
+
 공격을 하던 중 총알이 부족하면 재장전을 하게 만들었습니다.<br/>
 총알은 현재 장전되어 있는 총알 수 / 가지고 있는 최대 총알 수 입니다.<br/>
 장전을 하면 장전되어 있는 총알 수가 늘어나며 최대 총알 수는 줄어듭니다.<br/>
 최대 총알 수가 0이라면 장전은 할 수 없습니다.<br/>
 [DoAction_Pistol.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CDoAction_Pistol.cpp)<br/>
 [DoAction_Pistol.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CDoAction_Pistol.h)<br/>
+![image](https://github.com/user-attachments/assets/dce5c200-fa3d-4f2e-a34e-dc8270241891)<br/>
+
 
 
 #### DoAction_Rifle

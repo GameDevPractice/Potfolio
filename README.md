@@ -137,6 +137,8 @@ BehaviorType이라는 Enum 변수를 만들어 상황에 맞게 사용합니다.
 - [DoAction_Pistol](#DoAction_Pistol)<br/>
 - [DoAction_Rifle](#DoAction_Rifle)<br/>
 #### ActionData
+![image](https://github.com/user-attachments/assets/d202a064-3574-42e5-b082-8aff505e7d6b)<br/>
+
 Actor 타입인 Attachment,DoAction, Equipment를 저장하고 이용하는 DataAseet입니다.<br/>
 [ActionData.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CActionData.cpp)<br/>
 [ActionData.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CActionData.h)<br/>

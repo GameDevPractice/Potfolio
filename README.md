@@ -218,7 +218,7 @@ UI는 HUD를 사용하였습니다.<br/>
 ![image](https://github.com/user-attachments/assets/8f8d89d1-c41c-488b-a3f1-42abf8edb8b3)
 <br/>
 ![image](https://github.com/user-attachments/assets/e733d0cc-441f-488e-a694-5e5cd4c8d99d)<br/>
-
+![image](https://github.com/user-attachments/assets/dce5c200-fa3d-4f2e-a34e-dc8270241891)<br/>
 
 공격을 하던 중 총알이 부족하면 재장전을 하게 만들었습니다.<br/>
 총알은 현재 장전되어 있는 총알 수 / 가지고 있는 최대 총알 수 입니다.<br/>
@@ -226,7 +226,7 @@ UI는 HUD를 사용하였습니다.<br/>
 최대 총알 수가 0이라면 장전은 할 수 없습니다.<br/>
 [DoAction_Pistol.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CDoAction_Pistol.cpp)<br/>
 [DoAction_Pistol.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Action/CDoAction_Pistol.h)<br/>
-![image](https://github.com/user-attachments/assets/dce5c200-fa3d-4f2e-a34e-dc8270241891)<br/>
+
 
 
 

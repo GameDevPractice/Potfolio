@@ -215,7 +215,8 @@ UI는 HUD를 사용하였습니다.<br/>
 카메라 쉐이크,Paricle은 ActionData에 저장되어있으며 파열음과 같은 소리는 Attachment에 저장되어 있습니다.<br/>
 ###### 재장전
 ***
-![image](https://github.com/user-attachments/assets/fc5decd1-59e8-4c11-951f-35b6df70b9be)<br/>
+![image](https://github.com/user-attachments/assets/8f8d89d1-c41c-488b-a3f1-42abf8edb8b3)
+<br/>
 ![image](https://github.com/user-attachments/assets/e733d0cc-441f-488e-a694-5e5cd4c8d99d)<br/>
 
 

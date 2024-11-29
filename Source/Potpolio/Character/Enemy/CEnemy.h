@@ -18,24 +18,6 @@ class UWidgetComponent;
 class UCWorldWidget;
 class UBoxComponent;
 
-USTRUCT(BlueprintType)
-struct FEnemyStealthTakeDown : public FTableRowBase
-{
-	GENERATED_BODY()
-
-public:
-	UPROPERTY(EditAnywhere)
-		EActionType Type;
-
-	UPROPERTY(EditAnywhere)
-		TArray<UAnimMontage*> Montage;
-
-	UPROPERTY(EditAnywhere)
-		float PlayRate;
-
-	UPROPERTY(EditAnywhere)
-		FName StartSection;
-};
 
 
 UCLASS()

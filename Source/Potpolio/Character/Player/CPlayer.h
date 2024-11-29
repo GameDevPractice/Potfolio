@@ -20,24 +20,7 @@ class UCStateComponent;
 class UCAttributeComponent;
 class ACEnemy;
 
-USTRUCT(BlueprintType)
-struct FStealthTakeDown : public FTableRowBase
-{
-	GENERATED_BODY()
 
-public:
-	UPROPERTY(EditAnywhere)
-		EActionType Type;
-
-	UPROPERTY(EditAnywhere)
-		TArray<UAnimMontage*> Montage;
-
-	UPROPERTY(EditAnywhere)
-		float PlayRate;
-
-	UPROPERTY(EditAnywhere)
-		FName StartSection;
-};
 
 
 UCLASS()
@@ -77,8 +60,6 @@ private:
 	void OnReload();
 	void Begin_Reload();
 
-	void Target_On();
-
 	void OnJog();
 
 	void OnSwordStealthTakeDown(bool InCrouch,EActionType InActionType);
@@ -93,8 +74,8 @@ public:
 	void OnTakeDown();
 	void OffTakeDown();
 
-	void OnBlockBox();
-	void OffBlockBox();
+	void OnCollision();
+	void OffCollision();
 
 	FORCEINLINE bool GetJog() { return bJog; }
 

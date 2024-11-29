@@ -14,6 +14,7 @@
 #include "Components/BoxComponent.h"
 #include "Action/CActionData.h"
 #include "Action/CDoAction.h"
+#include "Action/CDoAction_Pistol.h"
 #include "Action/CEquipment.h"
 #include "Action/CAction.h"
 #include "Action/CBullet.h"
@@ -84,6 +85,7 @@ ACPlayer::ACPlayer()
 
 	//TakeDown
 	CanStealthTakeDown = false;
+
 }
 
 void ACPlayer::BeginPlay()
@@ -209,7 +211,7 @@ void ACPlayer::Tick(float DeltaSeconds)
 		FVector WallLocation = HitResult.Location;
 		FVector WallNormal = HitResult.Normal;
 		
-		FVector TraceStart = WallLocation  + FVector(0.0f, 0.0f, 200.f);
+		FVector TraceStart = WallLocation  + FVector(0.f, 0.0f, 200.f);
 		FVector TraceEnd = TraceStart - FVector(0.0f, 0.0f, 200.f);
 
 		FHitResult TraceHitResult;
@@ -218,7 +220,7 @@ void ACPlayer::Tick(float DeltaSeconds)
 		if (UKismetSystemLibrary::LineTraceSingleForObjects(GetWorld(), TraceStart, TraceEnd, TypeQuery, false, IgnoreActor, EDrawDebugTrace::None, TraceHitResult, true))
 		{
 			FVector Height = TraceHitResult.Location;
-			if ((Height - WallLocation).Z < 60.f)
+			if ((Height - WallLocation).Z < 30.f)
 			{
 				CanVault = true;
 			}
@@ -227,23 +229,24 @@ void ACPlayer::Tick(float DeltaSeconds)
 				CanVault = false;
 			}
 
-			//Check Wall Death
-			FVector DeathStart = WallLocation + (WallNormal * -100.f) + FVector(0.0f, 0.0f, 300.f);
-			FVector DeathEnd = DeathStart - FVector(0.0f, 0.0f, 275.f);
-			if (!UKismetSystemLibrary::LineTraceSingleForObjects(GetWorld(), DeathStart, DeathEnd, TypeQuery, false, IgnoreActor, EDrawDebugTrace::None, TraceHitResult, true))
+			
+			//Check Wall Depth
+			FVector DepthStart = WallLocation + (WallNormal * -300.f) + FVector(0.0f, 0.0f, 300.f);
+			FVector DepthEnd = DepthStart - FVector(0.0f, 0.0f, 300.f);
+			if (!UKismetSystemLibrary::LineTraceSingleForObjects(GetWorld(), DepthStart, DepthEnd, TypeQuery, false, IgnoreActor, EDrawDebugTrace::None, TraceHitResult, true))
 			{
 				if (CanVault)
 				{
 					if (bRun)
 					{
-						bRun = false;
+					bRun = false;
 					FRotator ActorLookRotation = FRotator(GetActorRotation().Pitch, (UKismetMathLibrary::MakeRotFromX(WallNormal).Yaw + 180.f), GetActorRotation().Roll);
 					SetActorRotation(ActorLookRotation);
 					GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 					GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
 
 
-					FVector NewLocation = FVector((WallLocation + (WallNormal * 150.f)).X, (WallLocation + (WallNormal * 60.f)).Y, (Height - FVector(0.f,0.0f,10.f)).Z);
+					FVector NewLocation = FVector((WallLocation + (WallNormal * 150.f)).X, (WallLocation + (WallNormal * 150.f)).Y, (  Height).Z);
 					SetActorLocation(NewLocation);
 					DisableInput(GetController<APlayerController>());
 					StateComp->SetVaultMode();
@@ -259,27 +262,6 @@ void ACPlayer::Tick(float DeltaSeconds)
 		}
 		
 	}
-
-
-
-	if (LockOnTarget)
-	{
-
-	if (1000.f < UKismetMathLibrary::Vector_Distance(GetActorLocation(), LockOnTarget->GetActorLocation()))
-	{
-		LockOnTarget->TagetWidgetOff();
-		MostLearestActor = nullptr;
-	}
-	}
-
-	CheckTrue(ActionComp->IsUnarmedMode());
-	if (MostLearestActor)
-	{
-		LockOnTarget = MostLearestActor;
-		FRotator ContorlRotator = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), LockOnTarget->GetActorLocation());
-		GetController()->SetControlRotation(ContorlRotator);
-	}
-	
 }
 
 void ACPlayer::StealTakeDown(bool InCrouch, EActionType InActionType)
@@ -327,7 +309,6 @@ void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("PrimaryAct", EInputEvent::IE_Pressed,this, &ACPlayer::OnPrimaryAct);
 	PlayerInputComponent->BindAction("SecondaryAct", EInputEvent::IE_Pressed,this, &ACPlayer::OnSecondaryAct);
 	PlayerInputComponent->BindAction("SecondaryAct", EInputEvent::IE_Released,this, &ACPlayer::OffSecondaryAct);
-	PlayerInputComponent->BindAction("Target_On", EInputEvent::IE_Pressed,this, &ACPlayer::Target_On);
 	PlayerInputComponent->BindAction("TakeDown", EInputEvent::IE_Pressed,this, &ACPlayer::TakeDown);
 	PlayerInputComponent->BindAction("Jog", EInputEvent::IE_Pressed,this, &ACPlayer::OnJog);
 
@@ -367,8 +348,6 @@ void ACPlayer::OnLockUp(float Axix)
 void ACPlayer::OnLockRight(float Axix)
 {
 	AddControllerYawInput(Axix);
-
-	
 }
 
 
@@ -382,6 +361,7 @@ void ACPlayer::OnRun()
 	{
 	MontageComp->PlayEvade();
 	StateComp->SetEvadeMode();
+
 	FTimerDynamicDelegate Delegate;
 	Delegate.BindUFunction(this,TEXT("OnStartRun"));
 	GetWorldTimerManager().SetTimer(RunTimer, Delegate,0.7f,false);
@@ -459,6 +439,10 @@ void ACPlayer::OnJump()
 	{
 		return;
 	}
+	else if (ActionComp->IsPistolMode())
+	{
+		ActionComp->DoSubAction(false);
+	}
 	StateComp->SetJumpMode();
 	Jump();
 }
@@ -467,8 +451,13 @@ void ACPlayer::OnReload()
 {
 	CheckFalse(StateComp->IsIdleMode());
 	CheckFalse(ActionComp->IsPistolMode());
-	ActionComp->DoSubAction(false);
-	StateComp->SetReloadMode();
+
+	ACDoAction_Pistol* DoPistol = Cast<ACDoAction_Pistol>(ActionComp->GetCurrentAction()->GetDoAction());
+	if (DoPistol->CanReload())
+	{
+		ActionComp->DoSubAction(false);
+		StateComp->SetReloadMode();
+	}
 }
 
 void ACPlayer::Begin_Reload()
@@ -476,44 +465,6 @@ void ACPlayer::Begin_Reload()
 	MontageComp->PlayReload();
 }
 
-void ACPlayer::Target_On()
-{
-	CheckTrue(ActionComp->IsUnarmedMode());
-
-	FVector Center = GetActorLocation();
-	FVector End = GetActorLocation() + FVector(0,0,10);
-	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectType;
-	ObjectType.Add(EObjectTypeQuery::ObjectTypeQuery3);
-
-	TArray<AActor*> IgnoreActor;
-	IgnoreActor.Add(this);
-	TArray<FHitResult> TraceResult;
-
-	if (UKismetSystemLibrary::SphereTraceMultiForObjects(GetWorld(), Center, End, 1000.f, ObjectType, false, IgnoreActor, EDrawDebugTrace::ForDuration, TraceResult, true))
-	{
-		for (const auto& Result : TraceResult)
-		{
-			TargetActors.AddUnique(Result.Actor.Get());
-		}
-
-		for (const auto& Actor : TargetActors)
-		{ 
-			float Dot = GetActorLocation() | Actor->GetActorLocation();
-			if (Dot >= TargetMax)
-			{
-				TargetMax = Dot;
-				MostLearestActor = Cast<ACEnemy>(Actor);
-			}
-		}
-		if (MostLearestActor)
-		{
-			LockOnTarget = MostLearestActor;
-			LockOnTarget->TagetWidgetOn();
-		}
-	}
-
-	
-}
 
 void ACPlayer::OnJog()
 {
@@ -741,6 +692,16 @@ void ACPlayer::OnTakeDown()
 void ACPlayer::OffTakeDown()
 {
 	CanStealthTakeDown = false;
+}
+
+void ACPlayer::OnCollision()
+{
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+}
+
+void ACPlayer::OffCollision()
+{
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 

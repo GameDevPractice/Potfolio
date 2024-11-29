@@ -113,7 +113,7 @@ void ACDoAction_Pistol::DoAction()
 	CheckNull(Data[0].CameraShake);
 	PC->PlayerCameraManager->StartMatineeCameraShake(Data[0].CameraShake);
 
-	if (CurrentBulletCount <= 0)
+	if (CurrentBulletCount <= 0 && CanReload())
 	{
 		CheckNull(MontageComp);
 		StateComp->SetReloadMode();

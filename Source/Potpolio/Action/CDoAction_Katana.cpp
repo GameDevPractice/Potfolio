@@ -94,36 +94,7 @@ void ACDoAction_Katana::OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InC
 
 	FDamageEvent DamageEvent;
 	InOtherCharacter->TakeDamage(Data[ComboCount].Power, DamageEvent,InAttacker->GetController(),InCauser);
-
-	ACEnemy* Enemy = Cast<ACEnemy>(InOtherCharacter);
-	if (Enemy)
-	{
-	UCAttributeComponent* EnemyAttributeComp = CHelpers::GetComponent<UCAttributeComponent>(Enemy);
-	if (EnemyAttributeComp)
-	{
-		if (EnemyAttributeComp->GetCurrentHealth() <= Data[ComboCount].Power)
-		{
-			bFinalAttack = true;
-		}
-		else
-		{
-			bFinalAttack = false;
-		}
-	}
-
-	}
-	
-
-	//CameraShake
-	//TSubclassOf<UCameraShake> ShakeClass = Data[ComboCount].CameraShake;
-	//if (ShakeClass)
-	//{
-	//	
-	//	if (PC)
-	//	{
-	//		PC->PlayerCameraManager->PlayCameraShake(ShakeClass);
-	//	}
-	//}
+	CLog::Print(InOtherCharacter->GetName());
 
 	//Hit Effect
 	UParticleSystem* HitEffect = Data[ComboCount].Particle;
@@ -138,4 +109,5 @@ void ACDoAction_Katana::OnAttachBeginOverlap(ACharacter* InAttacker, AActor* InC
 void ACDoAction_Katana::OnAttachEndOverlap(ACharacter* InAttacker, AActor* InCauser, ACharacter* InOtherCharacter)
 {
 	Super::OnAttachEndOverlap(InAttacker, InCauser, InOtherCharacter);
+
 }

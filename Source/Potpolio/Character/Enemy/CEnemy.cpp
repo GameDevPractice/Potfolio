@@ -97,10 +97,6 @@ void ACEnemy::StealTakeDown(bool InCrouch, EActionType InActionType)
 		InCrouch ? OnStandingSword(InCrouch,InActionType) : OnCrounhSword(InCrouch,InActionType);
 		break;
 	}
-	case EActionType::Pistol:
-	{
-		break;
-	}
 	default:
 		break;
 	}

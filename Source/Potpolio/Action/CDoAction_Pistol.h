@@ -31,6 +31,7 @@ public:
 	FORCEINLINE int32 GetCurrentBulletCount() { return CurrentBulletCount; }
 	UFUNCTION(BlueprintPure)
 	FORCEINLINE int32 GetMaxBulletCount() { return MaxBulletCount; }
+	FORCEINLINE bool CanReload() { return(MaxBulletCount > 0 ? true : false); }
 
 	UFUNCTION(BlueprintCallable, Category = "AIm")
 	void SetAimBeginPlay();

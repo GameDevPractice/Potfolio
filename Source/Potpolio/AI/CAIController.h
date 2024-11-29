@@ -52,6 +52,7 @@ private:
 private:
 	ACEnemy_AI* OwnerEnemy;
 
+	UPROPERTY(EditAnywhere)
 	UAISenseConfig_Sight* Sight;
 
 

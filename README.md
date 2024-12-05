@@ -274,8 +274,8 @@ AI에게 감각를 주기 위해 PerceptionComponent를 사용하였으며 오�
 [AIController.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CAIController.h)<br/>
 
 #### BTService_RifleEnemy
-![image](https://github.com/user-attachments/assets/87048728-5b1b-43db-8650-9818257affb1)
-<br/>
+![image](https://github.com/user-attachments/assets/a640cf00-6332-4b03-952e-f3167be57097)
+
 Rifle를 가진 적 전용 Service입니다.<br/>
 시야에 플레이어가 잡히면 공격을 하고 플레이어가 일정 거리 안으로 들어온다면 도망가도록 하였습니다.<br/>
 이 때 EQS를 사용하여 플레이어에게는 멀고 방향은 반대로 움직이게 하였습니다.<br/>
@@ -283,6 +283,8 @@ Rifle를 가진 적 전용 Service입니다.<br/>
 [BTService_RifleEnemy.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTService_Enemy.h)<br/>
 
 #### BTService_MeleeEnemy
+![image](https://github.com/user-attachments/assets/f0de5792-1107-4ac3-9dfe-3d4849b974e3)
+
 Katana를 가진 적 전용 Service입니다.<br/>
 시야에 플레이어가 잡히면 플레이어를 쫒아옵니다.<br/>
 그러다 일정 공간에 들어오면 플레이어에게 공격을 시작합니다.<br>

@@ -274,6 +274,8 @@ AI에게 감각를 주기 위해 PerceptionComponent를 사용하였으며 오�
 [AIController.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CAIController.h)<br/>
 
 #### BTService_RifleEnemy
+![image](https://github.com/user-attachments/assets/ffa9d5a3-79c4-4c0f-b59f-390aaa5dc314)<br/>
+
 Rifle를 가진 적 전용 Service입니다.<br/>
 시야에 플레이어가 잡히면 공격을 하고 플레이어가 일정 거리 안으로 들어온다면 도망가도록 하였습니다.<br/>
 이 때 EQS를 사용하여 플레이어에게는 멀고 방향은 반대로 움직이게 하였습니다.<br/>

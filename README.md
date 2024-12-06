@@ -241,9 +241,10 @@ AI의 BehaviorType이 Action일 경우 실행이 됩니다.<br/>
 
 
 ### Interface (StealTakeDown)
-![image](https://github.com/user-attachments/assets/494310bc-d6f3-44f1-9b97-f9730f3ed4bd)<br/>
-![image](https://github.com/user-attachments/assets/6980b64b-7133-40e9-8576-b2656d558a10)
-<br/>
+![image](https://github.com/user-attachments/assets/f0d1d75e-1333-4424-98a4-2f4393a74095)
+
+![image](https://github.com/user-attachments/assets/9845ed2f-bf18-4096-a9fb-996c3ba2961a)
+
 
 
 StealTakeDown을 위한 Interface입니다.<br/>
@@ -255,7 +256,8 @@ StealTakeDown을 위한 Interface입니다.<br/>
 [Enemy.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Enemy/CEnemy.cpp) 85번째 줄입니다.<br/>
 <br/>
 
-![image](https://github.com/user-attachments/assets/c9bbe373-c8da-4992-9e38-01f4076f085f)<br/>
+![image](https://github.com/user-attachments/assets/445497c0-9031-4e6a-a952-bde3ba3c1bdf)
+
 
 StealTakeDown의 Montage관리는 데이터테이블을 사용하였습니다.<br/>
 
@@ -274,7 +276,8 @@ AI에게 감각를 주기 위해 PerceptionComponent를 사용하였으며 오�
 [AIController.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CAIController.h)<br/>
 
 #### BTService_RifleEnemy
-![image](https://github.com/user-attachments/assets/a640cf00-6332-4b03-952e-f3167be57097)
+![image](https://github.com/user-attachments/assets/3f49ca67-da6c-44ff-a2bb-fbe54c7f3a4b)
+
 
 Rifle를 가진 적 전용 Service입니다.<br/>
 시야에 플레이어가 잡히면 공격을 하고 플레이어가 일정 거리 안으로 들어온다면 도망가도록 하였습니다.<br/>
@@ -282,8 +285,7 @@ Rifle를 가진 적 전용 Service입니다.<br/>
 [BTService_RifleEnemy.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTService_Enemy.cpp)<br/>
 [BTService_RifleEnemy.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/AI/CBTService_Enemy.h)<br/>
 
-#### BTService_MeleeEnemy
-![image](https://github.com/user-attachments/assets/f0de5792-1107-4ac3-9dfe-3d4849b974e3)
+#### BTService_MeleeEnemy![image](https://github.com/user-attachments/assets/62e6b3af-2077-4d73-bd17-0af30568313e)
 
 Katana를 가진 적 전용 Service입니다.<br/>
 시야에 플레이어가 잡히면 플레이어를 쫒아옵니다.<br/>

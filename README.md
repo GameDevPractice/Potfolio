@@ -34,6 +34,7 @@
 3. [Interface](#interface-stealtakedown)<br/>
 4. [AI](#AI)<br/>
 5. [Player](#Player)<br/>
+6. [PickUpItem](#PickUpItem)<br/>
 ### Components
 ![image](https://github.com/user-attachments/assets/c7c33f50-76e5-41a8-bb2d-7105ccaae1fb)<br/>
 - [AttributeComponent](#AttributeComponent)<br/>
@@ -343,6 +344,11 @@ Tick을 통해 뛰어 넘을 수 있는 벽인지 판단하도록 하였으며, 
 
 [Player.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.cpp)<br/>
 [Player.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.h)<br/>
+
+### PickUpItem
+Player와 Overlap시 작동되는 Actor 입니다.
+![image](https://github.com/user-attachments/assets/1b695ad3-7881-4133-8264-829740db9b81)
+
 
 ## 일지 
 [1주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/1Week.md)  

@@ -318,12 +318,13 @@ AI의 행동이 추격일 때와 순찰일 때 속도를 정하기 위해 만든
 
 
 ### Player
-플레이어가 조종할 수 있는 Character입니다.<br/>
-위에 서술한 대부분 기술들을 사용하여 만들었습니다.<br/>
-player는 좌Shift를 누르고 있으면 속도가 빨라져 달리게 됩니다.<br/>
-그러나 Katana를 장착하고 있으면 누르면 회피를 하게 만들었습니다.<br/>
-회피를 하고도 계속 누르고 있으면 달리게 만들었습니다.<br/>
-또한 Tick을 사용하여 Player가 달리는 도중 앞을 가로 막는 장애물이 있다면 뛰어넘게 만들었습니다.<br/>
+![image](https://github.com/user-attachments/assets/2630e162-b804-4620-9ec5-73f8b430fb71)
+플레이어가 Katana Mode 일 때 벽을 넘을 수 있게 만든 기능입니다.<br/>
+![image](https://github.com/user-attachments/assets/e853bf28-2c59-4baa-8f25-f31785a9f366)
+Tick을 통해 뛰어 넘을 수 있는 벽인지 판단하도록 하였으며, SettTimer()을 사용함으로 뛰어넘은 후를 처리 하였습니다.<br/>
+
+
+
 [Player.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.cpp)<br/>
 [Player.h](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.h)<br/>
 

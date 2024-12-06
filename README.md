@@ -356,4 +356,4 @@ Tick을 통해 뛰어 넘을 수 있는 벽인지 판단하도록 하였으며, 
 [9주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/9Week.md)  
 [10주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/10Week.md)  
 [11주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/11Week.md)  
-[12주차](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/12Week.md)  
+[12주차 완성](https://github.com/hiki25/Portfolio/blob/main/ReadMeFile/12Week.md)  

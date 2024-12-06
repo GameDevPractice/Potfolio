@@ -331,6 +331,14 @@ SetTimer()를 이용하여 Player가 달리게 하였습니다. 이 때 후술�
 Tick을 통해 뛰어 넘을 수 있는 벽인지 판단하도록 하였으며, SettTimer()을 사용함으로 뛰어넘은 후를 처리 하였습니다.<br/>
 
 
+![image](https://github.com/user-attachments/assets/dc1e359d-fead-46ac-8b1e-d8195ae918f2)
+회피와 Vault는 MotageComponent를 사용하여 관리하고 있습니다.<br/>
+
+![image](https://github.com/user-attachments/assets/93392563-6b69-43f8-b09c-bef46c30c692)
+
+달리기는 statemachine을 사용하였습니다.<br/>
+
+
 
 
 [Player.Cpp](https://github.com/hiki25/Portfolio/blob/main/Source/Potpolio/Character/Player/CPlayer.cpp)<br/>

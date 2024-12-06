@@ -323,7 +323,7 @@ AI의 행동이 추격일 때와 순찰일 때 속도를 정하기 위해 만든
 이 때는 Collision을 끔으로써 대미지를 받지 않게 하였습니다.<br/>
 #### 달리기
 이 또한 Katana Mode 일 때 작동되며, 위의 회피 기능을 한 뒤에도 좌 Shift를 누르고 있음<br/>
-SetTimer()를 이용하여 Player가 달리게 하였습니다. 이 때 후숧할 Vault에 사용되는 변수 bRun이 True가 됩니다.<br/>
+SetTimer()를 이용하여 Player가 달리게 하였습니다. 이 때 후술할 Vault에 사용되는 변수 bRun이 True가 됩니다.<br/>
 #### Vault
 플레이어가 Katana Mode 이며, 달리고 있을 때 벽을 넘을 수 있게 만든 기능입니다.<br/>
 ![image](https://github.com/user-attachments/assets/2630e162-b804-4620-9ec5-73f8b430fb71)<br/>
